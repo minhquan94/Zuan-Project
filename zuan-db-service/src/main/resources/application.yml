@@ -2,7 +2,7 @@ server:
   port: 8801
 spring:
   application:
-    name: DB Service
+    name: db-service
   datasource:
     driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
     username: metadata
@@ -20,9 +20,9 @@ spring:
     dialect: org.hibernate.dialect.SQLServer2012Dialect
 eureka:
   instance:
-    appname: DB Service
+    hostname: localhost
     preferIpAddress: true
   client:
     fetchRegistry: true
     serviceUrl:
-      defaultZone: ${EUREKA_URI:http://localhost:8800/eureka}
+      defaultZone: ${EUREKA_URI:http://eureka.server.com:8761/eureka}

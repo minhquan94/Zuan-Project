@@ -1,5 +1,5 @@
 server:
-  port: 8800
+  port: 8761
 eureka:
   instance:
-    hostname: 172.18.30.108
+    hostname: 35.186.154.84

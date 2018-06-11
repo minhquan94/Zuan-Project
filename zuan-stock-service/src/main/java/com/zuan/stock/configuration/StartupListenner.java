@@ -14,23 +14,20 @@ import org.springframework.stereotype.Component;
 @Component
 public class StartupListenner {
 
-  @Value("db-server.host")
+  @Value("${db-server.host}")
   private String dbHost;
 
-  @Value("db-server.port")
+  @Value("${db-server.port}")
   private int dbPort;
 
-  @Value("db-server.rest.signal-dat")
+  @Value("${db-server.rest.signal-data}")
   private String dbRestSignalData;
 
   /**
    * Checks if is started event.
-   *
-   * @param event
-   *          the event
    */
-  @EventListener
-  public void isStartedEvent(final ContextRefreshedEvent event) {
+  @EventListener(ContextRefreshedEvent.class)
+  public void isStartedEvent() {
     DbConfigLoader configLoader = DbConfigLoader.getInstance();
     configLoader.setHost(dbHost);
     configLoader.setPort(dbPort);

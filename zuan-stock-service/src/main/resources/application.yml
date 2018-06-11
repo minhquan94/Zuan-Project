@@ -1,13 +1,25 @@
+spring:
+  application:
+    name: stock-service
+server:
+  port: 8802
 eureka:
   client:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: http://localhost:8070/eureka/
+      defaultZone: ${EUREKA_URI:http://eureka.server.com:8761/eureka}
   instance:
     hostname: localhost
+    preferIpAddress: true
+
 db-server:
-  host: localhosts
-  port: 8071
+  host: localhost
+  port: 8801
   rest:
     signal-data: /rest/db/signal-data
+  ribbon:
+    eureka:
+      enabled: false
+    listOfServers: ${db-server.host}:${db-server.port}
+    ServerListRefreshInterval: 1000

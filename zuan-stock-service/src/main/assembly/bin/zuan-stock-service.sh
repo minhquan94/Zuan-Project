@@ -8,8 +8,8 @@
 # processname: zuan-eureka-server
 #
 
-SERVICE_NAME=zuan-eureka-server
-JAR_NAME=zuan-eureka-server.jar
+SERVICE_NAME=zuan-stock-service
+JAR_NAME=zuan-stock-service.jar
 maxShutdownTime=10
 args=${@:2}
 vpid=
