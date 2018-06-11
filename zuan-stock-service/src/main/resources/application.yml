@@ -1,0 +1,13 @@
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8070/eureka/
+  instance:
+    hostname: localhost
+db-server:
+  host: localhosts
+  port: 8071
+  rest:
+    signal-data: /rest/db/signal-data
