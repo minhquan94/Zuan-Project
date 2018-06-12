@@ -25,6 +25,7 @@
     <module>zuan-generate</module>
 	<module>zuan-parser</module>
 	<module>zuan-preon</module>
-	<module>zuan-stock-service</module>
+	<module>zuan-parser-shell</module>
+	<module>zuan-getway-server</module>
   </modules>
 </project>
