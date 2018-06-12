@@ -8,11 +8,11 @@ import java.io.Serializable;
 import com.zuan.data.entities.SignalConfigurationEntity;
 
 /**
- * The Class SignalConfigurationEntity.
+ * The Class SdSignalData.
  *
  * @author <a href="mailto:developer@hitachiconsulting.com">quanmd.nv</a>
  */
-public class SignalData implements Serializable {
+public class SdSignalData implements Serializable {
 
   /** The Constant serialVersionUID. */
   private static final long serialVersionUID = 4828633886230216198L;
@@ -71,7 +71,7 @@ public class SignalData implements Serializable {
   /**
    * Instantiates a new signal data.
    */
-  public SignalData() {
+  public SdSignalData() {
     super();
   }
 
@@ -81,7 +81,7 @@ public class SignalData implements Serializable {
    * @param entity
    *          the entity
    */
-  public SignalData(final SignalConfigurationEntity entity) {
+  public SdSignalData(final SignalConfigurationEntity entity) {
     this.bitLength = entity.getBitLength();
     this.bitOffset = entity.getBitOffset();
     this.byteOffset = entity.getByteOffset();

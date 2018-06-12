@@ -75,7 +75,6 @@ com\zuan\parser\codehaus\preon\descriptor\NullDocumenter.class
 com\zuan\parser\codehaus\preon\el\LimboLexer.class
 com\zuan\parser\codehaus\preon\el\ast\ArithmeticNode$1.class
 com\zuan\parser\codehaus\preon\util\EvenlyDistributedLazyList.class
-com\zuan\parser\codehaus\preon\DefaultCodecFactory$DefaultCodec$1$1.class
 com\zuan\parser\codehaus\preon\binding\StandardBindingFactory$ContextualBuilderDecorator$ContextualBuilder.class
 com\zuan\parser\codehaus\preon\codec\ByteAligningDecorator.class
 com\zuan\parser\codehaus\preon\descriptor\PassThroughCodecDescriptor2.class
