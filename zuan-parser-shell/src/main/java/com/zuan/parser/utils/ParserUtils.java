@@ -20,11 +20,11 @@ import com.zuan.data.messages.HeaderInformationMess;
 import com.zuan.data.messages.sd.SdHeaderInformation;
 import com.zuan.data.messages.sd.SdMessage;
 import com.zuan.data.model.SdSignalData;
-import com.zuan.data.model.SdSignalValue;
 import com.zuan.parser.codehaus.preon.Codec;
 import com.zuan.parser.codehaus.preon.Codecs;
 import com.zuan.parser.codehaus.preon.DecodingException;
 import com.zuan.parser.common.SdLength;
+import com.zuan.parser.common.SdObject;
 import com.zuan.parser.imp.Parser;
 import com.zuan.parser.imp.ParserConfiguration;
 import com.zuan.parser.imp.ParserConfigurationImpl;
@@ -91,7 +91,7 @@ public final class ParserUtils {
    * @throws ParserException
    *           the parser exception
    */
-  public static Set<SdSignalValue> getSdObjectValue(final byte[] sdBinary,
+  public static Set<SdObject> getSdObjectValue(final byte[] sdBinary,
       final String trainProject, final List<SdSignalData> signals,
       final List<SdLength> mapLength) throws ParserException {
     return getSdObjectValue(sdBinary, null, trainProject, signals, SD_NUMBER_POSITION,
@@ -115,7 +115,7 @@ public final class ParserUtils {
    * @throws ParserException
    *           the parser exception
    */
-  public static Set<SdSignalValue> getSdObjectValue(final byte[] sdBinary,
+  public static Set<SdObject> getSdObjectValue(final byte[] sdBinary,
       final String trainProject, final List<SdSignalData> signals, final int sdNumberPosition,
       final List<SdLength> mapLength) throws ParserException {
     return getSdObjectValue(sdBinary, null, trainProject, signals, sdNumberPosition,
@@ -139,7 +139,7 @@ public final class ParserUtils {
    * @throws ParserException
    *           the parser exception
    */
-  public static Set<SdSignalValue> getSdObjectValue(final byte[] sdBinary,
+  public static Set<SdObject> getSdObjectValue(final byte[] sdBinary,
       final Set<String> signalCode, final String trainProject,
       final List<SdSignalData> signals, final List<SdLength> mapLength)
       throws ParserException {
@@ -166,11 +166,11 @@ public final class ParserUtils {
    * @throws ParserException
    *           the parser exception
    */
-  public static Set<SdSignalValue> getSdObjectValue(final byte[] sdBinary,
+  public static Set<SdObject> getSdObjectValue(final byte[] sdBinary,
       final Set<String> signalCode, final String trainProject,
       final List<SdSignalData> signals, final int sdNumberPosition,
       final List<SdLength> mapLength) throws ParserException {
-    final Set<SdSignalValue> reval = new HashSet<>();
+    final Set<SdObject> reval = new HashSet<>();
     // Get SD Number
     int sdNumber = sdBinary[sdNumberPosition];
     int sdLength = 0;

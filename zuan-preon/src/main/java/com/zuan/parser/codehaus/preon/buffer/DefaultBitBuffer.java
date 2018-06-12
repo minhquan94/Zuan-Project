@@ -3,10 +3,11 @@
  */
 package com.zuan.parser.codehaus.preon.buffer;
 
-import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
+import java.nio.file.Paths;
 
 /**
  * The Class DefaultBitBuffer.
@@ -59,29 +60,18 @@ public class DefaultBitBuffer implements BitBuffer {
    */
   public DefaultBitBuffer(String fileName) {
 
-    File file = new File(fileName);
-
-    // Open the file and then get a org.codehaus.preon.channel.channel from the
-    // stream
-    FileInputStream fis;
-
-    try {
-      fis = new FileInputStream(file);
-
-      FileChannel fc = fis.getChannel();
+    try (FileInputStream fis = new FileInputStream(Paths.get(fileName).toFile());
+        FileChannel fc = fis.getChannel()) {
 
       // Get the file's size and then map it into memory
       int fileSize = (int) fc.size();
       ByteBuffer inputByteBuffer = fc.map(FileChannel.MapMode.READ_ONLY, 0, fileSize);
 
-      // Close the org.codehaus.preon.channel.channel and the stream
-      fc.close();
-
       this.byteBuffer = inputByteBuffer;
       bitBufBitSize = ((long) (inputByteBuffer.capacity())) << 3;
       bitPos = 0;
 
-    } catch (Exception e) {
+    } catch (IOException e) {
       e.printStackTrace();
     }
   }
@@ -448,12 +438,9 @@ public class DefaultBitBuffer implements BitBuffer {
    * @param byteOrder
    *          the byte order
    * @return shifted integer buffer
-   * @throws BitBufferException
-   *           the bit buffer exception
    */
   private static int getRightShiftedNumberBufAsInt(int numberBuf, long bitPos, int nrBits,
-      ByteOrder byteOrder) throws BitBufferException {
-
+      ByteOrder byteOrder) {
     // number of bits integer buffer needs to be shifted to the right in
     // order to reach the last bit in last byte
     long shiftBits;
@@ -462,7 +449,6 @@ public class DefaultBitBuffer implements BitBuffer {
     } else {
       shiftBits = bitPos % 8;
     }
-
     return numberBuf >> shiftBits;
   }
 
@@ -479,11 +465,9 @@ public class DefaultBitBuffer implements BitBuffer {
    * @param byteOrder
    *          the byte order
    * @return shifted integer buffer
-   * @throws BitBufferException
-   *           the bit buffer exception
    */
   private static long getRightShiftedNumberBufAsLong(long numberBuf, long bitPos, int nrBits,
-      ByteOrder byteOrder) throws BitBufferException {
+      ByteOrder byteOrder) {
 
     // number of bits integer buffer needs to be shifted to the right in
     // order to reach the last bit in last byte
@@ -493,7 +477,6 @@ public class DefaultBitBuffer implements BitBuffer {
     } else {
       shiftBits = bitPos % 8;
     }
-
     return numberBuf >> shiftBits;
   }
 
@@ -513,7 +496,7 @@ public class DefaultBitBuffer implements BitBuffer {
   private int getNumberBufAsInt(ByteOrder byteOrder, int nrReadBytes, int firstBytePos) {
 
     int result = 0;
-    int bytePortion = 0;
+    int bytePortion;
     for (int i = 0; i < nrReadBytes; i++) {
       bytePortion = 0xFF & (byteBuffer.get(firstBytePos++));
 
@@ -541,9 +524,8 @@ public class DefaultBitBuffer implements BitBuffer {
    * @return value of all read bytes, containing specified bits
    */
   private long getNumberBufAsLong(ByteOrder byteOrder, int nrReadBytes, int firstBytePos) {
-
     long result = 0L;
-    long bytePortion = 0L;
+    long bytePortion;
     for (int i = 0; i < nrReadBytes; i++) {
       bytePortion = 0xFF & (byteBuffer.get(firstBytePos++));
 
@@ -751,7 +733,7 @@ public class DefaultBitBuffer implements BitBuffer {
 
     int sliceStartPosition = (int) (this.bitPos >>> 3);// == (bitPos / 8)
 
-    ByteBuffer slicedByteBuffer = this.slice(byteBuffer, sliceStartPosition, length);
+    ByteBuffer slicedByteBuffer = this.slice(sliceStartPosition, length);
 
     // ByteBuffer byteBuffer = ByteBuffer.wrap(this.byteBuffer.array(),
 
@@ -776,8 +758,6 @@ public class DefaultBitBuffer implements BitBuffer {
    * <p/>
    * http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=5071718
    *
-   * @param byteBuffer
-   *          - Original {@link ByteBuffer} to be sliced
    * @param slicePosition
    *          - Start position of the slice (e.g. sub-view) in the byte buffer
    * @param length
@@ -786,7 +766,7 @@ public class DefaultBitBuffer implements BitBuffer {
    * @return Returns the sliced {@link ByteBuffer}. Original buffer is left in
    *         its original state;
    */
-  private ByteBuffer slice(ByteBuffer byteBuffer, int slicePosition, int length) {
+  private ByteBuffer slice(int slicePosition, int length) {
 
     int currentBufferPosition = this.byteBuffer.position();
     int currentBufferLimit = this.byteBuffer.limit();

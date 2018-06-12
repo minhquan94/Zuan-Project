@@ -1,0 +1,89 @@
+server:
+  port: 5055
+spring:
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    username: metadata
+    password: metadata123
+    url: jdbc:sqlserver://172.18.30.202:1433;DatabaseName=MetadataDB
+  jpa:
+    show-sql: false
+    hibernate:
+      naming:
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties:
+      hibernate:
+        default_schema: HRE
+  output:
+    ansi:
+      enabled: ALWAYS
+parser:
+  trainProjects:
+  - ASR
+  - IEP
+  sdNumberPosition: 12
+  sdLengthMapper: 
+  - trainProject: ASR
+    mapping:
+      '1': 1412
+      '2': 1356
+      '3': 1324
+      '4': 1296
+      '5': 1388
+      '6': 1316
+      '7': 1064
+      '8': 1384
+      '9': 1388
+      '10': 1324
+      '11': 1172
+      '12': 1172
+      '13': 1172
+      '14': 1172
+      '15': 1324
+      '16': 1344
+      '17': 1172
+      '18': 1172
+      '19': 1256
+      '20': 1404
+      '21': 1268
+      '22': 1268
+      '23': 1404
+      '24': 1268
+      '25': 1268
+      '26': 1268
+      '27': 1268
+      '28': 1268
+      '29': 1268
+      '30': 1268
+      '31': 1268
+      '32': 1380
+      '33': 812
+  - trainProject: IEP
+    mapping:
+      '1': 1332
+      '2': 1316
+      '3': 1308
+      '4': 1296
+      '5': 1388
+      '6': 1300
+      '7': 1020
+      '8': 1368
+      '9': 1372
+      '10': 1308
+      '11': 1156
+      '12': 1156
+      '13': 1156
+      '14': 1156
+      '15': 1308
+      '16': 1328
+      '17': 1156
+      '18': 1156
+      '19': 1240
+      '20': 1052
+      '21': 1052
+      '22': 1052
+      '23': 1052
+      '24': 1188
+      '25': 1188
+      '26': 1364

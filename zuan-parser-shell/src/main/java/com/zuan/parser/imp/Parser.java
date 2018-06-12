@@ -5,7 +5,7 @@ package com.zuan.parser.imp;
 
 import java.util.Set;
 
-import com.zuan.data.model.SdSignalValue;
+import com.zuan.parser.common.SdObject;
 
 /**
  * The Interface Parser.
@@ -23,6 +23,6 @@ public interface Parser {
    *          the configuration
    * @return the sets the
    */
-  Set<SdSignalValue> parseEntireDataToSet(final byte[] packet,
+  Set<SdObject> parseEntireDataToSet(final byte[] packet,
       final ParserConfiguration configuration);
 }

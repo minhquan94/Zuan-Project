@@ -16,9 +16,9 @@ import org.mvel2.MVEL;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.zuan.data.model.SdSignalValue;
 import com.zuan.parser.codehaus.preon.buffer.BitBuffer;
 import com.zuan.parser.codehaus.preon.buffer.DefaultBitBuffer;
+import com.zuan.parser.common.SdObject;
 
 /**
  * The Class SdParserImp.
@@ -103,7 +103,7 @@ public class SdParserImp implements Parser {
    * @return the map
    */
   @Override
-  public Set<SdSignalValue> parseEntireDataToSet(final byte[] packet,
+  public Set<SdObject> parseEntireDataToSet(final byte[] packet,
       final ParserConfiguration configuration) {
 
     // is Parser can not parse
@@ -114,13 +114,13 @@ public class SdParserImp implements Parser {
     // Create BitBuffer object with the inputed byte array
     final BitBuffer buffer = new DefaultBitBuffer(ByteBuffer.wrap(packet));
 
-    final Set<SdSignalValue> result = new HashSet<>();
+    final Set<SdObject> result = new HashSet<>();
     for (SignalConfiguration signalConf : configuration.getSignals()) {
       final String signalCode = signalConf.getSignalCode();
       try {
         final Object objDecodedValue = parse(buffer, signalConf);
         if (!StringUtils.isBlank(signalCode)) {
-          final SdSignalValue object = new SdSignalValue();
+          final SdObject object = new SdObject();
           object.setSdNumber(NumberUtils.toInt(signalConf.getOriginatingFile()));
           object.setBitLength(signalConf.getBitLength());
           object.setBitOffset(signalConf.getBitOffset());

@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2018 Zuan_Wiko
+ * Copyright (c) 2018 Zuan_Wiko
  */
 package com.zuan.parser.common;
 

@@ -23,7 +23,6 @@ import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
 
-import com.zuan.parser.common.FileInput;
 import com.zuan.parser.common.SdObject;
 import com.zuan.parser.configuration.ParserConfigurationProperties;
 import com.zuan.parser.imp.exception.ParserException;
@@ -31,8 +30,6 @@ import com.zuan.parser.service.SdSignalService;
 import com.zuan.parser.shell.provider.FileInputProvider;
 import com.zuan.parser.utils.BinaryUtils;
 import com.zuan.parser.utils.ParserUtils;
-
-import jline.internal.Configuration;
 
 /**
  * The Class SdParseCLI.
@@ -110,17 +107,6 @@ public class SdParseCLI {
     } catch (IOException | ParserException e) {
       LOGGER.error("", e);
     }
-  }
-
-  /**
-   * Test.
-   *
-   * @param trainProject
-   *          the train project
-   */
-  @ShellMethod(value = "Test the program.")
-  public void test(@ShellOption(valueProvider = FileInputProvider.class) FileInput width) {
-    System.out.println(Configuration.getUserHome());
   }
 
   /**
