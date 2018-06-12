@@ -3,7 +3,7 @@
  */
 package com.zuan.parser.imp;
 
-import com.zuan.parser.jpa.entities.SignalConfigurationEntity;
+import com.zuan.data.model.SdSignalData;
 
 /**
  * The Class ParserMetaData.
@@ -38,33 +38,33 @@ public class ParserMetaData extends SignalConfiguration {
   /**
    * Instantiates a new parser meta data.
    *
-   * @param entity
+   * @param signalData
    *          the entity
    */
-  public ParserMetaData(final SignalConfigurationEntity entity) {
-    setParserMetaData(entity);
+  public ParserMetaData(final SdSignalData signalData) {
+    setParserMetaData(signalData);
   }
 
   /**
    * Sets the data.
    *
-   * @param entity
+   * @param signalData
    *          the new data
    */
-  private void setParserMetaData(final SignalConfigurationEntity entity) {
-    setSignalCode(entity.getSignalCode());
-    setSignalName(entity.getSignalName());
-    setByteOffset(entity.getByteOffset());
-    setBitOffset(entity.getBitOffset());
-    setBitLength(entity.getBitLength());
+  private void setParserMetaData(final SdSignalData signalData) {
+    setSignalCode(signalData.getSignalCode());
+    setSignalName(signalData.getSignalName());
+    setByteOffset(signalData.getByteOffset());
+    setBitOffset(signalData.getBitOffset());
+    setBitLength(signalData.getBitLength());
 
-    setDestinationType(toValueType(entity.getDestinationType()));
-    setScalingFactor(getDouble(entity.getScalingFactor()));
-    setMinValue(getDouble(entity.getMinValue()));
-    setMaxValue(getDouble(entity.getMaxValue()));
-    setPlusValue(getDouble(entity.getPlusValue()));
-    setOriginatingFile(entity.getOriginatingFile());
-    setFileType(entity.getFileType());
+    setDestinationType(toValueType(signalData.getDestinationType()));
+    setScalingFactor(getDouble(signalData.getScalingFactor()));
+    setMinValue(getDouble(signalData.getMinValue()));
+    setMaxValue(getDouble(signalData.getMaxValue()));
+    setPlusValue(getDouble(signalData.getPlusValue()));
+    setOriginatingFile(signalData.getOriginatingFile());
+    setFileType(signalData.getFileType());
   }
 
   /**

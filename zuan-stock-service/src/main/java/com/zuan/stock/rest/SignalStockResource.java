@@ -6,6 +6,7 @@ package com.zuan.stock.rest;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -15,9 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-import com.netflix.discovery.EurekaClient;
-import com.zuan.data.model.SignalData;
-import com.zuan.stock.configuration.DbConfigLoader;
+import com.zuan.data.model.SdSignalData;
 import com.zuan.stock.util.RestUtils;
 
 /**
@@ -33,8 +32,13 @@ public class SignalStockResource {
   @Autowired
   private RestTemplate restTemplate;
 
-  @Autowired
-  private EurekaClient discoveryClient;
+  /** The db servicename. */
+  @Value("${db-service.name}")
+  private String dbServicename;
+
+  /** The signal data. */
+  @Value("${rest.db-service.signal-data}")
+  private String signalData;
 
   /**
    * Gets the signal data by train.
@@ -44,15 +48,12 @@ public class SignalStockResource {
    * @return the signal data by train
    */
   @GetMapping("/{train-project}")
-  public List<SignalData> getSignalDataByTrain(
+  public List<SdSignalData> getSignalDataByTrain(
       @PathVariable("train-project") final String trainProject) {
-    final DbConfigLoader dbConfigLoader = DbConfigLoader.getInstance();
-    final ResponseEntity<List<SignalData>> exchange = restTemplate.exchange(
-        RestUtils.buildRest(dbConfigLoader.getHost(), dbConfigLoader.getPort(),
-            dbConfigLoader.getRestSignalData() + '/' + trainProject),
-        HttpMethod.GET, null, new ParameterizedTypeReference<List<SignalData>>() {
+    final ResponseEntity<List<SdSignalData>> exchange = restTemplate.exchange(
+        RestUtils.buildRest(dbServicename, signalData + '/' + trainProject), HttpMethod.GET,
+        null, new ParameterizedTypeReference<List<SdSignalData>>() {
         });
-
     return exchange.getBody();
   }
 

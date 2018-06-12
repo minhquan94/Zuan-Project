@@ -9,7 +9,7 @@
 	<version>1.0.1</version>
 	<packaging>jar</packaging>
 
-	<name>virdict-tool-parser</name>
+	<name>zuan-parser</name>
 	<description>Demo project for Spring Boot</description>
 
 	<parent>
@@ -90,6 +90,11 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-configuration-processor</artifactId>
 			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>com.zuan</groupId>
+			<artifactId>zuan-data</artifactId>
+			<version>1.0.1</version>
 		</dependency>
 	</dependencies>
 

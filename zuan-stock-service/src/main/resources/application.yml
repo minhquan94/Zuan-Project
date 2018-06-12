@@ -12,8 +12,13 @@ eureka:
   instance:
     hostname: localhost
     preferIpAddress: true
-db-server:
-  host: localhost
-  port: 8801
-  rest:
+db-service:
+  name: db-service
+  ribbon:
+    eureka:
+      enabled: false
+    listOfServers: localhost:8801
+    ServerListRefreshInterval: 15000
+rest:
+  db-service:
     signal-data: /rest/db/signal-data

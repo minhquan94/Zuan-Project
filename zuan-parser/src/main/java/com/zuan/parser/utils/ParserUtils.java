@@ -16,6 +16,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.CollectionUtils;
 
+import com.zuan.data.messages.HeaderInformationMess;
+import com.zuan.data.messages.sd.SdHeaderInformation;
+import com.zuan.data.messages.sd.SdMessage;
+import com.zuan.data.model.SdSignalData;
 import com.zuan.parser.codehaus.preon.Codec;
 import com.zuan.parser.codehaus.preon.Codecs;
 import com.zuan.parser.codehaus.preon.DecodingException;
@@ -27,13 +31,9 @@ import com.zuan.parser.imp.ParserConfigurationImpl;
 import com.zuan.parser.imp.ParserMetaData;
 import com.zuan.parser.imp.SdParserImp;
 import com.zuan.parser.imp.exception.ParserException;
-import com.zuan.parser.jpa.entities.SignalConfigurationEntity;
-import com.zuan.parser.message.HeaderInformationMess;
-import com.zuan.parser.message.SdHeaderInformation;
-import com.zuan.parser.message.SdMessage;
 
 /**
- * The Class BinaryToolImp.
+ * The Class ParserUtils.
  *
  * @author <a href="mailto:developer@hitachiconsulting.com">quanmd.nv</a>
  */
@@ -92,7 +92,7 @@ public final class ParserUtils {
    *           the parser exception
    */
   public static Set<SdObject> getSdObjectValue(final byte[] sdBinary,
-      final String trainProject, final List<SignalConfigurationEntity> signals,
+      final String trainProject, final List<SdSignalData> signals,
       final List<SdLength> mapLength) throws ParserException {
     return getSdObjectValue(sdBinary, null, trainProject, signals, SD_NUMBER_POSITION,
         mapLength);
@@ -116,8 +116,8 @@ public final class ParserUtils {
    *           the parser exception
    */
   public static Set<SdObject> getSdObjectValue(final byte[] sdBinary,
-      final String trainProject, final List<SignalConfigurationEntity> signals,
-      final int sdNumberPosition, final List<SdLength> mapLength) throws ParserException {
+      final String trainProject, final List<SdSignalData> signals, final int sdNumberPosition,
+      final List<SdLength> mapLength) throws ParserException {
     return getSdObjectValue(sdBinary, null, trainProject, signals, sdNumberPosition,
         mapLength);
   }
@@ -141,7 +141,7 @@ public final class ParserUtils {
    */
   public static Set<SdObject> getSdObjectValue(final byte[] sdBinary,
       final Set<String> signalCode, final String trainProject,
-      final List<SignalConfigurationEntity> signals, final List<SdLength> mapLength)
+      final List<SdSignalData> signals, final List<SdLength> mapLength)
       throws ParserException {
     return getSdObjectValue(sdBinary, signalCode, trainProject, signals, SD_NUMBER_POSITION,
         mapLength);
@@ -168,7 +168,7 @@ public final class ParserUtils {
    */
   public static Set<SdObject> getSdObjectValue(final byte[] sdBinary,
       final Set<String> signalCode, final String trainProject,
-      final List<SignalConfigurationEntity> signals, final int sdNumberPosition,
+      final List<SdSignalData> signals, final int sdNumberPosition,
       final List<SdLength> mapLength) throws ParserException {
     final Set<SdObject> reval = new HashSet<>();
     // Get SD Number
@@ -208,8 +208,8 @@ public final class ParserUtils {
    * @param byteArr
    *          the binary input
    * @return the sd binary
-   * @throws ObsParserException
-   *           the obs parser exception
+   * @throws ParserException
+   *           the parser exception
    */
   public static byte[] getSdBinary(final byte[] byteArr) throws ParserException {
     byte[] sdBinary;

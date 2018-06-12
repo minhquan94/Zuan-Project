@@ -10,15 +10,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-import com.zuan.parser.jpa.repositories.BaseJpaRepositoryImpl;
+import com.zuan.data.repositories.BaseJpaRepositoryImpl;
 
 /**
  * @author <a href="mailto:developer@hitachiconsulting.com">quanmd.nv</a>
  */
 @SpringBootApplication
 @EnableJpaRepositories(basePackages = {
-    "com.zuan.parser.jpa.repositories" }, repositoryBaseClass = BaseJpaRepositoryImpl.class)
-@EntityScan(basePackages = "com.zuan.parser.jpa.entities")
+    "com.zuan.data.repositories" }, repositoryBaseClass = BaseJpaRepositoryImpl.class)
+@EntityScan(basePackages = "com.zuan.data.entities")
 public class ParserApplication {
 
   /**

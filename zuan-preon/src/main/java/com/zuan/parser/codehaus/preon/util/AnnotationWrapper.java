@@ -60,6 +60,10 @@ public class AnnotationWrapper implements AnnotatedElement {
     return new Annotation[]{annotation };
   }
 
+  /**
+   * {@inheritDoc}
+   * @see java.lang.reflect.AnnotatedElement#isAnnotationPresent(java.lang.Class)
+   */
   /*
    * (non-Javadoc)
    * @see

@@ -3,6 +3,8 @@
  */
 package com.zuan.stock.util;
 
+import org.apache.commons.lang.StringUtils;
+
 /**
  * The Class RestUtils.
  *
@@ -26,17 +28,42 @@ public final class RestUtils {
   /**
    * Builds the rest.
    *
-   * @param host
-   *          the host
-   * @param port
-   *          the port
+   * @param hostName
+   *          the host name
    * @param rest
    *          the rest
    * @return the string
    */
-  public static String buildRest(final String host, final int port, final String rest) {
+  public static String buildRest(final String hostName, final String rest) {
+    String suffix;
+    if (StringUtils.startsWith(rest, "/")) {
+      suffix = rest;
+    } else {
+      suffix = "/" + rest;
+    }
     StringBuilder builder = new StringBuilder();
-    builder.append(HTTP_SCHEME).append(host).append(':').append(port).append(rest);
+    builder.append(HTTP_SCHEME).append(hostName).append(suffix);
+    return builder.toString();
+  }
+
+  /**
+   * Builds the security rest.
+   *
+   * @param hostName
+   *          the host name
+   * @param rest
+   *          the rest
+   * @return the string
+   */
+  public static String buildSecurityRest(final String hostName, final String rest) {
+    String suffix;
+    if (StringUtils.startsWith(rest, "/")) {
+      suffix = rest;
+    } else {
+      suffix = "/" + rest;
+    }
+    StringBuilder builder = new StringBuilder();
+    builder.append(HTTPS_SCHEME).append(hostName).append(suffix);
     return builder.toString();
   }
 }

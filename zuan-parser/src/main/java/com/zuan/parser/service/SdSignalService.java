@@ -5,12 +5,10 @@ package com.zuan.parser.service;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
-import com.zuan.parser.jpa.entities.SignalConfigurationEntity;
-import com.zuan.parser.jpa.repositories.SignalConfigurationRepository;
+import com.zuan.data.model.SdSignalData;
 
 /**
  * The Interface SdSignalService.
@@ -20,10 +18,6 @@ import com.zuan.parser.jpa.repositories.SignalConfigurationRepository;
 @Service
 public class SdSignalService {
 
-  /** The signal configuration repository. */
-  @Autowired
-  private SignalConfigurationRepository signalConfigurationRepository;
-
   /**
    * Gets the signal configuration.
    *
@@ -32,8 +26,8 @@ public class SdSignalService {
    * @return the signal configuration
    */
   @Cacheable(value = "SignalConfiguration", key = "#trainProject")
-  public List<SignalConfigurationEntity> getSignalConfiguration(final String trainProject) {
-    return signalConfigurationRepository.findByTrainProject(trainProject);
+  public List<SdSignalData> getSignalConfiguration(final String trainProject) {
+    return null;
   }
 
   /**
@@ -45,10 +39,9 @@ public class SdSignalService {
    *          the signal code
    * @return the signal configuration
    */
-  public List<SignalConfigurationEntity> getSignalConfiguration(final String trainProject,
+  public List<SdSignalData> getSignalConfiguration(final String trainProject,
       final String signalCode) {
-    final List<SignalConfigurationEntity> signalConfiguration =
-        getSignalConfiguration(trainProject);
+    final List<SdSignalData> signalConfiguration = getSignalConfiguration(trainProject);
     return signalConfiguration;
   }
 }
