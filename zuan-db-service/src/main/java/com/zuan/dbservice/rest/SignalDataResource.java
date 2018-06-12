@@ -41,7 +41,7 @@ public class SignalDataResource {
       @PathVariable("train-project") final String trainProject) {
     final List<SignalConfigurationEntity> signalDataByTrain =
         signalDataService.getSignalDataByTrain(trainProject);
-    if (!CollectionUtils.isEmpty(signalDataByTrain)) {
+    if (CollectionUtils.isEmpty(signalDataByTrain)) {
       return new ArrayList<>();
     }
     return signalDataByTrain.stream().map(SdSignalData::new).collect(Collectors.toList());

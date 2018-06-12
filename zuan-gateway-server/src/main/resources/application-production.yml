@@ -1,0 +1,14 @@
+server:
+  port: 8701
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://eureka.server.com:8761/eureka}
+zuul:
+  prefix: /api
+  routes:
+    db-service:
+      path: /db-service/*
+      service-id: DB-SERVICE

@@ -2,7 +2,7 @@ spring:
   application:
     name: stock-service
 server:
-  port: 8802
+  port: 8901
 eureka:
   client:
     register-with-eureka: true

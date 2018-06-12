@@ -1,8 +1,11 @@
+info:
+  app:
+    name: stock-service
 spring:
   application:
     name: stock-service
 server:
-  port: 8802
+  port: 8901
 eureka:
   client:
     register-with-eureka: true
@@ -13,12 +16,14 @@ eureka:
     hostname: localhost
     preferIpAddress: true
 db-service:
-  name: db-service
+  name: localhost:8701
   ribbon:
-    eureka:
-      enabled: false
     listOfServers: localhost:8801
     ServerListRefreshInterval: 15000
 rest:
   db-service:
-    signal-data: /rest/db/signal-data
+    signal-data: /api/db-service/rest/db/signal-data
+ribbon:
+  eager-load:
+    clients:
+    - 

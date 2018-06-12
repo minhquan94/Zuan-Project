@@ -1,5 +1,8 @@
+info:
+  app:
+    name: db-service
 server:
-  port: 8801
+  port: 8802
 spring:
   application:
     name: db-service
@@ -26,12 +29,3 @@ eureka:
     fetchRegistry: true
     serviceUrl:
       defaultZone: ${EUREKA_URI:http://eureka.server.com:8761/eureka}
-# disable actuagor security for endpoints 
-management:
-  security:
-    enabled: false
-
-# custom attribute for the actuator info endpoint
-info:
-  app:
-    name: db-service

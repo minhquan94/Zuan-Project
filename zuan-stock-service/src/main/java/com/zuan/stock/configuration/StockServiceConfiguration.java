@@ -3,9 +3,9 @@
  */
 package com.zuan.stock.configuration;
 
-import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.web.client.RestTemplate;
 
 /**
@@ -21,7 +21,7 @@ public class StockServiceConfiguration {
    *
    * @return the rest template
    */
-  @LoadBalanced
+  @Primary
   @Bean
   public RestTemplate restTemplate() {
     return new RestTemplate();
