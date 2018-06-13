@@ -1,0 +1,8 @@
+server:
+  port: 8700
+spring:
+  cloud:
+    config:
+      server:
+        git:
+          url: config
