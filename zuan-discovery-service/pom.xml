@@ -5,12 +5,12 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.zuan</groupId>
-	<artifactId>zuan-gateway-server</artifactId>
+	<artifactId>zuan-discovery-service</artifactId>
 	<version>1.0.1</version>
 	<packaging>jar</packaging>
 
-	<name>zuan-gateway-server</name>
-	<description>Zuan gateway- Spring Boot</description>
+	<name>zuan-discovery-service</name>
+	<description>Discovery Service Cloud</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -31,15 +31,11 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-actuator</artifactId>
+			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-netflix-zuul</artifactId>
+			<artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
 		</dependency>
 	</dependencies>
 
@@ -89,7 +85,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>com.zuan.gateway.GatewayServerApplication</mainClass>
+							<mainClass>com.zuan.cloud.discovery.DiscoveryServiceApplication</mainClass>
 							<addClasspath>true</addClasspath>
 							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
 						</manifest>
@@ -102,6 +98,7 @@
 					</archive>
 					<excludes>
 						<exclude>**/application-production.yml</exclude>
+						<exclude>**/application-local.yml</exclude>
 					</excludes>
 				</configuration>
 			</plugin>
@@ -137,6 +134,4 @@
 			</snapshots>
 		</repository>
 	</repositories>
-
-
 </project>

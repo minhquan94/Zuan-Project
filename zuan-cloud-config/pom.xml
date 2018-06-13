@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.zuan</groupId>
-	<artifactId>zuan-eureka-server</artifactId>
+	<artifactId>zuan-cloud-config</artifactId>
 	<version>1.0.1</version>
 	<packaging>jar</packaging>
 
-	<name>zuan-eureka-server</name>
-	<description>Eureka Server Spring Boot</description>
+	<name>zuan-cloud-config</name>
+	<description>Demo project for Spring Boot</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -23,18 +24,18 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
 		<spring-cloud.version>Finchley.RC2</spring-cloud.version>
-		<buildNumber>1</buildNumber>
-		<scmRevision>rev0</scmRevision>
 	</properties>
 
 	<dependencies>
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-		<dependency>
 			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
+			<artifactId>spring-cloud-config-server</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 
@@ -84,7 +85,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>com.zuan.eurekaserver.EurekaServerApplication</mainClass>
+							<mainClass>com.zuan.cloud.config.CloudConfigApplication</mainClass>
 							<addClasspath>true</addClasspath>
 							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
 						</manifest>
@@ -97,7 +98,6 @@
 					</archive>
 					<excludes>
 						<exclude>**/application-production.yml</exclude>
-						<exclude>**/application-local.yml</exclude>
 					</excludes>
 				</configuration>
 			</plugin>
@@ -133,4 +133,6 @@
 			</snapshots>
 		</repository>
 	</repositories>
+
+
 </project>

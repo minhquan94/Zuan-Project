@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2018 Zuan_Wiko
  */
-package com.zuan.eurekaserver;
+package com.zuan.cloud.discovery;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -16,7 +16,7 @@ import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
 @EnableEurekaServer
 @EnableDiscoveryClient
 @SpringBootApplication
-public class EurekaServerApplication {
+public class DiscoveryServiceApplication {
 
   /**
    * The main method.
@@ -25,6 +25,6 @@ public class EurekaServerApplication {
    *          the arguments
    */
   public static void main(String[] args) {
-    SpringApplication.run(EurekaServerApplication.class, args);
+    SpringApplication.run(DiscoveryServiceApplication.class, args);
   }
 }

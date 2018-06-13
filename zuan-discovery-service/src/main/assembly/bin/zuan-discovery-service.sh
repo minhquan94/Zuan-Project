@@ -1,15 +1,15 @@
 #!/bin/bash
 #
-# zuan-eureka-server: Starts the zuan-eureka-server Daemon
+# Discovery Service Daemon
 #
 # chkconfig: 345 97 03
-# description: zuan-eureka-server Server
+# description: Discovery Service
 #
-# processname: zuan-eureka-server
+# processname: Discovery Service
 #
 
-SERVICE_NAME=zuan-eureka-server
-JAR_NAME=zuan-eureka-server.jar
+SERVICE_NAME=zuan-discovery-service
+JAR_NAME=zuan-discovery-service.jar
 maxShutdownTime=10
 args=${@:2}
 vpid=
