@@ -9,7 +9,9 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.zuan.parser.ValueType;
 import com.zuan.parser.codehaus.preon.buffer.BitBuffer;
+import com.zuan.parser.signal.SignalInfomation;
 
 /**
  * The Class ParserFacility.
@@ -24,12 +26,6 @@ public final class ParserFacility {
   /** The Constant listDestinationTypeNotScalingAndPlus. */
   private static final Map<ValueType, ValueType> listDestinationTypeNotScalingAndPlus =
       getListDestinationTypeNotScalingAndPlus();
-
-  /** The Constant ZERO. */
-  private static final double ZERO = 0.0;
-
-  /** The Constant ONE. */
-  private static final double ONE = 1.0;
 
   /**
    * Instantiates a new facility.
@@ -61,9 +57,8 @@ public final class ParserFacility {
    *          the signal
    * @return the object
    */
-  public static Object transformByteData(final Object value,
-      final SignalConfiguration signal) {
-    return (Byte) value * signal.getScalingFactor(ONE) + signal.getPlusValue(ZERO);
+  public static Object transformByteData(final Object value, final SignalInfomation signal) {
+    return (Byte) value * signal.getScalingFactor() + signal.getPlusValue();
   }
 
   /**
@@ -75,9 +70,8 @@ public final class ParserFacility {
    *          the signal
    * @return the object
    */
-  public static Object transformShortData(final Object value,
-      final SignalConfiguration signal) {
-    return (Short) value * signal.getScalingFactor(ONE) + signal.getPlusValue(ZERO);
+  public static Object transformShortData(final Object value, final SignalInfomation signal) {
+    return (Short) value * signal.getScalingFactor() + signal.getPlusValue();
   }
 
   /**
@@ -89,8 +83,8 @@ public final class ParserFacility {
    *          the signal
    * @return the object
    */
-  public static Object transformIntData(final Object value, final SignalConfiguration signal) {
-    return (Integer) value * signal.getScalingFactor(ONE) + signal.getPlusValue(ZERO);
+  public static Object transformIntData(final Object value, final SignalInfomation signal) {
+    return (Integer) value * signal.getScalingFactor() + signal.getPlusValue();
   }
 
   /**
@@ -102,9 +96,8 @@ public final class ParserFacility {
    *          the signal
    * @return the object
    */
-  public static Object transformLongData(final Object value,
-      final SignalConfiguration signal) {
-    return (Long) value * signal.getScalingFactor(ONE) + signal.getPlusValue(ZERO);
+  public static Object transformLongData(final Object value, final SignalInfomation signal) {
+    return (Long) value * signal.getScalingFactor() + signal.getPlusValue();
   }
 
   /**
@@ -116,9 +109,8 @@ public final class ParserFacility {
    *          the signal
    * @return the object
    */
-  public static Object transformFloatData(final Object value,
-      final SignalConfiguration signal) {
-    return (Float) value * signal.getScalingFactor(ONE) + signal.getPlusValue(ZERO);
+  public static Object transformFloatData(final Object value, final SignalInfomation signal) {
+    return (Float) value * signal.getScalingFactor() + signal.getPlusValue();
   }
 
   /**
@@ -130,9 +122,8 @@ public final class ParserFacility {
    *          the signal
    * @return the object
    */
-  public static Object transformDoubleData(final Object value,
-      final SignalConfiguration signal) {
-    return (Double) value * signal.getScalingFactor(ONE) + signal.getPlusValue(ZERO);
+  public static Object transformDoubleData(final Object value, final SignalInfomation signal) {
+    return (Double) value * signal.getScalingFactor() + signal.getPlusValue();
   }
 
   /**
@@ -146,8 +137,8 @@ public final class ParserFacility {
    *          the bit position
    * @return the object
    */
-  public static Object parseDataItem(final BitBuffer buffer, // NOSONAR
-      final SignalConfigurationBase signal, final long bitPosition) {
+  public static Object parseDataItem(final BitBuffer buffer, final SignalInfomation signal,
+      final long bitPosition) {
     Object objResult = null;
     switch (signal.getDestinationType()) {
     case BOOL:
@@ -197,7 +188,7 @@ public final class ParserFacility {
    *          the signal
    * @return the object
    */
-  public static Object transformData(final Object value, final SignalConfiguration signal) {
+  public static Object transformData(final Object value, final SignalInfomation signal) {
     Object objResult = null;
     switch (signal.getDestinationType()) {
     case BYTE:
@@ -261,7 +252,7 @@ public final class ParserFacility {
    *          the signal
    * @return true, if is less than min
    */
-  public static boolean isLessThanMin(final Object value, final SignalConfiguration signal) {
+  public static boolean isLessThanMin(final Object value, final SignalInfomation signal) {
     boolean bResult;
     final Double convertedValue = convertValueToDouble(value);
     if (Double.isNaN(convertedValue)) {
@@ -285,8 +276,7 @@ public final class ParserFacility {
    *          the signal
    * @return true, if is greater than max
    */
-  public static boolean isGreaterThanMax(final Object value,
-      final SignalConfiguration signal) {
+  public static boolean isGreaterThanMax(final Object value, final SignalInfomation signal) {
     boolean bResult;
     final Double convertedValue = convertValueToDouble(value);
     if (Double.isNaN(convertedValue)) {
@@ -311,7 +301,7 @@ public final class ParserFacility {
    * @return the object
    */
   public static Object parseDoubleValueToDestinationType(final Double value,
-      final SignalConfiguration signal) {
+      final SignalInfomation signal) {
     Object objResult = null;
     switch (signal.getDestinationType()) {
     case BYTE:
@@ -350,7 +340,7 @@ public final class ParserFacility {
    * @return the object
    */
   public static Object parserValueToDestinationType(final Object value,
-      final SignalConfiguration signal) {
+      final SignalInfomation signal) {
 
     // Check current type for reverting to if different
     if (!Double.isNaN(signal.getScalingFactor()) || !Double.isNaN(signal.getPlusValue())) {
@@ -369,8 +359,7 @@ public final class ParserFacility {
    *          the value
    * @return the object
    */
-  public static Object processDecodedValue(final SignalConfiguration signal, // NOSONAR
-      final Object value) {
+  public static Object processDecodedValue(final SignalInfomation signal, final Object value) {
     Object objResult = value;
     // Check scale, plus
     if (objResult != null

@@ -17,13 +17,6 @@ import com.zuan.parser.codehaus.preon.annotation.BoundExplicitly;
  */
 public class ExplicitCodecFactory implements CodecFactory {
 
-  /*
-   * (non-Javadoc)
-   * @see
-   * org.codehaus.preon.CodecFactory#create(java.lang.reflect.AnnotatedElement,
-   * java.lang.Class, org.codehaus.preon.ResolverContext)
-   */
-
   /**
    * Creates the.
    *
@@ -47,14 +40,13 @@ public class ExplicitCodecFactory implements CodecFactory {
         return factory.create(metadata, type, null);
       } catch (InstantiationException e) {
         throw new CodecConstructionException(
-            "Failed to construct Codec using " + settings.factory().getName());
+            "Failed to construct Codec using " + settings.factory().getName() + ": " + e);
       } catch (IllegalAccessException e) {
-        throw new CodecConstructionException(
-            "No permission to construct an instance of " + settings.factory().getName());
+        throw new CodecConstructionException("No permission to construct an instance of "
+            + settings.factory().getName() + ": " + e);
       }
-    } else {
-      return null;
     }
+    return null;
   }
 
 }

@@ -3,7 +3,7 @@
  */
 package com.zuan.data.messages.sd;
 
-import com.zuan.data.messages.HeaderInformationMess;
+import com.zuan.data.messages.Header;
 import com.zuan.data.messages.MessageBase;
 import com.zuan.parser.codehaus.preon.annotation.BoundList;
 import com.zuan.parser.codehaus.preon.annotation.BoundObject;
@@ -17,19 +17,29 @@ public class SdMessage implements MessageBase {
 
   /** The header information mess. */
   @BoundObject
-  private HeaderInformationMess headerInformationMess;
+  private Header header;
 
   /** The sd record. */
-  @BoundList(size = "headerInformationMess.length")
+  @BoundList(size = "header.length")
   private byte[] sdRecord;
 
   /**
-   * Gets the header information mess.
+   * Gets the header.
    *
-   * @return the header information mess
+   * @return the header
    */
-  public HeaderInformationMess getHeaderInformationMess() {
-    return headerInformationMess;
+  public Header getHeader() {
+    return header;
+  }
+
+  /**
+   * Sets the header.
+   *
+   * @param header
+   *          the new header
+   */
+  public void setHeader(Header header) {
+    this.header = header;
   }
 
   /**
@@ -44,20 +54,10 @@ public class SdMessage implements MessageBase {
   /**
    * Sets the sd record.
    *
-   * @param allBytes
+   * @param sdRecord
    *          the new sd record
    */
-  public void setSdRecord(byte[] allBytes) {
-    sdRecord = allBytes;
-  }
-
-  /**
-   * Sets the header information mess.
-   *
-   * @param headerInformationMess
-   *          the headerInformationMess to set
-   */
-  public void setHeaderInformationMess(HeaderInformationMess headerInformationMess) {
-    this.headerInformationMess = headerInformationMess;
+  public void setSdRecord(byte[] sdRecord) {
+    this.sdRecord = sdRecord;
   }
 }

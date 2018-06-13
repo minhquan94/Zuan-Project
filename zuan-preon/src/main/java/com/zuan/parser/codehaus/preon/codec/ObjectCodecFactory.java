@@ -116,7 +116,7 @@ public class ObjectCodecFactory implements CodecFactory {
    * @return the object codec< t>
    */
   private <T> ObjectCodec<T> createCodec(Class<T> type, ResolverContext context) {
-    ObjectResolverContext passThroughContext = new BindingsContext(type, context);
+    ObjectResolverContext passThroughContext = new BindingsContext(context);
     passThroughContext =
         ImportSupportingObjectResolverContext.decorate(passThroughContext, type);
     CodecReference reference = new CodecReference();

@@ -66,5 +66,4 @@ public final class BinaryUtils {
   public static byte[] convertFileToByteArr(final String path) throws IOException {
     return convertFileToByteArr(Paths.get(path).toFile());
   }
-
 }

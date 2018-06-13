@@ -60,7 +60,6 @@ public class SlicedBitBuffer implements BitBuffer {
    * (non-Javadoc)
    * @see org.codehaus.preon.buffer.BitBuffer#getBitBufBitSize()
    */
-
   @Override
   public long getBitBufBitSize() {
     return endPos - startPos;
@@ -70,7 +69,6 @@ public class SlicedBitBuffer implements BitBuffer {
    * (non-Javadoc)
    * @see org.codehaus.preon.buffer.BitBuffer#getBitPos()
    */
-
   @Override
   public long getBitPos() {
     return delegate.getBitPos() - startPos;
@@ -393,7 +391,7 @@ public class SlicedBitBuffer implements BitBuffer {
    * @see com.zuan.parser.codehaus.preon.buffer.BitBuffer#readAsByteBuffer(int)
    */
   @Override
-  public ByteBuffer readAsByteBuffer(int length) throws BitBufferUnderflowException {
+  public ByteBuffer readAsByteBuffer(int length) {
     if (delegate.getBitPos() + length * 8 > endPos) {
       throw new BitBufferUnderflowException(delegate.getBitPos(), length * 8);
     } else {

@@ -83,6 +83,7 @@ public class CachingCodecFactory implements CodecFactory {
    * The object receiving notifications of new objects getting constructed.
    */
   private CodecConstructionListener listener = codec -> {
+    // do nothing
   };
 
   /**
@@ -115,8 +116,6 @@ public class CachingCodecFactory implements CodecFactory {
     this.listener = listener;
   }
 
-  // JavaDoc inherited
-
   /**
    * Creates the.
    *
@@ -142,20 +141,18 @@ public class CachingCodecFactory implements CodecFactory {
       result = delegate.create(metadata, type, context);
       if (result == null) {
         return null;
-      } else {
-        listener.constructed(result);
-        holder.set(result);
-        return result;
       }
-    } else {
-      if (result instanceof CodecHolder) {
-        CodecHolder<T> holder = (CodecHolder<T>) result;
-        if (holder.get() == null) {
-          return null;
-        }
-      }
+      listener.constructed(result);
+      holder.set(result);
       return result;
     }
+    if (result instanceof CodecHolder) {
+      CodecHolder<T> holder = (CodecHolder<T>) result;
+      if (holder.get() == null) {
+        return null;
+      }
+    }
+    return result;
   }
 
   /**
@@ -325,7 +322,6 @@ public class CachingCodecFactory implements CodecFactory {
         return false;
       } else {
         Key key = (Key) obj;
-        // TODO: Add ResolverContext
         return ((metadata == null && key.metadata == null)
             || AnnotationUtils.equivalent(metadata, key.metadata))
             && ((type == null && key.type == null) || type.equals(key.type));
@@ -338,7 +334,6 @@ public class CachingCodecFactory implements CodecFactory {
      */
     @Override
     public int hashCode() {
-      // TODO: Add ResolverContext
       int result = 7;
       result =
           result * 31 + (metadata == null ? 0 : AnnotationUtils.calculateHashCode(metadata));

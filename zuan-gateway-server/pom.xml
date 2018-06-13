@@ -95,7 +95,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>com.zuan.gateway.ZuanGatewayServerApplication</mainClass>
+							<mainClass>com.zuan.gateway.GatewayServerApplication</mainClass>
 							<addClasspath>true</addClasspath>
 							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
 						</manifest>

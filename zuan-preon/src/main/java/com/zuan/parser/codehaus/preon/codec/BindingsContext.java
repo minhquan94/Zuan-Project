@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.zuan.parser.codehaus.preon.Resolver;
 import com.zuan.parser.codehaus.preon.ResolverContext;
 import com.zuan.parser.codehaus.preon.binding.Binding;
@@ -29,6 +32,9 @@ import com.zuan.parser.codehaus.preon.util.ParaContentsDocument;
  */
 public class BindingsContext implements ObjectResolverContext {
 
+  /** The Constant LOGGER. */
+  private static final Logger LOGGER = LoggerFactory.getLogger(BindingsContext.class);
+
   /** All {@link Binding}s. */
   private List<Binding> orderedBindings;
 
@@ -41,37 +47,34 @@ public class BindingsContext implements ObjectResolverContext {
   /**
    * Constructs a new instance.
    *
-   * @param type
-   *          the type
    * @param outer
    *          The "outer" {@link ResolverContext}.
    */
-  public BindingsContext(Class< ? > type, ResolverContext outer) {
+  public BindingsContext(ResolverContext outer) {
     this.orderedBindings = new ArrayList<>();
     this.bindingsByName = new HashMap<>();
     this.outer = outer;
   }
 
-  /*
-   * (non-Javadoc)
-   * @see org.codehaus.preon.el.ObjectResolverContext#add(java.lang.String,
-   * org.codehaus.preon.binding.Binding)
+  /**
+   * {@inheritDoc}
+   * 
+   * @see com.zuan.parser.codehaus.preon.el.ObjectResolverContext#add(java.lang.String,
+   *      com.zuan.parser.codehaus.preon.binding.Binding)
    */
-
   @Override
   public void add(String name, Binding binding) {
     orderedBindings.add(binding);
     bindingsByName.put(name, binding);
   }
 
-  /*
-   * (non-Javadoc)
-   * @see
-   * org.codehaus.preon.el.ReferenceContext#selectAttribute(java.lang.String)
+  /**
+   * {@inheritDoc}
+   * 
+   * @see com.zuan.parser.codehaus.preon.el.ReferenceContext#selectAttribute(java.lang.String)
    */
-
   @Override
-  public Reference<Resolver> selectAttribute(String name) throws BindingException {
+  public Reference<Resolver> selectAttribute(String name) {
     if ("outer".equals(name)) {
       return new OuterReference(outer, this);
     } else {
@@ -84,37 +87,33 @@ public class BindingsContext implements ObjectResolverContext {
     }
   }
 
-  /*
-   * (non-Javadoc)
-   * @see org.codehaus.preon.el.ReferenceContext#selectItem(java.lang.String)
+  /**
+   * {@inheritDoc}
+   * 
+   * @see com.zuan.parser.codehaus.preon.el.ReferenceContext#selectItem(java.lang.String)
    */
-
   @Override
-  public Reference<Resolver> selectItem(String index) throws BindingException {
+  public Reference<Resolver> selectItem(String index) {
     throw new BindingException("Cannot resolve index on BindingContext.");
   }
 
-  /*
-   * (non-Javadoc)
-   * @see
-   * org.codehaus.preon.el.ReferenceContext#selectItem(org.codehaus.preon.el.
-   * Expression)
+  /**
+   * {@inheritDoc}
+   * 
+   * @see com.zuan.parser.codehaus.preon.el.ReferenceContext#selectItem(com.zuan.parser.codehaus.preon.el.Expression)
    */
-
   @Override
-  public Reference<Resolver> selectItem(Expression<Integer, Resolver> index)
-      throws BindingException {
+  public Reference<Resolver> selectItem(Expression<Integer, Resolver> index) {
     StringBuilder builder = new StringBuilder();
     index.document(new StringBuilderDocument(builder));
     throw new BindingException("Cannot resolve index on BindingContext.");
   }
 
-  /*
-   * (non-Javadoc)
-   * @see
-   * org.codehaus.preon.el.Descriptive#document(org.codehaus.preon.el.Document)
+  /**
+   * {@inheritDoc}
+   * 
+   * @see com.zuan.parser.codehaus.preon.el.Descriptive#document(com.zuan.parser.codehaus.preon.el.Document)
    */
-
   @Override
   public void document(Document target) {
     if (bindingsByName.size() > 0) {
@@ -132,23 +131,22 @@ public class BindingsContext implements ObjectResolverContext {
     }
   }
 
-  /*
-   * (non-Javadoc)
-   * @see
-   * org.codehaus.preon.el.ObjectResolverContext#getResolver(java.lang.Object ,
-   * org.codehaus.preon.Resolver)
+  /**
+   * {@inheritDoc}
+   * 
+   * @see com.zuan.parser.codehaus.preon.el.ObjectResolverContext#getResolver(java.lang.Object,
+   *      com.zuan.parser.codehaus.preon.Resolver)
    */
-
   @Override
   public Resolver getResolver(Object context, Resolver resolver) {
     return new BindingsResolver(context, resolver);
   }
 
-  /*
-   * (non-Javadoc)
-   * @see org.codehaus.preon.el.ObjectResolverContext#getBindings()
+  /**
+   * {@inheritDoc}
+   * 
+   * @see com.zuan.parser.codehaus.preon.el.ObjectResolverContext#getBindings()
    */
-
   @Override
   public List<Binding> getBindings() {
     return orderedBindings;
@@ -177,11 +175,6 @@ public class BindingsContext implements ObjectResolverContext {
       commonType = binding.getType();
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.codehaus.preon.el.Reference#getReferenceContext()
-     */
-
     /**
      * Gets the reference context.
      *
@@ -191,11 +184,6 @@ public class BindingsContext implements ObjectResolverContext {
     public ResolverContext getReferenceContext() {
       return BindingsContext.this;
     }
-
-    /*
-     * (non-Javadoc)
-     * @see org.codehaus.preon.el.Reference#isAssignableTo(java.lang.Class)
-     */
 
     /**
      * Checks if is assignable to.
@@ -217,11 +205,6 @@ public class BindingsContext implements ObjectResolverContext {
       return false;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.codehaus.preon.el.Reference#resolve(java.lang.Object)
-     */
-
     /**
      * Resolve.
      *
@@ -238,12 +221,6 @@ public class BindingsContext implements ObjectResolverContext {
         throw new BindingException("Failed to bind to " + binding.getName(), e);
       }
     }
-
-    /*
-     * (non-Javadoc)
-     * @see
-     * org.codehaus.preon.el.ReferenceContext#selectAttribute(java.lang.String)
-     */
 
     /**
      * Select attribute.
@@ -263,19 +240,15 @@ public class BindingsContext implements ObjectResolverContext {
               .add(new PropertyReference(this, bound, name, BindingsContext.this, false));
         } catch (BindingException be) {
           // Ok, let's skip this one.
+          LOGGER.error("", be);
         }
       }
-      if (references.size() == 0) {
+      if (references.isEmpty()) {
         throw new BindingException("Attribute " + name + " not defined for any type.");
       } else {
         return new MultiReference<>(references.toArray(template));
       }
     }
-
-    /*
-     * (non-Javadoc)
-     * @see org.codehaus.preon.el.ReferenceContext#selectItem(java.lang.String)
-     */
 
     /**
      * Select item.
@@ -291,13 +264,6 @@ public class BindingsContext implements ObjectResolverContext {
 
       return selectItem(expr);
     }
-
-    /*
-     * (non-Javadoc)
-     * @see
-     * org.codehaus.preon.el.ReferenceContext#selectItem(org.codehaus.preon.el.
-     * Expression )
-     */
 
     /**
      * Select item.
@@ -325,12 +291,6 @@ public class BindingsContext implements ObjectResolverContext {
       }
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.codehaus.preon.el.Descriptive#document(org.codehaus.preon.el.
-     * Document)
-     */
-
     /**
      * Document.
      *
@@ -342,11 +302,6 @@ public class BindingsContext implements ObjectResolverContext {
     public void document(final Document target) {
       binding.writeReference(new ParaContentsDocument(target));
     }
-
-    /*
-     * (non-Javadoc)
-     * @see org.codehaus.preon.el.Reference#getType()
-     */
 
     /**
      * Gets the type.
@@ -431,11 +386,6 @@ public class BindingsContext implements ObjectResolverContext {
       this.outer = outer;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.codehaus.preon.Resolver#get(java.lang.String)
-     */
-
     /**
      * Gets the.
      *
@@ -447,30 +397,23 @@ public class BindingsContext implements ObjectResolverContext {
     public Object get(String name) {
       if ("outer".equals(name)) {
         return outer;
-      } else {
+      }
+      if (context == null) {
+        StringBuilderDocument document = new StringBuilderDocument();
+        throw new BindingException(
+            "Failed to resolve " + document.toString() + " due to incomplete context.");
+      }
 
-        if (bindingsByName.containsKey(name)) {
-          Binding binding = bindingsByName.get(name);
-
-          if (context == null) {
-            StringBuilderDocument document = new StringBuilderDocument();
-            // TODO:
-            // binding.describe(new ParaContentsDocument(document));
-            throw new BindingException(
-                "Failed to resolve " + document.toString() + " due to incomplete context.");
-          }
-
-          try {
-            return binding.get(context);
-          } catch (IllegalArgumentException e) {
-            throw new BindingException("Failed to bind to " + binding.getName(), e);
-          } catch (IllegalAccessException e) {
-            throw new BindingException("Forbidded to access " + binding.getName(), e);
-          }
-        } else {
-          throw new BindingException(
-              "Failed to resolve " + name + " on " + context.getClass());
-        }
+      if (!bindingsByName.containsKey(name)) {
+        throw new BindingException("Failed to resolve " + name + " on " + context.getClass());
+      }
+      Binding binding = bindingsByName.get(name);
+      try {
+        return binding.get(context);
+      } catch (IllegalArgumentException e) {
+        throw new BindingException("Failed to bind to " + binding.getName(), e);
+      } catch (IllegalAccessException e) {
+        throw new BindingException("Forbidded to access " + binding.getName(), e);
       }
     }
 

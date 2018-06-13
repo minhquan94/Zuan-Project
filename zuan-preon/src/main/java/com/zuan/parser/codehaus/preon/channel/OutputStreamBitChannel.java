@@ -219,7 +219,8 @@ public class OutputStreamBitChannel implements BitChannel, Closeable {
    * @see com.zuan.parser.codehaus.preon.channel.BitChannel#getRelativeBitPos()
    */
   @Override
-  public @Nonnegative int getRelativeBitPos() {
+  @Nonnegative
+  public int getRelativeBitPos() {
     return bitPos;
   }
 

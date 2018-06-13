@@ -6,7 +6,9 @@ package com.zuan.parser.imp;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.zuan.parser.ParserConfiguration;
 import com.zuan.parser.imp.exception.ParserException;
+import com.zuan.parser.signal.SignalInfomation;
 
 /**
  * The Class ParserConfigurationImpl.
@@ -19,7 +21,7 @@ public class ParserConfigurationImpl implements ParserConfiguration {
   private static final long serialVersionUID = 1L;
 
   /** The signals. */
-  private final ArrayList<SignalConfiguration> signals;
+  private final ArrayList<SignalInfomation> signals;
 
   /**
    * Instantiates a new parser config.
@@ -32,11 +34,11 @@ public class ParserConfigurationImpl implements ParserConfiguration {
    * {@inheritDoc}
    * 
    * @throws ParserException
-   * @see com.ParserConfig.virdict.parser.ParserConfiguration#addSignal(com.gcs.virdict.parser.SignalConfiguration)
+   * @see com.zuan.parser.ParserConfig.virdict.parser.ParserConfiguration#addSignal(com.zuan.parser.signal.SdSignalConfiguration.virdict.parser.SignalConfiguration)
    */
   @Override
-  public void addSignal(final SignalConfiguration signal) throws ParserException {
-    signal.validateConfiguration();
+  public void addSignal(final SignalInfomation signal) throws ParserException {
+    signal.initialize();
     this.signals.add(signal);
 
   }
@@ -44,10 +46,10 @@ public class ParserConfigurationImpl implements ParserConfiguration {
   /**
    * {@inheritDoc}
    * 
-   * @see com.ParserConfig.virdict.parser.ParserConfiguration#getSignals()
+   * @see com.zuan.parser.ParserConfig.virdict.parser.ParserConfiguration#getSignals()
    */
   @Override
-  public List<SignalConfiguration> getSignals() {
+  public List<SignalInfomation> getSignals() {
     return this.signals;
   }
 }

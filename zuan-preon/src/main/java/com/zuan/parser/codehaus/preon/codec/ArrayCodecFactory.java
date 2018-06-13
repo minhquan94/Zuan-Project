@@ -73,11 +73,11 @@ public class ArrayCodecFactory implements CodecFactory {
   @SuppressWarnings("unchecked")
   public <T> Codec<T> create(AnnotatedElement metadata, Class<T> type,
       ResolverContext context) {
-    BoundList settings = null;
+    BoundList settings;
     if (metadata != null && (settings = metadata.getAnnotation(BoundList.class)) != null
         && type.isArray() && settings.size() != null && settings.size().length() != 0) {
       Expression<Integer, Resolver> expr = getSizeExpression(settings, context);
-      Codec<Object> elementCodec = null;
+      Codec<Object> elementCodec;
       if (type.getComponentType().isPrimitive()) {
         elementCodec = (Codec<Object>) factory.create(null, type.getComponentType(), context);
       } else {
@@ -101,7 +101,6 @@ public class ArrayCodecFactory implements CodecFactory {
    */
   private BoundObject getObjectSettings(final BoundList settings) {
     return new BoundObject() {
-
       @Override
       public Class< ? > type() {
         return settings.type();
@@ -142,7 +141,7 @@ public class ArrayCodecFactory implements CodecFactory {
    *           the codec construction exception
    */
   private Expression<Integer, Resolver> getSizeExpression(BoundList listSettings,
-      ResolverContext context) throws CodecConstructionException {
+      ResolverContext context) {
     try {
       return Expressions.createInteger(context, listSettings.size());
     } catch (InvalidExpressionException ece) {

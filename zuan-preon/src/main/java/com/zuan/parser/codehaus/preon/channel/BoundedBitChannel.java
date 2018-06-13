@@ -149,13 +149,13 @@ public class BoundedBitChannel implements BitChannel {
 	 */
 	@Override
 	public long write(ByteBuffer buffer) throws IOException {
-		long written = channel.write(buffer);
-		if (written > maxBits - this.written) {
+    long w = channel.write(buffer);
+		if (w > maxBits - this.written) {
 			throw new IOException(OVERRUN_MESSAGE);
 		} else {
-			this.written += written;
+			this.written += w;
 		}
-		return written;
+		return w;
 	}
 
 	/*

@@ -5,31 +5,29 @@ package com.zuan.parser.utils;
 
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
-import org.apache.commons.lang3.StringUtils;
+import javax.annotation.Nonnull;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.util.CollectionUtils;
 
-import com.zuan.data.messages.HeaderInformationMess;
-import com.zuan.data.messages.sd.SdHeaderInformation;
+import com.zuan.data.messages.Header;
+import com.zuan.data.messages.sd.SdHeader;
 import com.zuan.data.messages.sd.SdMessage;
-import com.zuan.data.model.SdSignalData;
-import com.zuan.data.model.SdSignalValue;
+import com.zuan.data.model.SignalData;
+import com.zuan.data.model.SignalValue;
+import com.zuan.parser.Parser;
+import com.zuan.parser.ParserConfiguration;
 import com.zuan.parser.codehaus.preon.Codec;
 import com.zuan.parser.codehaus.preon.Codecs;
 import com.zuan.parser.codehaus.preon.DecodingException;
-import com.zuan.parser.common.SdLength;
-import com.zuan.parser.imp.Parser;
-import com.zuan.parser.imp.ParserConfiguration;
 import com.zuan.parser.imp.ParserConfigurationImpl;
+import com.zuan.parser.imp.ParserImp;
 import com.zuan.parser.imp.ParserMetaData;
-import com.zuan.parser.imp.SdParserImp;
 import com.zuan.parser.imp.exception.ParserException;
 
 /**
@@ -46,15 +44,10 @@ public final class ParserUtils {
   private static final int BITS_PER_BYTE = 8;
 
   /** The Constant HEADER_CODEC : codec of HeaderInformationMess. */
-  private static final Codec<HeaderInformationMess> HEADER_CODEC =
-      Codecs.create(HeaderInformationMess.class);
+  private static final Codec<Header> HEADER_CODEC = Codecs.create(Header.class);
 
   /** The Constant SD_HEADER_CODEC. */
-  private static final Codec<SdHeaderInformation> SD_HEADER_CODEC =
-      Codecs.create(SdHeaderInformation.class);
-
-  /** The Constant SD_NUMBER_POSITION. */
-  private static final int SD_NUMBER_POSITION = 12;
+  private static final Codec<SdHeader> SD_HEADER_CODEC = Codecs.create(SdHeader.class);
 
   /** The Constant OBS_HEADER_SIZE. */
   private static final int OBS_HEADER_SIZE;
@@ -67,7 +60,7 @@ public final class ParserUtils {
   }
 
   /** The parser. */
-  private static final Parser PARSER = new SdParserImp();
+  private static final Parser PARSER = new ParserImp();
 
   /**
    * Instantiates a new parser utils.
@@ -77,129 +70,33 @@ public final class ParserUtils {
   }
 
   /**
-   * Gets the sd object value.
-   *
-   * @param sdBinary
-   *          the sd binary
-   * @param trainProject
-   *          the train project
-   * @param signals
-   *          the signals
-   * @param mapLength
-   *          the map length
-   * @return the sd object value
-   * @throws ParserException
-   *           the parser exception
-   */
-  public static Set<SdSignalValue> getSdObjectValue(final byte[] sdBinary,
-      final String trainProject, final List<SdSignalData> signals,
-      final List<SdLength> mapLength) throws ParserException {
-    return getSdObjectValue(sdBinary, null, trainProject, signals, SD_NUMBER_POSITION,
-        mapLength);
-  }
-
-  /**
-   * Gets the sd object value.
-   *
-   * @param sdBinary
-   *          the sd binary
-   * @param trainProject
-   *          the train project
-   * @param signals
-   *          the signals
-   * @param sdNumberPosition
-   *          the sd number position
-   * @param mapLength
-   *          the map length
-   * @return the sd object value
-   * @throws ParserException
-   *           the parser exception
-   */
-  public static Set<SdSignalValue> getSdObjectValue(final byte[] sdBinary,
-      final String trainProject, final List<SdSignalData> signals, final int sdNumberPosition,
-      final List<SdLength> mapLength) throws ParserException {
-    return getSdObjectValue(sdBinary, null, trainProject, signals, sdNumberPosition,
-        mapLength);
-  }
-
-  /**
-   * Gets the sd object value.
-   *
-   * @param sdBinary
-   *          the sd binary
-   * @param signalCode
-   *          the signal code
-   * @param trainProject
-   *          the train project
-   * @param signals
-   *          the signals
-   * @param mapLength
-   *          the map length
-   * @return the sd object value
-   * @throws ParserException
-   *           the parser exception
-   */
-  public static Set<SdSignalValue> getSdObjectValue(final byte[] sdBinary,
-      final Set<String> signalCode, final String trainProject,
-      final List<SdSignalData> signals, final List<SdLength> mapLength)
-      throws ParserException {
-    return getSdObjectValue(sdBinary, signalCode, trainProject, signals, SD_NUMBER_POSITION,
-        mapLength);
-  }
-
-  /**
    * Gets the sd value.
    *
-   * @param sdBinary
-   *          the sd binary
-   * @param signalCode
-   *          the signal code
-   * @param trainProject
-   *          the train project
+   * @param binary
+   *          the binary
    * @param signals
    *          the signals
-   * @param sdNumberPosition
-   *          the sd number position
-   * @param mapLength
-   *          the map length
+   * @param length
+   *          the length
    * @return the sd value
    * @throws ParserException
    *           the parser exception
    */
-  public static Set<SdSignalValue> getSdObjectValue(final byte[] sdBinary,
-      final Set<String> signalCode, final String trainProject,
-      final List<SdSignalData> signals, final int sdNumberPosition,
-      final List<SdLength> mapLength) throws ParserException {
-    final Set<SdSignalValue> reval = new HashSet<>();
-    // Get SD Number
-    int sdNumber = sdBinary[sdNumberPosition];
-    int sdLength = 0;
-    for (SdLength e : mapLength) {
-      if (e.getTrainProject().equalsIgnoreCase(trainProject)) {
-        sdLength = e.getMapping().get(String.valueOf(sdNumber));
-        break;
-      }
-    }
-    if (sdBinary.length != sdLength) {
-      LOGGER.error("Invalid SD{} length {} != {}", sdNumber, sdBinary.length, sdLength);
-      return reval;
+  public static Set<SignalValue> getSignalValues(@Nonnull final byte[] binary,
+      final List<SignalData> signals, final int length) throws ParserException {
+    if (binary.length != length) {
+      throw new ParserException(
+          "Binaty length is invalid: " + binary.length + " != " + length);
     }
     final ParserConfiguration parserConfiguration = new ParserConfigurationImpl();
     signals.forEach(signal -> {
       try {
-        final boolean isValidSdNumber =
-            StringUtils.equals(String.valueOf(sdNumber), signal.getOriginatingFile());
-        final boolean isFilterSignal =
-            CollectionUtils.isEmpty(signalCode) || (!CollectionUtils.isEmpty(signalCode)
-                && signalCode.contains(signal.getSignalCode()));
-        if (isValidSdNumber && isFilterSignal) {
-          parserConfiguration.addSignal(new ParserMetaData(signal));
-        }
+        parserConfiguration.addSignal(new ParserMetaData(signal));
       } catch (Exception e) { // NOSONAR
         LOGGER.warn("{}", e.getMessage());
       }
     });
-    return PARSER.parseEntireDataToSet(sdBinary, parserConfiguration);
+    return PARSER.parseEntireDataToSet(binary, parserConfiguration);
   }
 
   /**
@@ -240,8 +137,7 @@ public final class ParserUtils {
    * @throws ParserException
    *           the parser exception
    */
-  public static HeaderInformationMess decodeHeader(final byte[] buffer)
-      throws ParserException {
+  public static Header decodeHeader(final byte[] buffer) throws ParserException {
     try {
       return Codecs.decode(HEADER_CODEC, buffer);
     } catch (DecodingException e) {
@@ -318,8 +214,7 @@ public final class ParserUtils {
    * @throws ParserException
    *           the parser exception
    */
-  public static SdHeaderInformation parseSdDataHeaderInfo(byte[] buffer)
-      throws ParserException {
+  public static SdHeader parseSdDataHeaderInfo(byte[] buffer) throws ParserException {
     try {
       return Codecs.decode(SD_HEADER_CODEC, buffer);
     } catch (DecodingException e) {

@@ -9,12 +9,18 @@ import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.file.Paths;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * The Class DefaultBitBuffer.
  *
  * @author zuan_
  */
 public class DefaultBitBuffer implements BitBuffer {
+
+  /** The Constant LOGGER. */
+  private static final Logger LOGGER = LoggerFactory.getLogger(DefaultBitBuffer.class);
 
   /** The byte buffer. */
   private ByteBuffer byteBuffer;
@@ -59,25 +65,22 @@ public class DefaultBitBuffer implements BitBuffer {
    *          the file name
    */
   public DefaultBitBuffer(String fileName) {
-
-    try (FileInputStream fis = new FileInputStream(Paths.get(fileName).toFile());
+    try (final FileInputStream fis = new FileInputStream(Paths.get(fileName).toFile());
         FileChannel fc = fis.getChannel()) {
-
       // Get the file's size and then map it into memory
       int fileSize = (int) fc.size();
       ByteBuffer inputByteBuffer = fc.map(FileChannel.MapMode.READ_ONLY, 0, fileSize);
-
       this.byteBuffer = inputByteBuffer;
       bitBufBitSize = ((long) (inputByteBuffer.capacity())) << 3;
       bitPos = 0;
-
     } catch (IOException e) {
-      e.printStackTrace();
+      LOGGER.error("", e);
     }
   }
 
-  /*
-   * (non-Javadoc)
+  /**
+   * {@inheritDoc}
+   * 
    * @see com.zuan.parser.codehaus.preon.buffer.BitBuffer#setBitPos(long)
    */
   @Override
@@ -85,10 +88,9 @@ public class DefaultBitBuffer implements BitBuffer {
     this.bitPos = bitPos;
   }
 
-  // JavaDoc inherited
-
-  /*
-   * (non-Javadoc)
+  /**
+   * {@inheritDoc}
+   * 
    * @see com.zuan.parser.codehaus.preon.buffer.BitBuffer#getBitPos()
    */
   @Override
@@ -96,10 +98,9 @@ public class DefaultBitBuffer implements BitBuffer {
     return this.bitPos;
   }
 
-  // JavaDoc inherited
-
-  /*
-   * (non-Javadoc)
+  /**
+   * {@inheritDoc}
+   * 
    * @see com.zuan.parser.codehaus.preon.buffer.BitBuffer#getBitBufBitSize()
    */
   @Override
@@ -107,12 +108,9 @@ public class DefaultBitBuffer implements BitBuffer {
     return bitBufBitSize;
   }
 
-  // readBits
-
-  // JavaDoc inherited
-
-  /*
-   * (non-Javadoc)
+  /**
+   * {@inheritDoc}
+   * 
    * @see com.zuan.parser.codehaus.preon.buffer.BitBuffer#readBits(int)
    */
   @Override
@@ -120,10 +118,9 @@ public class DefaultBitBuffer implements BitBuffer {
     return readAsLong(nrBits);
   }
 
-  // JavaDoc inherited
-
-  /*
-   * (non-Javadoc)
+  /**
+   * {@inheritDoc}
+   * 
    * @see com.zuan.parser.codehaus.preon.buffer.BitBuffer#readBits(long, int)
    */
   @Override
@@ -131,24 +128,22 @@ public class DefaultBitBuffer implements BitBuffer {
     return readAsLong(bitPos, nrBits);
   }
 
-  // JavaDoc inherited
-
-  /*
-   * (non-Javadoc)
+  /**
+   * {@inheritDoc}
+   * 
    * @see com.zuan.parser.codehaus.preon.buffer.BitBuffer#readBits(int,
-   * com.zuan.parser.codehaus.preon.buffer.ByteOrder)
+   *      com.zuan.parser.codehaus.preon.buffer.ByteOrder)
    */
   @Override
   public long readBits(int nrBits, ByteOrder byteOrder) {
     return readAsLong(nrBits, byteOrder);
   }
 
-  // JavaDoc inherited
-
-  /*
-   * (non-Javadoc)
+  /**
+   * {@inheritDoc}
+   * 
    * @see com.zuan.parser.codehaus.preon.buffer.BitBuffer#readBits(long, int,
-   * com.zuan.parser.codehaus.preon.buffer.ByteOrder)
+   *      com.zuan.parser.codehaus.preon.buffer.ByteOrder)
    */
   @Override
   public long readBits(long bitPos, int nrBits, ByteOrder byteOrder) {
@@ -166,12 +161,9 @@ public class DefaultBitBuffer implements BitBuffer {
     }
   }
 
-  // boolean
-
-  // JavaDoc inherited
-
-  /*
-   * (non-Javadoc)
+  /**
+   * {@inheritDoc}
+   * 
    * @see com.zuan.parser.codehaus.preon.buffer.BitBuffer#readAsBoolean()
    */
   @Override
@@ -181,8 +173,9 @@ public class DefaultBitBuffer implements BitBuffer {
 
   // JavaDoc inherited
 
-  /*
-   * (non-Javadoc)
+  /**
+   * {@inheritDoc}
+   * 
    * @see com.zuan.parser.codehaus.preon.buffer.BitBuffer#readAsBoolean(long)
    */
   @Override
@@ -190,36 +183,30 @@ public class DefaultBitBuffer implements BitBuffer {
     return readAsBoolean(bitPos, ByteOrder.BIG_ENDIAN);
   }
 
-  // JavaDoc inherited
-
-  /*
-   * (non-Javadoc)
-   * @see com.zuan.parser.codehaus.preon.buffer.BitBuffer#readAsBoolean(com.
-   * zuan.parser.codehaus.preon.buffer.ByteOrder)
+  /**
+   * {@inheritDoc}
+   * 
+   * @see com.zuan.parser.codehaus.preon.buffer.BitBuffer#readAsBoolean(com.zuan.parser.codehaus.preon.buffer.ByteOrder)
    */
   @Override
   public boolean readAsBoolean(ByteOrder byteOrder) {
     return readAsBoolean(bitPos, byteOrder);
   }
 
-  // JavaDoc inherited
-
-  /*
-   * (non-Javadoc)
+  /**
+   * {@inheritDoc}
+   * 
    * @see com.zuan.parser.codehaus.preon.buffer.BitBuffer#readAsBoolean(long,
-   * com.zuan.parser.codehaus.preon.buffer.ByteOrder)
+   *      com.zuan.parser.codehaus.preon.buffer.ByteOrder)
    */
   @Override
   public boolean readAsBoolean(long bitPos, ByteOrder byteOrder) {
     return getResultAsInt(bitPos, 1, byteOrder, 1) == 1;
   }
 
-  // signed byte
-
-  // JavaDoc inherited
-
-  /*
-   * (non-Javadoc)
+  /**
+   * {@inheritDoc}
+   * 
    * @see com.zuan.parser.codehaus.preon.buffer.BitBuffer#readAsByte(int)
    */
   @Override
@@ -227,22 +214,20 @@ public class DefaultBitBuffer implements BitBuffer {
     return readAsByte(bitPos, nrBits, ByteOrder.BIG_ENDIAN);
   }
 
-  // JavaDoc inherited
-
-  /*
-   * (non-Javadoc)
+  /**
+   * {@inheritDoc}
+   * 
    * @see com.zuan.parser.codehaus.preon.buffer.BitBuffer#readAsByte(int,
-   * com.zuan.parser.codehaus.preon.buffer.ByteOrder)
+   *      com.zuan.parser.codehaus.preon.buffer.ByteOrder)
    */
   @Override
   public byte readAsByte(int nrBits, ByteOrder byteOrder) {
     return readAsByte(bitPos, nrBits, byteOrder);
   }
 
-  // JavaDoc inherited
-
-  /*
-   * (non-Javadoc)
+  /**
+   * {@inheritDoc}
+   * 
    * @see com.zuan.parser.codehaus.preon.buffer.BitBuffer#readAsByte(int, long)
    */
   @Override
@@ -250,23 +235,20 @@ public class DefaultBitBuffer implements BitBuffer {
     return readAsByte(bitPos, nrBits, ByteOrder.BIG_ENDIAN);
   }
 
-  // JavaDoc inherited
-
-  /*
-   * (non-Javadoc)
+  /**
+   * {@inheritDoc}
+   * 
    * @see com.zuan.parser.codehaus.preon.buffer.BitBuffer#readAsByte(long, int,
-   * com.zuan.parser.codehaus.preon.buffer.ByteOrder)
+   *      com.zuan.parser.codehaus.preon.buffer.ByteOrder)
    */
   @Override
   public byte readAsByte(long bitPos, int nrBits, ByteOrder byteOrder) {
     return (byte) getResultAsInt(bitPos, nrBits, byteOrder, 8);
   }
 
-  // signed short
-  // JavaDoc inherited
-
-  /*
-   * (non-Javadoc)
+  /**
+   * {@inheritDoc}
+   * 
    * @see com.zuan.parser.codehaus.preon.buffer.BitBuffer#readAsShort(int)
    */
   @Override
@@ -274,10 +256,9 @@ public class DefaultBitBuffer implements BitBuffer {
     return readAsShort(bitPos, nrBits, ByteOrder.BIG_ENDIAN);
   }
 
-  // JavaDoc inherited
-
-  /*
-   * (non-Javadoc)
+  /**
+   * {@inheritDoc}
+   * 
    * @see com.zuan.parser.codehaus.preon.buffer.BitBuffer#readAsShort(long, int)
    */
   @Override
@@ -285,36 +266,31 @@ public class DefaultBitBuffer implements BitBuffer {
     return readAsShort(bitPos, nrBits, ByteOrder.BIG_ENDIAN);
   }
 
-  // JavaDoc inherited
-
-  /*
-   * (non-Javadoc)
+  /**
+   * {@inheritDoc}
+   * 
    * @see com.zuan.parser.codehaus.preon.buffer.BitBuffer#readAsShort(int,
-   * com.zuan.parser.codehaus.preon.buffer.ByteOrder)
+   *      com.zuan.parser.codehaus.preon.buffer.ByteOrder)
    */
   @Override
   public short readAsShort(int nrBits, ByteOrder byteOrder) {
     return readAsShort(bitPos, nrBits, byteOrder);
   }
 
-  // JavaDoc inherited
-
-  /*
-   * (non-Javadoc)
+  /**
+   * {@inheritDoc}
+   * 
    * @see com.zuan.parser.codehaus.preon.buffer.BitBuffer#readAsShort(long, int,
-   * com.zuan.parser.codehaus.preon.buffer.ByteOrder)
+   *      com.zuan.parser.codehaus.preon.buffer.ByteOrder)
    */
   @Override
   public short readAsShort(long bitPos, int nrBits, ByteOrder byteOrder) {
     return (short) getResultAsInt(bitPos, nrBits, byteOrder, 16);
   }
 
-  // signed int
-
-  // JavaDoc inherited
-
-  /*
-   * (non-Javadoc)
+  /**
+   * {@inheritDoc}
+   * 
    * @see com.zuan.parser.codehaus.preon.buffer.BitBuffer#readAsInt(int)
    */
   @Override
@@ -322,10 +298,9 @@ public class DefaultBitBuffer implements BitBuffer {
     return readAsInt(bitPos, nrBits, ByteOrder.BIG_ENDIAN);
   }
 
-  // JavaDoc inherited
-
-  /*
-   * (non-Javadoc)
+  /**
+   * {@inheritDoc}
+   * 
    * @see com.zuan.parser.codehaus.preon.buffer.BitBuffer#readAsInt(long, int)
    */
   @Override
@@ -333,24 +308,22 @@ public class DefaultBitBuffer implements BitBuffer {
     return readAsInt(bitPos, nrBits, ByteOrder.BIG_ENDIAN);
   }
 
-  // JavaDoc inherited
-
-  /*
-   * (non-Javadoc)
+  /**
+   * {@inheritDoc}
+   * 
    * @see com.zuan.parser.codehaus.preon.buffer.BitBuffer#readAsInt(int,
-   * com.zuan.parser.codehaus.preon.buffer.ByteOrder)
+   *      com.zuan.parser.codehaus.preon.buffer.ByteOrder)
    */
   @Override
   public int readAsInt(int nrBits, ByteOrder byteOrder) {
     return readAsInt(bitPos, nrBits, byteOrder);
   }
 
-  // JavaDoc inherited
-
-  /*
-   * (non-Javadoc)
+  /**
+   * {@inheritDoc}
+   * 
    * @see com.zuan.parser.codehaus.preon.buffer.BitBuffer#readAsInt(long, int,
-   * com.zuan.parser.codehaus.preon.buffer.ByteOrder)
+   *      com.zuan.parser.codehaus.preon.buffer.ByteOrder)
    */
   @Override
   public int readAsInt(long bitPos, int nrBits, ByteOrder byteOrder) {
@@ -361,12 +334,9 @@ public class DefaultBitBuffer implements BitBuffer {
     }
   }
 
-  // signed long
-
-  // JavaDoc inherited
-
-  /*
-   * (non-Javadoc)
+  /**
+   * {@inheritDoc}
+   * 
    * @see com.zuan.parser.codehaus.preon.buffer.BitBuffer#readAsLong(int)
    */
   @Override
@@ -374,10 +344,9 @@ public class DefaultBitBuffer implements BitBuffer {
     return readAsLong(bitPos, nrBits, ByteOrder.BIG_ENDIAN);
   }
 
-  // JavaDoc inherited
-
-  /*
-   * (non-Javadoc)
+  /**
+   * {@inheritDoc}
+   * 
    * @see com.zuan.parser.codehaus.preon.buffer.BitBuffer#readAsLong(long, int)
    */
   @Override
@@ -385,31 +354,27 @@ public class DefaultBitBuffer implements BitBuffer {
     return readAsLong(bitPos, nrBits, ByteOrder.BIG_ENDIAN);
   }
 
-  // JavaDoc inherited
-
-  /*
-   * (non-Javadoc)
+  /**
+   * {@inheritDoc}
+   * 
    * @see com.zuan.parser.codehaus.preon.buffer.BitBuffer#readAsLong(int,
-   * com.zuan.parser.codehaus.preon.buffer.ByteOrder)
+   *      com.zuan.parser.codehaus.preon.buffer.ByteOrder)
    */
   @Override
   public long readAsLong(int nrBits, ByteOrder byteOrder) {
     return readAsLong(bitPos, nrBits, byteOrder);
   }
 
-  // JavaDoc inherited
-
-  /*
-   * (non-Javadoc)
+  /**
+   * {@inheritDoc}
+   * 
    * @see com.zuan.parser.codehaus.preon.buffer.BitBuffer#readAsLong(long, int,
-   * com.zuan.parser.codehaus.preon.buffer.ByteOrder)
+   *      com.zuan.parser.codehaus.preon.buffer.ByteOrder)
    */
   @Override
   public long readAsLong(long bitPos, int nrBits, ByteOrder byteOrder) {
     return getResultAsLong(bitPos, nrBits, byteOrder, 64);
   }
-
-  // private methods
 
   /**
    * Return the minimum number of bytes that are necessary to be read in order
@@ -438,9 +403,12 @@ public class DefaultBitBuffer implements BitBuffer {
    * @param byteOrder
    *          the byte order
    * @return shifted integer buffer
+   * @throws BitBufferException
+   *           the bit buffer exception
    */
   private static int getRightShiftedNumberBufAsInt(int numberBuf, long bitPos, int nrBits,
       ByteOrder byteOrder) {
+
     // number of bits integer buffer needs to be shifted to the right in
     // order to reach the last bit in last byte
     long shiftBits;
@@ -449,6 +417,7 @@ public class DefaultBitBuffer implements BitBuffer {
     } else {
       shiftBits = bitPos % 8;
     }
+
     return numberBuf >> shiftBits;
   }
 
@@ -465,6 +434,8 @@ public class DefaultBitBuffer implements BitBuffer {
    * @param byteOrder
    *          the byte order
    * @return shifted integer buffer
+   * @throws BitBufferException
+   *           the bit buffer exception
    */
   private static long getRightShiftedNumberBufAsLong(long numberBuf, long bitPos, int nrBits,
       ByteOrder byteOrder) {
@@ -477,6 +448,7 @@ public class DefaultBitBuffer implements BitBuffer {
     } else {
       shiftBits = bitPos % 8;
     }
+
     return numberBuf >> shiftBits;
   }
 
@@ -524,6 +496,7 @@ public class DefaultBitBuffer implements BitBuffer {
    * @return value of all read bytes, containing specified bits
    */
   private long getNumberBufAsLong(ByteOrder byteOrder, int nrReadBytes, int firstBytePos) {
+
     long result = 0L;
     long bytePortion;
     for (int i = 0; i < nrReadBytes; i++) {
@@ -691,6 +664,11 @@ public class DefaultBitBuffer implements BitBuffer {
 
   // JavaDoc inherited
 
+  /**
+   * {@inheritDoc}
+   * 
+   * @see com.zuan.parser.codehaus.preon.buffer.BitBuffer#slice(long)
+   */
   /*
    * (non-Javadoc)
    * @see com.zuan.parser.codehaus.preon.buffer.BitBuffer#slice(long)
@@ -704,6 +682,11 @@ public class DefaultBitBuffer implements BitBuffer {
 
   // JavaDoc inherited
 
+  /**
+   * {@inheritDoc}
+   * 
+   * @see com.zuan.parser.codehaus.preon.buffer.BitBuffer#duplicate()
+   */
   /*
    * (non-Javadoc)
    * @see com.zuan.parser.codehaus.preon.buffer.BitBuffer#duplicate()
@@ -713,12 +696,17 @@ public class DefaultBitBuffer implements BitBuffer {
     return new DefaultBitBuffer(byteBuffer.duplicate(), bitBufBitSize, bitPos);
   }
 
+  /**
+   * {@inheritDoc}
+   * 
+   * @see com.zuan.parser.codehaus.preon.buffer.BitBuffer#readAsByteBuffer(int)
+   */
   /*
    * (non-Javadoc)
    * @see com.zuan.parser.codehaus.preon.buffer.BitBuffer#readAsByteBuffer(int)
    */
   @Override
-  public ByteBuffer readAsByteBuffer(int length) throws BitBufferUnderflowException {
+  public ByteBuffer readAsByteBuffer(int length) {
 
     if ((this.bitPos % 8) != 0) {
       throw new BitBufferException(
@@ -742,6 +730,11 @@ public class DefaultBitBuffer implements BitBuffer {
     return slicedByteBuffer;
   }
 
+  /**
+   * {@inheritDoc}
+   * 
+   * @see com.zuan.parser.codehaus.preon.buffer.BitBuffer#readAsByteBuffer()
+   */
   /*
    * (non-Javadoc)
    * @see com.zuan.parser.codehaus.preon.buffer.BitBuffer#readAsByteBuffer()
@@ -781,8 +774,9 @@ public class DefaultBitBuffer implements BitBuffer {
     return slicedByteBuffer;
   }
 
-  /*
-   * (non-Javadoc)
+  /**
+   * {@inheritDoc}
+   * 
    * @see com.zuan.parser.codehaus.preon.buffer.BitBuffer#getActualBitPos()
    */
   @Override

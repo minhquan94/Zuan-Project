@@ -37,6 +37,13 @@ public class InitCodecDecorator implements CodecDecorator {
    * org.codehaus.preon.ResolverContext)
    */
 
+  /**
+   * {@inheritDoc}
+   * 
+   * @see com.zuan.parser.codehaus.preon.CodecDecorator#decorate(com.zuan.parser.codehaus.preon.Codec,
+   *      java.lang.reflect.AnnotatedElement, java.lang.Class,
+   *      com.zuan.parser.codehaus.preon.ResolverContext)
+   */
   @Override
   public <T> Codec<T> decorate(Codec<T> decorated, AnnotatedElement metadata, Class<T> type,
       ResolverContext context) {
@@ -80,12 +87,6 @@ public class InitCodecDecorator implements CodecDecorator {
       this.method = method;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.codehaus.preon.Codec#decode(org.codehaus.preon.buffer.BitBuffer,
-     * org.codehaus.preon.Resolver, org.codehaus.preon.Builder)
-     */
-
     /**
      * Decode.
      *
@@ -107,12 +108,11 @@ public class InitCodecDecorator implements CodecDecorator {
         try {
           method.invoke(result);
         } catch (IllegalArgumentException e) {
-          throw new DecodingException("Failed to invoke init method.");
+          throw new DecodingException("Failed to invoke init method: " + e);
         } catch (IllegalAccessException e) {
-          throw new DecodingException("Failed to invoke init method.");
+          throw new DecodingException("Failed to invoke init method " + e);
         } catch (InvocationTargetException e) {
-          e.printStackTrace();
-          throw new DecodingException("Failed to invoke init method.");
+          throw new DecodingException("Failed to invoke init method " + e);
         }
       }
       return result;
@@ -135,11 +135,6 @@ public class InitCodecDecorator implements CodecDecorator {
       codec.encode(value, channel, resolver);
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.codehaus.preon.Codec#getTypes()
-     */
-
     /**
      * Gets the types.
      *
@@ -149,11 +144,6 @@ public class InitCodecDecorator implements CodecDecorator {
     public Class< ? >[] getTypes() {
       return codec.getTypes();
     }
-
-    /*
-     * (non-Javadoc)
-     * @see org.codehaus.preon.Codec#getSize()
-     */
 
     /**
      * Gets the size.
@@ -185,19 +175,52 @@ public class InitCodecDecorator implements CodecDecorator {
       return new PassThroughCodecDescriptor2(codec.getCodecDescriptor(), true);
     }
 
-    /*
-     * (non-Javadoc)
-     * @see java.lang.Object#equals(java.lang.Object)
+    /**
+     * {@inheritDoc}
+     * 
+     * @see java.lang.Object#hashCode()
      */
     @Override
+    public int hashCode() {
+      final int prime = 31;
+      int result = 1;
+      result = prime * result + getOuterType().hashCode();
+      result = prime * result + ((codec == null) ? 0 : codec.hashCode());
+      return result;
+    }
+
+    /**
+     * {@inheritDoc}
+     * 
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @SuppressWarnings("rawtypes")
+    @Override
     public boolean equals(Object obj) {
-      if (codec != null) {
-        return codec.equals(obj);
-      }
-      if (this == obj) {
+      if (this == obj)
         return true;
-      }
-      return false;
+      if (obj == null)
+        return false;
+      if (getClass() != obj.getClass())
+        return false;
+      InitCodec other = (InitCodec) obj;
+      if (!getOuterType().equals(other.getOuterType()))
+        return false;
+      if (codec == null) {
+        if (other.codec != null)
+          return false;
+      } else if (!codec.equals(other.codec))
+        return false;
+      return true;
+    }
+
+    /**
+     * Gets the outer type.
+     *
+     * @return the outer type
+     */
+    private InitCodecDecorator getOuterType() {
+      return InitCodecDecorator.this;
     }
 
   }

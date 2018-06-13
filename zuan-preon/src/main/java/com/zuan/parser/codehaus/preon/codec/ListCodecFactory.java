@@ -102,12 +102,6 @@ public class ListCodecFactory implements CodecFactory {
    * @return the codec
    */
   @Override
-  /*
-   * (non-Javadoc)
-   * @see
-   * org.codehaus.preon.CodecFactory#create(java.lang.reflect.AnnotatedElement,
-   * java.lang.Class, org.codehaus.preon.ResolverContext)
-   */
   @SuppressWarnings({"unchecked", "rawtypes" })
   public <T> Codec<T> create(AnnotatedElement metadata, Class<T> type,
       ResolverContext context) {
@@ -134,31 +128,25 @@ public class ListCodecFactory implements CodecFactory {
         Codec<T> result = new OffsetListCodec(offsets, size, codec);
         holder.setDescriptor(result.getCodecDescriptor());
         return result;
-      } else {
-        // In this case, there may be a size (number of elements) set,
-        // but the size of the individual may not be constant. The size
-        // of the individual elements may be determined by some
-        // variables read upstream, so we won't know if the size is a
-        // constant until we actually start decoding the List.
-
-        Expression<Integer, Resolver> expr = getSizeExpression(settings, context);
-        Expression<Integer, Resolver> elementSize = codec.getSize();
-        if (elementSize != null
-            && (!elementSize.isParameterized() || elementSize.isConstantFor(context))) {
-          if (!elementSize.isParameterized()) {
-            return new StaticListCodec(expr, codec, elementSize);
-          } else {
-            elementSize = elementSize.rescope(context);
-            return new StaticListCodec(expr.rescope(context), codec, elementSize);
-          }
-        } else {
-          return new DynamicListCodec(codec);
-        }
       }
-    } else {
-      return null;
+      // In this case, there may be a size (number of elements) set,
+      // but the size of the individual may not be constant. The size
+      // of the individual elements may be determined by some
+      // variables read upstream, so we won't know if the size is a
+      // constant until we actually start decoding the List.
+      Expression<Integer, Resolver> expr = getSizeExpression(settings, context);
+      Expression<Integer, Resolver> elementSize = codec.getSize();
+      if (elementSize != null
+          && (!elementSize.isParameterized() || elementSize.isConstantFor(context))) {
+        if (!elementSize.isParameterized()) {
+          return new StaticListCodec(expr, codec, elementSize);
+        }
+        elementSize = elementSize.rescope(context);
+        return new StaticListCodec(expr.rescope(context), codec, elementSize);
+      }
+      return new DynamicListCodec(codec);
     }
-
+    return null;
   }
 
   /**
@@ -448,7 +436,7 @@ public class ListCodecFactory implements CodecFactory {
    *           the codec construction exception
    */
   private Expression<Integer, Resolver> getSizeExpression(BoundList listSettings,
-      ResolverContext context) throws CodecConstructionException {
+      ResolverContext context) {
     return Expressions.createInteger(context, listSettings.size());
   }
 
@@ -504,7 +492,6 @@ public class ListCodecFactory implements CodecFactory {
         }
       } catch (BitBufferUnderflowException oore) {
         // Trying to read beyond the end of the file.
-        // TODO: Make a difference between failing half-way and failing
         // starting to read the next element.
       } catch (DecodingException de) {
         // So we can't decode the element. Maybe it's no longer an
@@ -594,8 +581,9 @@ public class ListCodecFactory implements CodecFactory {
         public <C extends SimpleContents< ? >> Documenter<C> details(
             final String bufferReference) {
           return target -> {
-            target.para().text(
-                "The number of elements in the list is unknown at forehand. The codec will just decode as many elements as the buffer allows to decode.")
+            target.para()
+                .text(
+                    "The number of elements in the list is unknown at forehand. The codec will just decode as many elements as the buffer allows to decode.")
                 .end();
             if (!codec.getCodecDescriptor().requiresDedicatedSection()) {
               target.document(codec.getCodecDescriptor().details(bufferReference));
@@ -766,7 +754,7 @@ public class ListCodecFactory implements CodecFactory {
     private ResolverContext context;
 
     /** The Constant INDEX. */
-    final public static String INDEX = "index";
+    public static final String INDEX = "index";
 
     /** The descriptor. */
     private CodecDescriptor descriptor;
@@ -791,11 +779,6 @@ public class ListCodecFactory implements CodecFactory {
      *          the name
      * @return the reference
      */
-    /*
-     * (non-Javadoc)
-     * @see
-     * org.codehaus.preon.el.ReferenceContext#selectAttribute(java.lang.String)
-     */
     @Override
     public Reference<Resolver> selectAttribute(String name) {
       if (INDEX.equals(name)) {
@@ -812,10 +795,6 @@ public class ListCodecFactory implements CodecFactory {
      *          the index
      * @return the reference
      */
-    /*
-     * (non-Javadoc)
-     * @see org.codehaus.preon.el.ReferenceContext#selectItem(java.lang.String)
-     */
     @Override
     public Reference<Resolver> selectItem(String index) {
       return new ContextReplacingReference(this, context.selectItem(index));
@@ -828,12 +807,6 @@ public class ListCodecFactory implements CodecFactory {
      *          the index
      * @return the reference
      */
-    /*
-     * (non-Javadoc)
-     * @see
-     * org.codehaus.preon.el.ReferenceContext#selectItem(org.codehaus.preon.el.
-     * Expression)
-     */
     @Override
     public Reference<Resolver> selectItem(Expression<Integer, Resolver> index) {
       return new ContextReplacingReference(this, context.selectItem(index));
@@ -844,11 +817,6 @@ public class ListCodecFactory implements CodecFactory {
      *
      * @param target
      *          the target
-     */
-    /*
-     * (non-Javadoc)
-     * @see org.codehaus.preon.el.Descriptive#document(org.codehaus.preon.el.
-     * Document)
      */
     @Override
     public void document(Document target) {
@@ -901,10 +869,6 @@ public class ListCodecFactory implements CodecFactory {
        *          the type
        * @return true, if is assignable to
        */
-      /*
-       * (non-Javadoc)
-       * @see org.codehaus.preon.el.Reference#isAssignableTo(java.lang.Class)
-       */
       @Override
       public boolean isAssignableTo(Class< ? > type) {
         return Integer.class.isAssignableFrom(type);
@@ -916,10 +880,6 @@ public class ListCodecFactory implements CodecFactory {
        * @param context
        *          the context
        * @return the object
-       */
-      /*
-       * (non-Javadoc)
-       * @see org.codehaus.preon.el.Reference#resolve(java.lang.Object)
        */
       @Override
       public Object resolve(Resolver context) {
@@ -933,11 +893,6 @@ public class ListCodecFactory implements CodecFactory {
        *          the name
        * @return the reference
        */
-      /*
-       * (non-Javadoc)
-       * @see org.codehaus.preon.el.ReferenceContext#selectAttribute(java.lang.
-       * String)
-       */
       @Override
       public Reference<Resolver> selectAttribute(String name) {
         throw new BindingException("No attribute selection allowed.");
@@ -949,11 +904,6 @@ public class ListCodecFactory implements CodecFactory {
        * @param index
        *          the index
        * @return the reference
-       */
-      /*
-       * (non-Javadoc)
-       * @see
-       * org.codehaus.preon.el.ReferenceContext#selectItem(java.lang.String)
        */
       @Override
       public Reference<Resolver> selectItem(String index) {
@@ -967,12 +917,6 @@ public class ListCodecFactory implements CodecFactory {
        *          the index
        * @return the reference
        */
-      /*
-       * (non-Javadoc)
-       * @see
-       * org.codehaus.preon.el.ReferenceContext#selectItem(org.codehaus.preon.
-       * el. Expression)
-       */
       @Override
       public Reference<Resolver> selectItem(Expression<Integer, Resolver> index) {
         throw new BindingException("No item selection allowed.");
@@ -983,11 +927,6 @@ public class ListCodecFactory implements CodecFactory {
        *
        * @param target
        *          the target
-       */
-      /*
-       * (non-Javadoc)
-       * @see org.codehaus.preon.el.Descriptive#document(org.codehaus.preon.el.
-       * Document)
        */
       @Override
       public void document(Document target) {
@@ -1001,10 +940,6 @@ public class ListCodecFactory implements CodecFactory {
        *
        * @return the type
        */
-      /*
-       * (non-Javadoc)
-       * @see org.codehaus.preon.el.Reference#getType()
-       */
       @Override
       public Class< ? > getType() {
         return Integer.class;
@@ -1016,10 +951,6 @@ public class ListCodecFactory implements CodecFactory {
        * @param type
        *          the type
        * @return the reference
-       */
-      /*
-       * (non-Javadoc)
-       * @see org.codehaus.preon.el.Reference#narrow(java.lang.Class)
        */
       @Override
       public Reference<Resolver> narrow(Class< ? > type) {
@@ -1037,11 +968,6 @@ public class ListCodecFactory implements CodecFactory {
        *          the resolver reference context
        * @return true, if is based on
        */
-      /*
-       * (non-Javadoc)
-       * @see org.codehaus.preon.el.Reference#isBasedOn(org.codehaus.preon.el.
-       * ReferenceContext)
-       */
       @Override
       public boolean isBasedOn(ReferenceContext<Resolver> resolverReferenceContext) {
         return false;
@@ -1053,11 +979,6 @@ public class ListCodecFactory implements CodecFactory {
        * @param resolverReferenceContext
        *          the resolver reference context
        * @return the reference
-       */
-      /*
-       * (non-Javadoc)
-       * @see org.codehaus.preon.el.Reference#rescope(org.codehaus.preon.el.
-       * ReferenceContext)
        */
       @Override
       public Reference<Resolver> rescope(ReferenceContext<Resolver> resolverReferenceContext) {
@@ -1096,10 +1017,6 @@ public class ListCodecFactory implements CodecFactory {
      *          the name
      * @return the object
      */
-    /*
-     * (non-Javadoc)
-     * @see org.codehaus.preon.Resolver#get(java.lang.String)
-     */
     @Override
     public Object get(String name) {
       if (IndexedResolverContext.INDEX.equals(name)) {
@@ -1108,10 +1025,6 @@ public class ListCodecFactory implements CodecFactory {
         return resolver.get(name);
       }
     }
-
-    // public Resolver getOuter() {
-    // // return resolver.getOuter();
-    // }
 
     /**
      * Sets the index.
@@ -1127,10 +1040,6 @@ public class ListCodecFactory implements CodecFactory {
      * Gets the original resolver.
      *
      * @return the original resolver
-     */
-    /*
-     * (non-Javadoc)
-     * @see org.codehaus.preon.Resolver#getOriginalResolver()
      */
     @Override
     public Resolver getOriginalResolver() {
@@ -1195,11 +1104,6 @@ public class ListCodecFactory implements CodecFactory {
      * @throws DecodingException
      *           the decoding exception
      */
-    /*
-     * (non-Javadoc)
-     * @see org.codehaus.preon.Codec#decode(org.codehaus.preon.buffer.BitBuffer,
-     * org.codehaus.preon.Resolver, org.codehaus.preon.Builder)
-     */
     @Override
     public List<T> decode(BitBuffer buffer, Resolver resolver, Builder builder)
         throws DecodingException {
@@ -1212,7 +1116,7 @@ public class ListCodecFactory implements CodecFactory {
         int offset = offsets.eval(indexResolver);
         if (i < maxSize - 1) {
           indexResolver.setIndex(i + 1);
-          int nextOffset = offsets.eval(indexResolver); // - 1;
+          int nextOffset = offsets.eval(indexResolver);
           buffer.setBitPos(curPos + offset);
           T value = codec.decode(new SlicedBitBuffer(buffer, nextOffset - offset), resolver,
               builder);
@@ -1235,11 +1139,6 @@ public class ListCodecFactory implements CodecFactory {
      * @param resolver
      *          the resolver
      */
-    /*
-     * (non-Javadoc)
-     * @see org.codehaus.preon.Codec#encode(java.lang.Object,
-     * org.codehaus.preon.channel.BitChannel, org.codehaus.preon.Resolver)
-     */
     @Override
     public void encode(List<T> value, BitChannel channel, Resolver resolver) {
       throw new UnsupportedOperationException();
@@ -1249,10 +1148,6 @@ public class ListCodecFactory implements CodecFactory {
      * Gets the types.
      *
      * @return the types
-     */
-    /*
-     * (non-Javadoc)
-     * @see org.codehaus.preon.Codec#getTypes()
      */
     @Override
     public Class< ? >[] getTypes() {
@@ -1264,10 +1159,6 @@ public class ListCodecFactory implements CodecFactory {
      *
      * @return the size
      */
-    /*
-     * (non-Javadoc)
-     * @see org.codehaus.preon.Codec#getSize()
-     */
     @Override
     public Expression<Integer, Resolver> getSize() {
       return size;
@@ -1278,10 +1169,6 @@ public class ListCodecFactory implements CodecFactory {
      *
      * @return the type
      */
-    /*
-     * (non-Javadoc)
-     * @see org.codehaus.preon.Codec#getType()
-     */
     @Override
     public Class< ? > getType() {
       return List.class;
@@ -1291,10 +1178,6 @@ public class ListCodecFactory implements CodecFactory {
      * Gets the codec descriptor.
      *
      * @return the codec descriptor
-     */
-    /*
-     * (non-Javadoc)
-     * @see org.codehaus.preon.Codec#getCodecDescriptor()
      */
     @Override
     public CodecDescriptor getCodecDescriptor() {

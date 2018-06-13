@@ -21,6 +21,7 @@ import org.slf4j.LoggerFactory;
 import com.zuan.parser.codehaus.preon.buffer.BitBuffer;
 import com.zuan.parser.codehaus.preon.buffer.BitBufferUnderflowException;
 import com.zuan.parser.codehaus.preon.buffer.DefaultBitBuffer;
+import com.zuan.parser.signal.SignalInfomation;
 
 /**
  * The Class BitBufferFacility.
@@ -133,7 +134,7 @@ public final class BitBufferFacility {
    *          the signal
    * @return the long
    */
-  public static long calculateBitPos(final SignalConfiguration signal) {
+  public static long calculateBitPos(final SignalInfomation signal) {
     return (long) signal.getByteOffset() * BIT_PER_BYTE + signal.getBitOffset();
   }
 
@@ -158,7 +159,7 @@ public final class BitBufferFacility {
    * @return true, if successful
    */
   public static boolean checkAvailableData(final BitBuffer buffer,
-      final SignalConfiguration signal) {
+      final SignalInfomation signal) {
     return (buffer.getBitBufBitSize() - signal.getByteOffset() * BIT_PER_BYTE
         - signal.getBitOffset()) >= signal.getBitLength();
   }
@@ -175,7 +176,7 @@ public final class BitBufferFacility {
    * @return true, if successful
    */
   public static boolean checkAvailableData(final BitBuffer buffer,
-      final SignalConfiguration signal, final long bitPos) {
+      final SignalInfomation signal, final long bitPos) {
     return buffer.getBitBufBitSize() - (bitPos + signal.getBitLength()) >= 0;
   }
 

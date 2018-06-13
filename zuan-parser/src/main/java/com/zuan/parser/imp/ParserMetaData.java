@@ -3,14 +3,16 @@
  */
 package com.zuan.parser.imp;
 
-import com.zuan.data.model.SdSignalData;
+import com.zuan.data.model.SignalData;
+import com.zuan.parser.ValueType;
+import com.zuan.parser.signal.SdSignalInformation;
 
 /**
  * The Class ParserMetaData.
  *
  * @author <a href="mailto:developer@hitachiconsulting.com">quanmd.nv</a>
  */
-public class ParserMetaData extends SignalConfiguration {
+public class ParserMetaData extends SdSignalInformation {
 
   /** The Constant serialVersionUID. */
   private static final long serialVersionUID = 6758899203845335933L;
@@ -41,7 +43,7 @@ public class ParserMetaData extends SignalConfiguration {
    * @param signalData
    *          the entity
    */
-  public ParserMetaData(final SdSignalData signalData) {
+  public ParserMetaData(final SignalData signalData) {
     setParserMetaData(signalData);
   }
 
@@ -51,7 +53,7 @@ public class ParserMetaData extends SignalConfiguration {
    * @param signalData
    *          the new data
    */
-  private void setParserMetaData(final SdSignalData signalData) {
+  private void setParserMetaData(final SignalData signalData) {
     setSignalCode(signalData.getSignalCode());
     setSignalName(signalData.getSignalName());
     setByteOffset(signalData.getByteOffset());
@@ -70,9 +72,8 @@ public class ParserMetaData extends SignalConfiguration {
   /**
    * {@inheritDoc}
    * 
-   * @see com.gcs.virdict.parser.SignalConfiguration#getOriginatingFile()
+   * @see com.zuan.parser.signal.SdSignalInformation.virdict.parser.SignalInfomation#getOriginatingFile()
    */
-  @Override
   public String getOriginatingFile() {
     return originatingFile;
   }
@@ -80,9 +81,8 @@ public class ParserMetaData extends SignalConfiguration {
   /**
    * {@inheritDoc}
    * 
-   * @see com.gcs.virdict.parser.SignalConfiguration#setOriginatingFile(java.lang.String)
+   * @see com.zuan.parser.signal.SdSignalInformation.virdict.parser.SignalInfomation#setOriginatingFile(java.lang.String)
    */
-  @Override
   public void setOriginatingFile(final String originatingFile) {
     this.originatingFile = originatingFile;
   }

@@ -98,11 +98,9 @@ public class FixedLengthStringCodec implements Codec<String> {
     String result;
     result = encoding.decode(bytebuffer).toString();
     result = result.trim(); // remove padding characters
-    if (match.length() > 0) {
-      if (!match.equals(result)) {
-        throw new DecodingException(new IllegalStateException(
-            "Expected \"" + match + "\", but got \"" + result + "\"."));
-      }
+    if (match.length() > 0 && !match.equals(result)) {
+      throw new DecodingException(new IllegalStateException(
+          "Expected \"" + match + "\", but got \"" + result + "\"."));
     }
     return result;
   }

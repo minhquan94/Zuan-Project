@@ -55,9 +55,8 @@ public class BoundBufferCodecFactory implements CodecFactory {
         && metadata.isAnnotationPresent(BoundBuffer.class)) {
       return (Codec<T>) new BoundBufferCodec(
           metadata.getAnnotation(BoundBuffer.class).match());
-    } else {
-      return null;
     }
+    return null;
   }
 
   /**

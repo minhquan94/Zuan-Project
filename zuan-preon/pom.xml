@@ -1,5 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.zuan</groupId>
@@ -11,14 +10,22 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-
 		<!-- Version -->
 		<java.version>1.8</java.version>
 		<spring.shell.version>2.0.1.RELEASE</spring.shell.version>
 		<mvel.version>2.4.0.Final</mvel.version>
-		<sqlserver.version>4.0</sqlserver.version>
+		<jsr305.version>3.0.2</jsr305.version>
+		<woodstox-osgi.version>3.2.1.1</woodstox-osgi.version>
+		<antlr-runtime.version>3.5.2</antlr-runtime.version>
 	</properties>
 	<dependencies>
+		<!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-slf4j-impl -->
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-slf4j-impl</artifactId>
+			<version>2.11.0</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.mvel</groupId>
 			<artifactId>mvel2</artifactId>
@@ -28,18 +35,18 @@
 		<dependency>
 			<groupId>com.ctc.wstx</groupId>
 			<artifactId>woodstox-osgi</artifactId>
-			<version>3.2.1.1</version>
+			<version>${woodstox-osgi.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.code.findbugs</groupId>
 			<artifactId>jsr305</artifactId>
-			<version>1.3.9</version>
+			<version>${jsr305.version}</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.antlr/antlr-runtime -->
 		<dependency>
 			<groupId>org.antlr</groupId>
 			<artifactId>antlr-runtime</artifactId>
-			<version>3.5.2</version>
+			<version>${antlr-runtime.version}</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/cglib/cglib -->
 		<dependency>
@@ -110,8 +117,8 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
 				</configuration>
 			</plugin>
 			<plugin>

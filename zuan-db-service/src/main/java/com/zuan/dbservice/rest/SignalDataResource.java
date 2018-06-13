@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.zuan.data.entities.SignalConfigurationEntity;
-import com.zuan.data.model.SdSignalData;
+import com.zuan.data.model.SignalData;
 import com.zuan.dbservice.server.SignalDataServer;
 
 /**
@@ -37,13 +37,13 @@ public class SignalDataResource {
    * @return the signal data by train
    */
   @GetMapping("/{train-project}")
-  public List<SdSignalData> getSignalDataByTrain(
+  public List<SignalData> getSignalDataByTrain(
       @PathVariable("train-project") final String trainProject) {
     final List<SignalConfigurationEntity> signalDataByTrain =
         signalDataService.getSignalDataByTrain(trainProject);
     if (CollectionUtils.isEmpty(signalDataByTrain)) {
       return new ArrayList<>();
     }
-    return signalDataByTrain.stream().map(SdSignalData::new).collect(Collectors.toList());
+    return signalDataByTrain.stream().map(SignalData::new).collect(Collectors.toList());
   }
 }

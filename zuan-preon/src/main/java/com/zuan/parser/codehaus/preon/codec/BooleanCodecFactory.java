@@ -35,7 +35,6 @@ public class BooleanCodecFactory implements CodecFactory {
    * org.codehaus.preon.CodecFactory#create(java.lang.reflect.AnnotatedElement,
    * java.lang.Class, org.codehaus.preon.ResolverContext)
    */
-
   @Override
   @SuppressWarnings("unchecked")
   public <T> Codec<T> create(AnnotatedElement metadata, Class<T> type,
@@ -45,12 +44,9 @@ public class BooleanCodecFactory implements CodecFactory {
         return (Codec<T>) new BooleanCodec(true);
       } else if (Boolean.class.equals(type)) {
         return (Codec<T>) new BooleanCodec(false);
-      } else {
-        return null;
       }
-    } else {
-      return null;
     }
+    return null;
   }
 
   /**
@@ -106,6 +102,7 @@ public class BooleanCodecFactory implements CodecFactory {
         @Override
         public <T extends SimpleContents< ? >> Documenter<T> details(String bufferReference) {
           return target -> {
+            // do nothing
           };
         }
 
