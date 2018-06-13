@@ -23,9 +23,8 @@ spring:
     dialect: org.hibernate.dialect.SQLServer2012Dialect
 eureka:
   instance:
-    hostname: localhost
     preferIpAddress: true
   client:
     fetchRegistry: true
     serviceUrl:
-      defaultZone: ${EUREKA_URI:http://eureka.server.com:8761/eureka}
+      defaultZone: ${EUREKA_URI:http://35.186.154.84:8761/eureka}

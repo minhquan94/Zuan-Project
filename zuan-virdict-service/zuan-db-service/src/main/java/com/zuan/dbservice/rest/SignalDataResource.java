@@ -39,6 +39,7 @@ public class SignalDataResource {
   @GetMapping("/{train-project}")
   public List<SignalData> getSignalDataByTrain(
       @PathVariable("train-project") final String trainProject) {
+    System.out.println("`````````````````11111111111111`````````````````````");
     final List<SignalConfigurationEntity> signalDataByTrain =
         signalDataService.getSignalDataByTrain(trainProject);
     if (CollectionUtils.isEmpty(signalDataByTrain)) {

@@ -14,18 +14,6 @@ eureka:
 spring:
   application:
     name: gateway-api
-  cloud:
-    gateway:
-      discovery:
-        locator:
-          enabled: true
-      routes:
-      - id: db-service
-        uri: lb://db-service
-        predicates:
-        - Path=/db-service/**
-        filters:
-        - RewritePath=/db-service/(?.*), /$\{path}
 security:
   basic:
     enable: false

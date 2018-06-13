@@ -5,8 +5,7 @@ package com.zuan.cloud.gateway;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
-import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 /**
  * The Class ZuanGatewayServerApplication.
@@ -14,8 +13,7 @@ import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
  * @author <a href="mailto:developer@hitachiconsulting.com">zuan_</a>
  */
 @SpringBootApplication
-@EnableZuulProxy
-@EnableEurekaClient
+@EnableDiscoveryClient
 public class GatewayServerApplication {
 
   /**
