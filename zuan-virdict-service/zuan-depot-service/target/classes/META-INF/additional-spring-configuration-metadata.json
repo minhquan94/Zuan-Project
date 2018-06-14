@@ -1,0 +1,17 @@
+{"properties": [
+  {
+    "name": "depot.verticles",
+    "type": "java.lang.String",
+    "description": "A description for 'depot.verticles'"
+  },
+  {
+    "name": "depot.host",
+    "type": "java.lang.String",
+    "description": "A description for 'depot.host'"
+  },
+  {
+    "name": "depot.port",
+    "type": "java.lang.String",
+    "description": "A description for 'depot.port'"
+  }
+]}

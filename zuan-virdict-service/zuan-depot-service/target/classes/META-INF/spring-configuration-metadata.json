@@ -1,0 +1,47 @@
+{
+  "hints": [],
+  "groups": [
+    {
+      "sourceType": "com.zuan.depot.configuration.DepotConfiguration",
+      "name": "depot",
+      "type": "com.zuan.depot.configuration.DepotConfiguration"
+    },
+    {
+      "sourceType": "com.zuan.depot.configuration.ObsConfiguration",
+      "name": "obs",
+      "type": "com.zuan.depot.configuration.ObsConfiguration"
+    }
+  ],
+  "properties": [
+    {
+      "sourceType": "com.zuan.depot.configuration.DepotConfiguration",
+      "name": "depot.host",
+      "description": "A description for 'depot.host'",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.zuan.depot.configuration.DepotConfiguration",
+      "name": "depot.port",
+      "description": "A description for 'depot.port'",
+      "type": "java.lang.Integer"
+    },
+    {
+      "sourceType": "com.zuan.depot.configuration.DepotConfiguration",
+      "name": "depot.verticles",
+      "description": "A description for 'depot.verticles'",
+      "type": "java.util.Set<java.lang.String>"
+    },
+    {
+      "sourceType": "com.zuan.depot.configuration.ObsConfiguration",
+      "name": "obs.host",
+      "description": "The host.",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.zuan.depot.configuration.ObsConfiguration",
+      "name": "obs.port",
+      "description": "The port.",
+      "type": "java.lang.Integer"
+    }
+  ]
+}

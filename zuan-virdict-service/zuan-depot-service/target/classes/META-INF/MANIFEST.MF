@@ -1,0 +1,31 @@
+Manifest-Version: 1.0
+Implementation-Title: zuan-depot-service
+Implementation-Version: 1.0.0-SNAPSHOT
+Built-By: zuan_
+Implementation-Vendor-Id: com.zuan
+Class-Path: spring-boot-starter-2.0.1.RELEASE.jar spring-boot-2.0.1.RE
+ LEASE.jar spring-context-5.0.5.RELEASE.jar spring-aop-5.0.5.RELEASE.j
+ ar spring-beans-5.0.5.RELEASE.jar spring-expression-5.0.5.RELEASE.jar
+  spring-boot-autoconfigure-2.0.1.RELEASE.jar javax.annotation-api-1.3
+ .2.jar spring-core-5.0.5.RELEASE.jar spring-jcl-5.0.5.RELEASE.jar sna
+ keyaml-1.19.jar spring-boot-starter-log4j2-2.0.1.RELEASE.jar log4j-sl
+ f4j-impl-2.10.0.jar slf4j-api-1.7.25.jar log4j-api-2.10.0.jar log4j-c
+ ore-2.10.0.jar jul-to-slf4j-1.7.25.jar vertx-unit-3.5.0.jar vertx-cor
+ e-3.5.0.jar netty-common-4.1.23.Final.jar netty-buffer-4.1.23.Final.j
+ ar netty-transport-4.1.23.Final.jar netty-handler-4.1.23.Final.jar ne
+ tty-codec-4.1.23.Final.jar netty-handler-proxy-4.1.23.Final.jar netty
+ -codec-socks-4.1.23.Final.jar netty-codec-http-4.1.23.Final.jar netty
+ -codec-http2-4.1.23.Final.jar netty-resolver-4.1.23.Final.jar netty-r
+ esolver-dns-4.1.23.Final.jar netty-codec-dns-4.1.23.Final.jar jackson
+ -core-2.9.5.jar jackson-databind-2.9.5.jar jackson-annotations-2.9.0.
+ jar vertx-service-discovery-3.5.0.jar vertx-reactive-streams-3.5.0.ja
+ r reactive-streams-1.0.2.jar spring-boot-configuration-processor-2.0.
+ 1.RELEASE.jar
+Main-Class: com.zuan.depot.DepotServiceApplication
+Implementation-Vendor: 
+SCM-Revision: 
+Implementation-Build: 
+Build-Jdk: 1.8.0_172
+Created-By: Maven Integration for Eclipse
+Implementation-URL: 
+

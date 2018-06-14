@@ -1,0 +1,24 @@
+{
+  "hints": [],
+  "groups": [
+    {
+      "sourceType": "com.zuan.obs.configuration.DepotConfiguration",
+      "name": "depot",
+      "type": "com.zuan.obs.configuration.DepotConfiguration"
+    }
+  ],
+  "properties": [
+    {
+      "sourceType": "com.zuan.obs.configuration.DepotConfiguration",
+      "name": "depot.host",
+      "description": "The host.",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.zuan.obs.configuration.DepotConfiguration",
+      "name": "depot.port",
+      "description": "The port.",
+      "type": "java.lang.Integer"
+    }
+  ]
+}
