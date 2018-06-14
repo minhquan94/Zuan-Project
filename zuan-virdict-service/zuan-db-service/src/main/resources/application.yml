@@ -21,6 +21,13 @@ spring:
       hibernate:
         default_schema: HRE
     dialect: org.hibernate.dialect.SQLServer2012Dialect
+  boot:
+    admin:
+      client:
+        url:
+        - http://localhost:8080
+        username: admin
+        password: admin
 eureka:
   instance:
     preferIpAddress: true
@@ -28,3 +35,10 @@ eureka:
     fetchRegistry: true
     serviceUrl:
       defaultZone: ${EUREKA_URI:http://35.186.154.84:8761/eureka}
+management:
+  security:
+    enabled: false
+  endpoints:
+    web:
+      exposure:
+        include: '*'

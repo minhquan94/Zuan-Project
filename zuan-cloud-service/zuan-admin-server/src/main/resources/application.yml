@@ -1,0 +1,27 @@
+info:
+  app:
+    name: admin-server
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: ALWAYS
+spring:
+  application:
+    name: admin-server
+  security:
+    user:
+      name: admin
+      password: admin
+eureka:
+  instance:
+    leaseRenewalIntervalInSeconds: 10
+    health-check-url-path: /actuator/health
+  client:
+    registryFetchIntervalSeconds: 5
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://35.186.154.84:8761/eureka}
