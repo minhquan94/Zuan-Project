@@ -4,3 +4,9 @@ spring:
   cloud:
     config:
       uri: http://localhost:8700
+      cloud-admin:
+        production:
+          eureka:
+            instance:
+              hostname: localhost
+              preferIpAddress: false

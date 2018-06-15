@@ -4,8 +4,9 @@ spring:
   cloud:
     config:
       server:
-        git:
-          url: config
+        native:
+          search-locations:
+          - config
   boot:
     admin:
       client:
