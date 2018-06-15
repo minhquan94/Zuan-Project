@@ -13,3 +13,10 @@ eureka:
 spring:
   application:
     name: discovery-service
+  boot:
+    admin:
+      client:
+        url:
+        - http://localhost:8088
+        username: admin
+        password: admin

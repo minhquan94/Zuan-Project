@@ -6,4 +6,17 @@ spring:
       server:
         git:
           url: config
-         
+  boot:
+    admin:
+      client:
+        url:
+        - http://localhost:8080
+        username: admin
+        password: admin
+management:
+  security:
+    enabled: false
+  endpoints:
+    web:
+      exposure:
+        include: '*'

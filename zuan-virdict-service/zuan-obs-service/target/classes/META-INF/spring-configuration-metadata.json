@@ -5,6 +5,11 @@
       "sourceType": "com.zuan.obs.configuration.DepotConfiguration",
       "name": "depot",
       "type": "com.zuan.obs.configuration.DepotConfiguration"
+    },
+    {
+      "sourceType": "com.zuan.obs.configuration.ObsConfiguration",
+      "name": "obs",
+      "type": "com.zuan.obs.configuration.ObsConfiguration"
     }
   ],
   "properties": [
@@ -19,6 +24,24 @@
       "name": "depot.port",
       "description": "The port.",
       "type": "java.lang.Integer"
+    },
+    {
+      "sourceType": "com.zuan.obs.configuration.ObsConfiguration",
+      "name": "obs.host",
+      "description": "The host.",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.zuan.obs.configuration.ObsConfiguration",
+      "name": "obs.port",
+      "description": "The port.",
+      "type": "java.lang.Integer"
+    },
+    {
+      "sourceType": "com.zuan.obs.configuration.ObsConfiguration",
+      "name": "obs.verticles",
+      "description": "The verticles.",
+      "type": "java.util.Set<java.lang.String>"
     }
   ]
 }

@@ -12,5 +12,6 @@
     <module>zuan-cloud-config</module>
     <module>zuan-discovery-service</module>
     <module>zuan-gateway-service</module>
+	<module>zuan-admin-server</module>
   </modules>
 </project>

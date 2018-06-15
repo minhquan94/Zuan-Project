@@ -1,0 +1,37 @@
+info:
+  app:
+    name: cloud-admin
+server:
+  port: 8088
+eureka:
+  instance:
+    hostname: localhost
+    leaseRenewalIntervalInSeconds: 10
+    health-check-url-path: /actuator/health
+    preferIpAddress: true
+  client:
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+spring:
+  application:
+    name: cloud-admin
+  security:
+    user:
+      name: admin
+      password: admin
+  boot:
+    admin:
+      routes:
+        endpoints: env,metrics,trace,dump,jolokia,info,configprops,trace,logfile,refresh,flyway,liquibase,heapdump,hystrix.stream,turbine.stream
+security:
+  basic:
+    enable: false
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: ALWAYS

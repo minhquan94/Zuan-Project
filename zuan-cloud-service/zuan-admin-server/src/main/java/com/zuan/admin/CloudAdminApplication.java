@@ -23,7 +23,7 @@ import de.codecentric.boot.admin.server.config.EnableAdminServer;
 @EnableAutoConfiguration
 @EnableDiscoveryClient
 @EnableAdminServer
-public class AdminServerApplication {
+public class CloudAdminApplication {
 
   /**
    * The main method.
@@ -32,7 +32,7 @@ public class AdminServerApplication {
    *          the arguments
    */
   public static void main(String[] args) {
-    SpringApplication.run(AdminServerApplication.class, args);
+    SpringApplication.run(CloudAdminApplication.class, args);
   }
 
   /**

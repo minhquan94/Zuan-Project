@@ -14,16 +14,25 @@ eureka:
 spring:
   application:
     name: gateway-api
+  boot:
+    admin:
+      client:
+        url:
+        - http://localhost:8088
+        username: admin
+        password: admin
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+      - id: db-service
+        uri: lb://db-service
+        predicates:
+        - Path=/db-service/**
+        filters:
+        - RewritePath=/db-service/(?.*), /$\{path}
 security:
   basic:
     enable: false
-zuul:
-  routes:
-    db-service:
-      path: /db-service/*
-      service-id: DB-SERVICE
-ribbon:
-  ReadTimeout: 30000
-  ConnectTimeout: 30000
-  MaxAutoRetries: 1
-  MaxAutoRetriesNextServer: 1
