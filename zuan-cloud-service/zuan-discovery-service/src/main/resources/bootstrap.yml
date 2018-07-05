@@ -3,12 +3,17 @@ spring:
     name: discovery-service
   cloud:
     config:
-      uri: http://localhost:8700
+      uri: http://35.186.154.84:8700
+  boot:
+    admin:
+      client:
+        instance:
+          prefer-ip: true
 eureka:
   instance:
     hostname: localhost
-    preferIpAddress: false
+    preferIpAddress: true
   client:
     fetchRegistry: true
     serviceUrl:
-      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+      defaultZone: ${EUREKA_URI:http://35.186.154.84:8761/eureka}

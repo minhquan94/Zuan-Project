@@ -1,0 +1,34 @@
+server:
+  address: localhost
+  port: 8080
+  ssl:
+    enabled: false
+    key-store: src/main/resources/ssl/templatestore.jks
+    key-store-password: qwerty
+    key-password: qwerty
+spring:
+  jackson:
+    serialization:
+      INDENT_OUTPUT: true
+  datasource:
+    url: jdbc:mysql://35.227.82.141:3306/web-flux?useSSL=false
+    username: root
+    password: Quan@123
+#  security:
+#    user:
+#      name: admin
+#      password: admin
+  jpa:
+    hibernate:
+      ddl-auto: update
+jwt:
+  header: Authorization
+  param: token
+  secret: m6sXDUKZSY154e9N
+  expiration: 604800000
+  prefix: Bearer
+  route:
+    authentication:
+      path: auth
+      token: token
+      refresh: refresh
