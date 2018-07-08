@@ -1,0 +1,58 @@
+<div id="content">
+  <div class="container-fluid">
+    <br>
+    <br>
+    <div class="row">
+      <div class="col-md-4 offset-md-4">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h1 class="panel-title">
+              <i class="fa fa-lock"></i> Vui lòng điền thông tin đăng nhập.</h1>
+          </div>
+          <div class="panel-body">
+            <form [formGroup]="loginForm" (ngSubmit)="login(loginForm)">
+              <div class="form-group">
+                <label for="input-username">Tên đăng nhập hoặc Email</label>
+                <div class="input-group">
+                  <span class="input-group-addon">
+                    <i class="fa fa-user"></i>
+                  </span>
+                  <input type="text" name="username" value="" placeholder="Tên đăng nhập hoặc Email" class="form-control" formControlName="username">
+
+                </div>
+                <div *ngIf="loginForm.controls['username'].invalid && (loginForm.controls['username'].dirty || loginForm.controls['username'].touched)"
+                  class="alert alert-danger">
+                  <div *ngIf="loginForm.controls['username'].errors.required">
+                    Vui lòng nhập tên đăng nhập hoặc email.
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="input-password">Mật khẩu</label>
+                <div class="input-group">
+                  <span class="input-group-addon">
+                    <i class="fa fa-lock"></i>
+                  </span>
+                  <input type="password" name="password" value="" placeholder="Mật khẩu" class="form-control" formControlName="password">
+                </div>
+                <span class="help-block">
+                  <a href="http://conzic.myzozo.net/admin/index.php?route=common/forgotten">Quên mật khẩu?</a>
+                </span>
+              </div>
+              <div class="text-right">
+                <button type="submit" class="btn btn-primary">
+                  <i class="fa fa-key"></i> Đăng nhập</button>
+              </div>
+              <input type="hidden" name="redirect" value="http://conzic.myzozo.net/admin/index.php?route=common/dashboard">
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<footer id="footer">
+  <br>
+  <br> © Copyright 2018
+  <a href="#" target="_blank">Zuan</a>
+</footer>

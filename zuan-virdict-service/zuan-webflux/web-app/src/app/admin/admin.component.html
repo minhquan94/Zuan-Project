@@ -1,0 +1,525 @@
+<!-- Nav tabs -->
+<div class="app-header">
+  <ul class="app-header nav fixed-top">
+    <button class="navbar-toggler navbar-light" type="button" data-toggle="collapse">
+      <span class="navbar-toggler-icon my-toggler"></span>
+    </button>
+
+    <ul class="nav ml-md-auto d-md-flex">
+      <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" title="Thông báo" aria-expanded="false">
+          <i class="fa fa-bell fa-lg"></i>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-right alerts-dropdown">
+          <li class="dropdown-header">Nâng cấp</li>
+          <li>
+            <a href="http://conzic.myzozo.net/admin/index.php?route=common/upgrade&amp;token=o4I8Ngsgp9POe5AaSd9fgs5ElkCr5Uy6" style="display: block; overflow: auto;">
+              <span class="label label-warning pull-right">0</span>Nâng cấp Hệ thống </a>
+          </li>
+
+          <li class="divider"></li>
+          <li class="dropdown-header">Đơn đặt hàng</li>
+          <li>
+            <a href="http://conzic.myzozo.net/admin/index.php?route=sale/order&amp;token=o4I8Ngsgp9POe5AaSd9fgs5ElkCr5Uy6&amp;filter_order_status=1,5,3,2"
+              style="display: block; overflow: auto;">
+              <span class="label label-warning pull-right">9</span>Đang xử lý </a>
+          </li>
+          <li>
+            <a href="http://conzic.myzozo.net/admin/index.php?route=sale/order&amp;token=o4I8Ngsgp9POe5AaSd9fgs5ElkCr5Uy6&amp;filter_order_status=5,3">
+              <span class="label label-success pull-right">1</span>Đã xử lý </a>
+          </li>
+          <li>
+            <a href="http://conzic.myzozo.net/admin/index.php?route=sale/return&amp;token=o4I8Ngsgp9POe5AaSd9fgs5ElkCr5Uy6">
+              <span class="label label-danger pull-right">0</span>Đổi / Trả hàng </a>
+          </li>
+
+          <li class="divider"></li>
+          <li class="dropdown-header">Khách hàng</li>
+          <li>
+            <a href="http://conzic.myzozo.net/admin/index.php?route=report/customer_online&amp;token=o4I8Ngsgp9POe5AaSd9fgs5ElkCr5Uy6">
+              <span class="label label-success pull-right">0</span>Đang truy cập </a>
+          </li>
+          <li>
+            <a href="http://conzic.myzozo.net/admin/index.php?route=customer/customer&amp;token=o4I8Ngsgp9POe5AaSd9fgs5ElkCr5Uy6&amp;filter_approved=0">
+              <span class="label label-danger pull-right">0</span>Chờ duyệt </a>
+          </li>
+
+          <li class="divider"></li>
+          <li class="dropdown-header">Sản phẩm</li>
+          <li>
+            <a href="http://conzic.myzozo.net/admin/index.php?route=catalog/product&amp;token=o4I8Ngsgp9POe5AaSd9fgs5ElkCr5Uy6&amp;filter_quantity=0">
+              <span class="label label-danger pull-right">0</span>Hết hàng </a>
+          </li>
+          <li>
+            <a href="http://conzic.myzozo.net/admin/index.php?route=catalog/review&amp;token=o4I8Ngsgp9POe5AaSd9fgs5ElkCr5Uy6&amp;filter_status=0">
+              <span class="label label-danger pull-right">0</span>Nhận xét </a>
+          </li>
+
+          <li class="divider"></li>
+          <li class="dropdown-header">Cộng tác viên</li>
+          <li>
+            <a href="http://conzic.myzozo.net/admin/index.php?route=marketing/affiliate&amp;token=o4I8Ngsgp9POe5AaSd9fgs5ElkCr5Uy6&amp;filter_approved=1">
+              <span class="label label-danger pull-right">0</span>Chờ duyệt </a>
+          </li>
+        </ul>
+      </li>
+      <li class="dropdown">
+        <a class="dropdown-toggle hidden-xs" data-toggle="dropdown" title="Cửa hàng" aria-expanded="false">
+          <i class="fa fa-home fa-lg"></i>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-right">
+          <div *ngFor="let item of stores">
+              <li class="dropdown-header">{{item.title}}</li>
+              <li *ngFor="let itemDetail of item.items" class="dropdown-item">
+                  <a ng-href="itemDetail.link" href="#">{{itemDetail.name}}</a>
+              </li>
+          </div>
+        </ul>
+      </li>
+
+      <li class="dropdown">
+          <a class="dropdown-toggle" title="Xem thêm..." data-toggle="dropdown" aria-expanded="false">
+              <i class="fa fa-angle-down fa-lg"></i>
+            </a>
+          <ul class="dropdown-menu dropdown-menu-right">
+            <div *ngFor="let item of helpItems">
+                <li class="dropdown-header">{{item.title}}</li>
+                <li *ngFor="let itemDetail of item.items" class="dropdown-item">
+                    <a ng-href="itemDetail.link" href="#">{{itemDetail.name}}</a>
+                </li>
+            </div>
+          </ul>
+        </li>
+        <li>
+          <a href="http://conzic.myzozo.net/admin/index.php?route=common/logout&amp;token=o4I8Ngsgp9POe5AaSd9fgs5ElkCr5Uy6">
+            <span class="hidden-xs hidden-sm hidden-md">Thoát</span>
+            <i class="fa fa-sign-out fa-lg"></i>
+          </a>
+        </li>
+
+    </ul>
+
+  </ul>
+
+  <div class="dropdown open">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="triggerId" data-toggle="dropdown" aria-haspopup="true"
+      aria-expanded="false">
+      Dropdown
+    </button>
+    <div class="dropdown-menu" aria-labelledby="triggerId">
+      <button class="dropdown-item" href="#">Action</button>
+      <button class="dropdown-item disabled" href="#">Disabled action</button>
+    </div>
+  </div>
+
+
+
+
+
+  <nav id="column-left" class="">
+    <div id="profile">
+      <div>
+        <img src="https://zozo.vn/public/resources/license/logo-mini.png" alt="brand">
+      </div>
+      <div>
+        <h4>John Doe</h4>
+        <small>Administrator</small>
+      </div>
+    </div>
+    <ul id="menu">
+      <li id="menu-dashboard">
+        <a href="http://conzic.myzozo.net/admin/index.php?route=common/dashboard&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R">
+          <i class="fa fa-dashboard fw"></i>
+          <span>Bảng Điều Khiển</span>
+        </a>
+      </li>
+      <li id="menu-start">
+        <a href="http://conzic.myzozo.net/admin/index.php?route=common/start&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R">
+          <i class="fa fa-book fw"></i>
+          <span>6 Bước hoàn thiện</span>
+        </a>
+      </li>
+      <li id="menu-catalog">
+        <a class="parent">
+          <i class="fa fa-tags fw"></i>
+          <span>Sản phẩm</span>
+        </a>
+        <ul class="collapse">
+          <li>
+            <a href="http://conzic.myzozo.net/admin/index.php?route=catalog/category&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R">Danh mục</a>
+          </li>
+          <li>
+            <a href="http://conzic.myzozo.net/admin/index.php?route=catalog/product&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R">Sản phẩm</a>
+          </li>
+          <li>
+            <a href="http://conzic.myzozo.net/admin/index.php?route=catalog/filter&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R">Nhóm lọc giá</a>
+          </li>
+          <li>
+            <a class="parent">Thuộc Tính</a>
+            <ul class="collapse">
+              <li>
+                <a href="http://conzic.myzozo.net/admin/index.php?route=catalog/attribute_group&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R">Nhóm Thuộc tính</a>
+              </li>
+              <li>
+                <a href="http://conzic.myzozo.net/admin/index.php?route=catalog/attribute&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R">Thuộc Tính</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="http://conzic.myzozo.net/admin/index.php?route=catalog/option&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R">Tùy chọn</a>
+          </li>
+          <li>
+            <a href="http://conzic.myzozo.net/admin/index.php?route=catalog/manufacturer&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R">Nhà Sản xuất</a>
+          </li>
+          <li>
+            <a href="http://conzic.myzozo.net/admin/index.php?route=catalog/review&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R">Đánh giá</a>
+          </li>
+          <li>
+            <a href="http://conzic.myzozo.net/admin/index.php?route=catalog/download&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R">Tệp tin Tải về</a>
+          </li>
+        </ul>
+      </li>
+      <li id="menu-news">
+        <a class="parent">
+          <i class="fa fa-newspaper-o fw"></i>
+          <span>Tin tức</span>
+        </a>
+        <ul class="collapse">
+          <li>
+            <a href="http://conzic.myzozo.net/admin/index.php?route=news/category&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R">Danh mục</a>
+          </li>
+          <li>
+            <a href="http://conzic.myzozo.net/admin/index.php?route=news/news&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R">Tin tức</a>
+          </li>
+          <li>
+            <a href="http://conzic.myzozo.net/admin/index.php?route=news/comment&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R">Bình luận</a>
+          </li>
+        </ul>
+      </li>
+      <li id="menu-sale" class="active open">
+        <a class="parent">
+          <i class="fa fa-shopping-cart fw"></i>
+          <span>Đơn hàng</span>
+        </a>
+        <ul class="collapse in">
+          <li class="active open">
+            <a href="http://conzic.myzozo.net/admin/index.php?route=sale/order&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R">Đơn Hàng</a>
+          </li>
+          <li>
+            <a href="http://conzic.myzozo.net/admin/index.php?route=sale/delivery&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R">Phiếu giao hàng (COD)</a>
+          </li>
+          <li>
+            <a href="http://conzic.myzozo.net/admin/index.php?route=sale/recurring&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R">Thanh toán Định kỳ</a>
+          </li>
+          <li>
+            <a href="http://conzic.myzozo.net/admin/index.php?route=sale/return&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R">Đổi / Trả hàng</a>
+          </li>
+          <li>
+            <a class="parent">Phiếu quà tặng</a>
+            <ul class="collapse">
+              <li>
+                <a href="http://conzic.myzozo.net/admin/index.php?route=sale/voucher&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R">Phiếu quà tặng</a>
+              </li>
+              <li>
+                <a href="http://conzic.myzozo.net/admin/index.php?route=sale/voucher_theme&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R">Mẫu phiếu Quà tặng</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li id="menu-customer">
+        <a class="parent">
+          <i class="fa fa-user fw"></i>
+          <span>Khách hàng</span>
+        </a>
+        <ul class="collapse">
+          <li>
+            <a href="http://conzic.myzozo.net/admin/index.php?route=customer/customer&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R">Khách hàng</a>
+          </li>
+          <li>
+            <a href="http://conzic.myzozo.net/admin/index.php?route=customer/customer_group&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R">Nhóm Khách hàng</a>
+          </li>
+          <li>
+            <a href="http://conzic.myzozo.net/admin/index.php?route=customer/custom_field&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R">Mục Tùy chọn</a>
+          </li>
+        </ul>
+      </li>
+      <li id="menu-marketing">
+        <a class="parent">
+          <i class="fa fa-share-alt fw"></i>
+          <span>Marketing</span>
+        </a>
+        <ul class="collapse">
+          <li>
+            <a href="http://conzic.myzozo.net/admin/index.php?route=marketing/marketing&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R">Marketing</a>
+          </li>
+          <li>
+            <a href="http://conzic.myzozo.net/admin/index.php?route=marketing/affiliate&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R">Cộng tác viên</a>
+          </li>
+          <li>
+            <a href="http://conzic.myzozo.net/admin/index.php?route=marketing/coupon&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R">Mã Giảm giá - Coupon</a>
+          </li>
+          <li>
+            <a href="http://conzic.myzozo.net/admin/index.php?route=marketing/contact&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R">Thư</a>
+          </li>
+        </ul>
+      </li>
+      <li id="menu-report">
+        <a class="parent">
+          <i class="fa fa-bar-chart-o fw"></i>
+          <span>Báo cáo</span>
+        </a>
+        <ul class="collapse">
+          <li>
+            <a class="parent">Bán hàng</a>
+            <ul class="collapse">
+              <li>
+                <a href="http://conzic.myzozo.net/admin/index.php?route=report/sale_order&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R">Báo cáo Đơn hàng</a>
+              </li>
+              <li>
+                <a href="http://conzic.myzozo.net/admin/index.php?route=report/sale_tax&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R">Báo cáo Thuế</a>
+              </li>
+              <li>
+                <a href="http://conzic.myzozo.net/admin/index.php?route=report/sale_shipping&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R">Phương thức Vận chuyển</a>
+              </li>
+              <li>
+                <a href="http://conzic.myzozo.net/admin/index.php?route=report/sale_return&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R">Đổi / Trả hàng</a>
+              </li>
+              <li>
+                <a href="http://conzic.myzozo.net/admin/index.php?route=report/sale_coupon&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R">Mã Giảm giá - Coupon</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a class="parent">Sản phẩm</a>
+            <ul class="collapse">
+              <li>
+                <a href="http://conzic.myzozo.net/admin/index.php?route=report/product_viewed&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R">Được Xem</a>
+              </li>
+              <li>
+                <a href="http://conzic.myzozo.net/admin/index.php?route=report/product_purchased&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R">Đã Bán</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a class="parent">Khách hàng</a>
+            <ul class="collapse">
+              <li>
+                <a href="http://conzic.myzozo.net/admin/index.php?route=report/customer_online&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R">Đang truy cập</a>
+              </li>
+              <li>
+                <a href="http://conzic.myzozo.net/admin/index.php?route=report/customer_activity&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R">Hành vi</a>
+              </li>
+              <li>
+                <a href="http://conzic.myzozo.net/admin/index.php?route=report/customer_search&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R">Hành vi tìm kiếm</a>
+              </li>
+              <li>
+                <a href="http://conzic.myzozo.net/admin/index.php?route=report/customer_order&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R">Đặt hàng</a>
+              </li>
+              <li>
+                <a href="http://conzic.myzozo.net/admin/index.php?route=report/customer_reward&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R">Điểm thưởng</a>
+              </li>
+              <li>
+                <a href="http://conzic.myzozo.net/admin/index.php?route=report/customer_credit&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R">Tiền Tích lũy</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a class="parent">Marketing</a>
+            <ul class="collapse">
+              <li>
+                <a href="http://conzic.myzozo.net/admin/index.php?route=report/marketing&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R">Marketing</a>
+              </li>
+              <li>
+                <a href="http://conzic.myzozo.net/admin/index.php?route=report/affiliate&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R">Cộng tác viên</a>
+              </li>
+              <li>
+                <a href="http://conzic.myzozo.net/admin/index.php?route=report/affiliate_activity&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R">Hành vi Cộng tác viên</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li id="menu-design">
+        <a class="parent">
+          <i class="fa fa-television fw"></i>
+          <span>Website</span>
+        </a>
+        <ul class="collapse">
+          <li>
+            <a href="http://conzic.myzozo.net/admin/index.php?route=extension/module/visualbuilder&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R">Bố cục</a>
+          </li>
+          <li>
+            <a href="http://conzic.myzozo.net/admin/index.php?route=taskbar/taskbar_group&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R">Menu</a>
+          </li>
+          <li>
+            <a href="http://conzic.myzozo.net/admin/index.php?route=extension/module/gallery&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R">Slider</a>
+          </li>
+          <li>
+            <a href="http://conzic.myzozo.net/admin/index.php?route=design/banner&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R">Quản lý album ảnh</a>
+          </li>
+          <li>
+            <a href="http://conzic.myzozo.net/admin/index.php?route=catalog/information&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R">Trang Thông tin</a>
+          </li>
+          <li>
+            <a href="http://conzic.myzozo.net/admin/index.php?route=design/url_alias&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R">Tùy chỉnh URL</a>
+          </li>
+          <li>
+            <a href="http://conzic.myzozo.net/admin/index.php?route=design/redirect&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R">Chuyển hướng 301</a>
+          </li>
+          <li>
+            <a href="http://conzic.myzozo.net/admin/index.php?route=design/style&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R">Chỉnh sửa CSS</a>
+          </li>
+        </ul>
+      </li>
+      <li id="menu-system">
+        <a class="parent">
+          <i class="fa fa-cog fw"></i>
+          <span>Cấu hình</span>
+        </a>
+        <ul class="collapse">
+          <li>
+            <a class="parent">Cấu hình chung</a>
+            <ul class="collapse">
+              <li>
+                <a href="http://conzic.myzozo.net/admin/index.php?route=setting/store&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R">Cửa hàng</a>
+              </li>
+              <li>
+                <a href="http://conzic.myzozo.net/admin/index.php?route=setting/domain&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R">Tên miền</a>
+              </li>
+              <li>
+                <a href="http://conzic.myzozo.net/admin/index.php?route=extension/extension&amp;type=payment&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R">Thanh toán</a>
+              </li>
+              <li>
+                <a href="http://conzic.myzozo.net/admin/index.php?route=extension/extension&amp;type=shipping&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R">Vận chuyển</a>
+              </li>
+              <li>
+                <a href="http://conzic.myzozo.net/admin/index.php?route=extension/extension&amp;type=module&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R">Mô-đun</a>
+              </li>
+              <li>
+                <a href="http://conzic.myzozo.net/admin/index.php?route=extension/extension&amp;type=chanel&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R">Kênh bán hàng</a>
+              </li>
+              <li>
+                <a href="http://conzic.myzozo.net/admin/index.php?route=extension/extension&amp;type=theme&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R">Giao diện</a>
+              </li>
+              <li>
+                <a href="http://conzic.myzozo.net/admin/index.php?route=extension/extension&amp;type=feed&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R">Nguồn cấp dữ liệu</a>
+              </li>
+              <li>
+                <a href="http://conzic.myzozo.net/admin/index.php?route=extension/fee&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R">Phí vận chuyển</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a class="parent">Quản lý Tài khoản</a>
+            <ul class="collapse">
+              <li>
+                <a href="http://conzic.myzozo.net/admin/index.php?route=user/user&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R">Quản lý Tài khoản</a>
+              </li>
+              <li>
+                <a href="http://conzic.myzozo.net/admin/index.php?route=user/user_permission&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R">Nhóm Tài khoản</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a class="parent">Cài đặt Địa lý</a>
+            <ul class="collapse">
+              <li>
+                <a href="http://conzic.myzozo.net/admin/index.php?route=localisation/location&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R">Địa chỉ Cửa hàng</a>
+              </li>
+              <li>
+                <a href="http://conzic.myzozo.net/admin/index.php?route=localisation/language&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R">Ngôn ngữ</a>
+              </li>
+              <li>
+                <a href="http://conzic.myzozo.net/admin/index.php?route=localisation/currency&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R">Tiền tệ</a>
+              </li>
+              <li>
+                <a href="http://conzic.myzozo.net/admin/index.php?route=localisation/stock_status&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R">Trạng thái Kho hàng</a>
+              </li>
+              <li>
+                <a href="http://conzic.myzozo.net/admin/index.php?route=localisation/order_status&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R">Trạng thái Đơn hàng</a>
+              </li>
+              <li>
+                <a class="parent">Đổi / Trả hàng</a>
+                <ul class="collapse">
+                  <li>
+                    <a href="http://conzic.myzozo.net/admin/index.php?route=localisation/return_status&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R">Tình trạng</a>
+                  </li>
+                  <li>
+                    <a href="http://conzic.myzozo.net/admin/index.php?route=localisation/return_action&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R">Hành động</a>
+                  </li>
+                  <li>
+                    <a href="http://conzic.myzozo.net/admin/index.php?route=localisation/return_reason&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R">Lý do</a>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <a href="http://conzic.myzozo.net/admin/index.php?route=localisation/country&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R">Quốc Gia</a>
+              </li>
+              <li>
+                <a href="http://conzic.myzozo.net/admin/index.php?route=localisation/zone&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R">Tỉnh / Thành phố</a>
+              </li>
+              <li>
+                <a href="http://conzic.myzozo.net/admin/index.php?route=localisation/geo_zone&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R">Khu vực tính Cước vận chuyển</a>
+              </li>
+              <li>
+                <a class="parent">Thuế</a>
+                <ul class="collapse">
+                  <li>
+                    <a href="http://conzic.myzozo.net/admin/index.php?route=localisation/tax_class&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R">Nhóm thuế</a>
+                  </li>
+                  <li>
+                    <a href="http://conzic.myzozo.net/admin/index.php?route=localisation/tax_rate&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R">Mức thuế</a>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <a href="http://conzic.myzozo.net/admin/index.php?route=localisation/length_class&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R">Đơn vị Kích thước</a>
+              </li>
+              <li>
+                <a href="http://conzic.myzozo.net/admin/index.php?route=localisation/weight_class&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R">Đơn vị Trọng lượng</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <div id="stats">
+      <ul>
+        <li>
+          <div>Đơn hàng hoàn thành
+            <span class="pull-right">11%</span>
+          </div>
+          <div class="progress">
+            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="11" aria-valuemin="0" aria-valuemax="100"
+              style="width: 11%">
+              <span class="sr-only">11%</span>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div>Đơn hàng đang xử lý
+            <span class="pull-right">100%</span>
+          </div>
+          <div class="progress">
+            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"
+              style="width: 100%">
+              <span class="sr-only">100%</span>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div>Đơn hàng có trạng thái khác
+            <span class="pull-right">0%</span>
+          </div>
+          <div class="progress">
+            <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"
+              style="width: 0%">
+              <span class="sr-only">0%</span>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</div>
