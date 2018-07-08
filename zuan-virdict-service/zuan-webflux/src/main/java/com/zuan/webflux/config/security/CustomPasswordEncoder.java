@@ -24,11 +24,10 @@ public class CustomPasswordEncoder implements PasswordEncoder {
   @Override
   public String encode(CharSequence rawPassword) {
     final SecureRandom random = new SecureRandom();
-    final byte bytes[] = new byte[20];
+    final byte[] bytes = new byte[20];
     random.nextBytes(bytes);
 
-    final String hashed = BCrypt.hashpw(rawPassword.toString(), BCrypt.gensalt(14, random));
-    return hashed;
+    return BCrypt.hashpw(rawPassword.toString(), BCrypt.gensalt(14, random));
   }
 
   /**
@@ -39,7 +38,8 @@ public class CustomPasswordEncoder implements PasswordEncoder {
    */
   @Override
   public boolean matches(CharSequence rawPassword, String encodedPassword) {
-    final String decodedString = new String(Base64.getDecoder().decode(rawPassword.toString()));
+    final String decodedString =
+        new String(Base64.getDecoder().decode(rawPassword.toString()));
     return BCrypt.checkpw(decodedString, encodedPassword);
   }
 }

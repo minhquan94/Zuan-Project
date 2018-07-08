@@ -5,10 +5,14 @@ package com.zuan.webflux.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.web.reactive.config.CorsRegistry;
 import org.springframework.web.reactive.config.ResourceHandlerRegistry;
 import org.springframework.web.reactive.config.ViewResolverRegistry;
 import org.springframework.web.reactive.config.WebFluxConfigurer;
+import org.springframework.web.reactive.function.server.RouterFunction;
+import org.springframework.web.reactive.function.server.RouterFunctions;
+import org.springframework.web.reactive.function.server.ServerResponse;
 import org.springframework.web.reactive.result.view.freemarker.FreeMarkerConfigurer;
 
 /**
@@ -46,13 +50,21 @@ public class WebConfiguration implements WebFluxConfigurer {
   /**
    * Free marker configurer.
    *
-   * @param applicationContext
-   *          the application context
    * @return the free marker configurer
    */
   @Bean
   public FreeMarkerConfigurer freeMarkerConfigurer() {
     return new FreeMarkerConfigurer();
+  }
+
+  /**
+   * Static resource router.
+   *
+   * @return the router function
+   */
+  @Bean
+  RouterFunction<ServerResponse> staticResourceRouter() {
+    return RouterFunctions.resources("/**", new ClassPathResource("templates/"));
   }
 
   /**

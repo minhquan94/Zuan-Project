@@ -11,11 +11,26 @@ import org.springframework.web.reactive.socket.WebSocketSession;
 
 import reactor.core.publisher.Mono;
 
+/**
+ * The Class DefaultWebSocketHandler.
+ *
+ * @author <a href="mailto:developer@hitachiconsulting.com">zuan_</a>
+ */
 public class DefaultWebSocketHandler extends AbstractWebSocketHandler {
+
+  /**
+   * Instantiates a new default web socket handler.
+   */
   public DefaultWebSocketHandler() {
-    this.authorizedRoles.addAll(Arrays.asList("ROLE_ADMIN"));
+    this.authorizedRoles.addAll(Arrays.asList("ADMIN"));
   }
 
+  /**
+   * {@inheritDoc}
+   *
+   * @see com.zuan.webflux.handler.AbstractWebSocketHandler#doHandle(org.springframework.web.reactive.socket.WebSocketSession)
+   */
+  @Override
   public Mono<Void> doHandle(WebSocketSession session) {
     // Use retain() for Reactor Netty
     return session.send(session.receive().doOnNext(WebSocketMessage::retain)

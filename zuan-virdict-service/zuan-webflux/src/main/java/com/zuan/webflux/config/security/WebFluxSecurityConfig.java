@@ -12,6 +12,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.server.SecurityWebFilterChain;
 import org.springframework.security.web.server.context.WebSessionServerSecurityContextRepository;
 
+import com.zuan.webflux.config.security.jwt.JwtAuthenticationWebFilter;
+import com.zuan.webflux.service.JwtTokenService;
+
 /**
  * The Class WebSecurityConfig.
  *
@@ -20,10 +23,6 @@ import org.springframework.security.web.server.context.WebSessionServerSecurityC
 @EnableWebFluxSecurity
 @EnableReactiveMethodSecurity
 public class WebFluxSecurityConfig {
-
-  /** The Constant AUTH_WHITELIST. */
-  private static final String[] AUTH_WHITELIST =
-    {"/resources/**", "/webjars/**", "/auth/**", "/test/ws", "/favicon.ico" };
 
   /**
    * Securityg web filter chain.
@@ -50,9 +49,8 @@ public class WebFluxSecurityConfig {
     // Finally, we disable all default security.
     http.exceptionHandling().authenticationEntryPoint(entryPoint).and()
     .addFilterAt(authenticationWebFilter, SecurityWebFiltersOrder.AUTHENTICATION)
-    .authorizeExchange().pathMatchers(AUTH_WHITELIST).permitAll().anyExchange()
-    .authenticated().and().httpBasic().disable().formLogin().disable().csrf().disable()
-    .logout().disable();
+    .authorizeExchange().anyExchange().permitAll().and().formLogin()
+    .loginPage("/login").and().csrf().disable();
     return http.build();
   }
 
@@ -77,12 +75,12 @@ public class WebFluxSecurityConfig {
   }
 
   /**
-   * Jwt token util.
+   * Jwt token server.
    *
-   * @return the jwt token util
+   * @return the jwt token server
    */
   @Bean
-  public JwtTokenUtil jwtTokenUtil() {
-    return new JwtTokenUtil("test", 100000L);
+  public JwtTokenService jwtTokenServer() {
+    return new JwtTokenService("admin", 100000L);
   }
 }

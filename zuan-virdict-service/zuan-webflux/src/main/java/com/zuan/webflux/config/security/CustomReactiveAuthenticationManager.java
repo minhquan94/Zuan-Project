@@ -3,18 +3,25 @@
  */
 package com.zuan.webflux.config.security;
 
+import java.util.Arrays;
+import java.util.UUID;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.ReactiveAuthenticationManager;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.ReactiveUserDetailsService;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-import org.springframework.util.Assert;
+
+import com.zuan.webflux.config.security.jwt.JwtAuthenticationToken;
+import com.zuan.webflux.config.security.jwt.JwtPreAuthenticationToken;
+import com.zuan.webflux.model.UserRoleEnum;
+import com.zuan.webflux.service.JwtTokenService;
 
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
@@ -28,33 +35,30 @@ import reactor.core.scheduler.Schedulers;
 public class CustomReactiveAuthenticationManager implements ReactiveAuthenticationManager {
 
   /** The logger. */
-  private final Logger logger = LoggerFactory.getLogger(this.getClass());
+  private static final Logger LOG =
+      LoggerFactory.getLogger(CustomReactiveAuthenticationManager.class);
 
   /** The user details service. */
   private final ReactiveUserDetailsService userDetailsService;
 
-  /** The jwt token util. */
-  private final JwtTokenUtil jwtTokenUtil;
+  /** The jwt token service. */
+  private final JwtTokenService jwtTokenService;
 
   /** The password encoder. */
-  private PasswordEncoder passwordEncoder =
-      PasswordEncoderFactories.createDelegatingPasswordEncoder();
+  private PasswordEncoder passwordEncoder = new CustomPasswordEncoder();
 
   /**
    * Instantiates a new custom reactive authentication manager.
    *
    * @param userDetailsService
    *          the user details service
-   * @param jwtTokenUtil
-   *          the jwt token util
+   * @param jwtTokenService
+   *          the jwt token service
    */
   public CustomReactiveAuthenticationManager(ReactiveUserDetailsService userDetailsService,
-      JwtTokenUtil jwtTokenUtil) {
-    Assert.notNull(userDetailsService, "userDetailsService cannot be null");
-    Assert.notNull(jwtTokenUtil, "jwtTokenUtil cannot be null");
-
+      JwtTokenService jwtTokenService) {
     this.userDetailsService = userDetailsService;
-    this.jwtTokenUtil = jwtTokenUtil;
+    this.jwtTokenService = jwtTokenService;
   }
 
   /**
@@ -65,13 +69,12 @@ public class CustomReactiveAuthenticationManager implements ReactiveAuthenticati
   @Override
   public Mono<Authentication> authenticate(final Authentication authentication) {
     if (authentication instanceof JwtPreAuthenticationToken) {
-      return Mono.just(authentication).switchIfEmpty(Mono.defer(this::raiseBadCredentials))
+      return Mono.just(authentication).switchIfEmpty(Mono.defer(this::grantedGuest))
           .cast(JwtPreAuthenticationToken.class).flatMap(this::authenticateToken)
           .publishOn(Schedulers.parallel()).onErrorResume(e -> raiseBadCredentials())
           .map(u -> new JwtAuthenticationToken(u.getUsername(), u.getPassword(),
               u.getAuthorities()));
     }
-
     return Mono.just(authentication);
   }
 
@@ -87,27 +90,39 @@ public class CustomReactiveAuthenticationManager implements ReactiveAuthenticati
   }
 
   /**
+   * Granted guest.
+   *
+   * @return the mono
+   */
+  private Mono<Authentication> grantedGuest() {
+    final String userName = UUID.randomUUID().toString();
+    LOG.info("Login with guest, user name: {}", userName);
+    final JwtAuthenticationToken tokenGuest = new JwtAuthenticationToken(userName, null,
+        Arrays.asList(new SimpleGrantedAuthority(UserRoleEnum.GUEST.name())));
+    return Mono.just(tokenGuest);
+  }
+
+  /**
    * Authenticate token.
    *
    * @param jwtPreAuthenticationToken
    *          the jwt pre authentication token
    * @return the mono
    */
-  private Mono<UserDetails> authenticateToken(
+  public Mono<UserDetails> authenticateToken(
       final JwtPreAuthenticationToken jwtPreAuthenticationToken) {
     try {
       final String authToken = jwtPreAuthenticationToken.getAuthToken();
       final String username = jwtPreAuthenticationToken.getUsername();
 
-      logger.info("checking authentication for user " + username);
-      if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-        if (jwtTokenUtil.validateToken(authToken)) {
-          logger.info("authenticated user " + username + ", setting security context");
-          return this.userDetailsService.findByUsername(username);
-        }
+      LOG.info("checking authentication for user {}", username);
+      if (username != null && SecurityContextHolder.getContext().getAuthentication() == null
+          && jwtTokenService.validateToken(authToken)) {
+        LOG.info("authenticated user {}, setting security context", username);
+        return this.userDetailsService.findByUsername(username);
       }
     } catch (final Exception e) {
-      throw new BadCredentialsException("Invalid token...");
+      throw new BadCredentialsException("Invalid token: " + e);
     }
 
     return null;
@@ -120,7 +135,6 @@ public class CustomReactiveAuthenticationManager implements ReactiveAuthenticati
    *          the new password encoder
    */
   public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
-    Assert.notNull(passwordEncoder, "passwordEncoder cannot be null");
     this.passwordEncoder = passwordEncoder;
   }
 

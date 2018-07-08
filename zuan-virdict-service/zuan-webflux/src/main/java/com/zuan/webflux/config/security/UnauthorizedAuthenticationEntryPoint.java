@@ -29,6 +29,6 @@ public class UnauthorizedAuthenticationEntryPoint implements ServerAuthenticatio
   public Mono<Void> commence(final ServerWebExchange exchange,
       final AuthenticationException e) {
     return Mono
-        .fromRunnable(() -> exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED));
+        .fromRunnable(() -> exchange.getResponse().setStatusCode(HttpStatus.ACCEPTED));
   }
 }

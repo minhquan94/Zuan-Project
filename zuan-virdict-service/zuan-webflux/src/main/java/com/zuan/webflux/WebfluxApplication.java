@@ -7,7 +7,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 /**
@@ -17,9 +16,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
  */
 @EnableJpaRepositories(basePackages = "com.zuan.webflux.repository")
 @EntityScan(basePackages = "com.zuan.webflux.model")
-@ComponentScan(basePackages = {
-    "com.zuan.webflux.*"
-})
 @SpringBootApplication
 public class WebfluxApplication {
 

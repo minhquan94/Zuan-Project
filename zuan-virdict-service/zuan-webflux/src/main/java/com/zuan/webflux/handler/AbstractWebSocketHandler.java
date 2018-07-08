@@ -12,7 +12,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.web.reactive.socket.WebSocketHandler;
 import org.springframework.web.reactive.socket.WebSocketSession;
 
-import com.zuan.webflux.config.security.JwtAuthenticationToken;
+import com.zuan.webflux.config.security.jwt.JwtAuthenticationToken;
 
 import reactor.core.publisher.Mono;
 
