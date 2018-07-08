@@ -1,0 +1,3 @@
+[submodule "zuan-virdict-service/zuan-webflux/web-app"]
+	path = zuan-virdict-service/zuan-webflux/web-app
+	url = C:\\Project\\Zuan-Project\\zuan-virdict-service\\zuan-webflux\\web-app
