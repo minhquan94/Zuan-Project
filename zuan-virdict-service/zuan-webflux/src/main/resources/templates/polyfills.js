@@ -5473,7 +5473,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Project\VirdictTool\Zuan-Project-eureka-configuration\zuan-virdict-service\zuan-webflux\web-app\src\polyfills.ts */"./src/polyfills.ts");
+module.exports = __webpack_require__(/*! C:\Project\Zuan-Project\zuan-virdict-service\zuan-webflux\web-app\src\polyfills.ts */"./src/polyfills.ts");
 
 
 /***/ })

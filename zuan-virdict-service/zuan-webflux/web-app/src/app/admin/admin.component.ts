@@ -30,7 +30,7 @@ export class AdminComponent implements OnInit {
   }
 
   loadNavbarItems() {
-    this.adminService.getNavbarItems().subscribe(data => {
+    this.adminService.getNavbarItems().pipe(first()).subscribe(data => {
       data.forEach(item => {
         switch (item.group) {
           case NOTIFICATION:

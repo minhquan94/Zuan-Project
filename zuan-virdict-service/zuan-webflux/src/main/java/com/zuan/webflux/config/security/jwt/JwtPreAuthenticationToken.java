@@ -60,7 +60,7 @@ public class JwtPreAuthenticationToken extends AbstractAuthenticationToken {
    */
   @Override
   public Object getPrincipal() {
-    return null;
+    return username;
   }
 
   /**

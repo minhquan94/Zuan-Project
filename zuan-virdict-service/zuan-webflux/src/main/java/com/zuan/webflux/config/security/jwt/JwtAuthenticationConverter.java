@@ -15,11 +15,13 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 import org.springframework.web.server.ServerWebExchange;
 
 import com.zuan.webflux.service.JwtTokenService;
 import com.zuan.webflux.service.SecurityService;
 
+import io.jsonwebtoken.ExpiredJwtException;
 import reactor.core.publisher.Mono;
 
 /**
@@ -29,13 +31,13 @@ import reactor.core.publisher.Mono;
  */
 @Component
 public class JwtAuthenticationConverter
-    implements Function<ServerWebExchange, Mono<Authentication>> {
+implements Function<ServerWebExchange, Mono<Authentication>> {
 
   /** The logger. */
   private static final Logger LOG = LoggerFactory.getLogger(JwtAuthenticationConverter.class);
 
   /** The Constant PREFIX_GUEST. */
-  private static final String PREFIX_GUEST = "guest_";
+  public static final String PREFIX_GUEST = "guest_";
 
   /** The security service. */
   @Autowired
@@ -102,9 +104,14 @@ public class JwtAuthenticationConverter
         authentication =
             new JwtPreAuthenticationToken(authToken, bearerRequestHeader, username);
       }
+      if (StringUtils.startsWithIgnoreCase(username, PREFIX_GUEST)) {
+        jwtTokenService.refreshToken(authToken);
+      }
+
       securityService.setAuthentication(authentication);
-      LOG.info("check authentication for user " + username);
       return Mono.just(authentication);
+    } catch (final ExpiredJwtException e) {
+      throw e;
     } catch (final Exception e) {
       throw new BadCredentialsException("Invalid token: " + e);
     }
@@ -124,8 +131,8 @@ public class JwtAuthenticationConverter
       } catch (final IllegalArgumentException e) {
         LOG.error("an error occured during getting username from token", e);
         return null;
-      } catch (final Exception e) {
-        LOG.warn("the token is expired and not valid anymore", e);
+      } catch (final ExpiredJwtException e) { //NOSONAR
+        LOG.warn("the token is expired and not valid anymore");
       }
     } else {
       LOG.warn("couldn't find bearer string, will ignore the header");

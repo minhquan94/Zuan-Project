@@ -1,7 +1,13 @@
+/*
+ * Copyright (c) 2018 Zuan_Wiko
+ */
 package com.zuan.webflux.service;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+
+import com.zuan.webflux.config.security.jwt.JwtAuthenticationConverter;
 
 /**
  * The Class SecurityService.
@@ -22,7 +28,18 @@ public class SecurityService {
    * @return true, if is anonymous
    */
   public boolean isAnonymous(Authentication authentication) {
-    return authentication == null;
+    return authentication == null || authentication.getPrincipal() == null
+        || StringUtils.startsWithIgnoreCase(authentication.getPrincipal().toString(),
+            JwtAuthenticationConverter.PREFIX_GUEST);
+  }
+
+  /**
+   * Checks if is anonymous.
+   *
+   * @return true, if is anonymous
+   */
+  public boolean isAnonymous() {
+    return isAnonymous(authentication);
   }
 
   /**

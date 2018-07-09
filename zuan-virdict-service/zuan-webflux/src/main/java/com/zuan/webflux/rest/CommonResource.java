@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 2018 Zuan_Wiko
+ */
 package com.zuan.webflux.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +38,7 @@ public class CommonResource {
   @PostMapping
   @CrossOrigin("http://localhost:4200")
   public Mono<ResponseEntity<JwtAuthenticationResponse>> getUser() {
-    JwtPreAuthenticationToken authentication =
+    final JwtPreAuthenticationToken authentication =
         (JwtPreAuthenticationToken) securityService.getAuthentication();
     return Mono.just(ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON_UTF8)
         .body(new JwtAuthenticationResponse(authentication.getAuthToken(),

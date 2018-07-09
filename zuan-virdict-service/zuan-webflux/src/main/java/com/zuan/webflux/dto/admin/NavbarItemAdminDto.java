@@ -3,6 +3,7 @@
  */
 package com.zuan.webflux.dto.admin;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.zuan.webflux.model.NavbarItemAdmin;
@@ -55,7 +56,9 @@ public class NavbarItemAdminDto {
   public NavbarItemAdminDto(NavbarItemAdmin itemAdmin) {
     this.title = itemAdmin.getTitle();
     this.group = itemAdmin.getGroup();
-    itemAdmin.getNavbarAdminDetails().forEach(NavbarItemDetailDto::new);
+    itemDetails = new ArrayList<>();
+    itemAdmin.getNavbarAdminDetails()
+    .forEach(detail -> itemDetails.add(new NavbarItemDetailDto(detail)));
   }
 
   /**

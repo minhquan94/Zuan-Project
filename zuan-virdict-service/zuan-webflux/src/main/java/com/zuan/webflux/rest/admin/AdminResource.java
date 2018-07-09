@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.zuan.webflux.dto.admin.NavbarItemAdminDto;
 import com.zuan.webflux.service.admin.AdminService;
 
-import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 /**
  * The Class AdminResource.
@@ -37,9 +37,9 @@ public class AdminResource {
    */
   @GetMapping("/navbar-items")
   @CrossOrigin("http://localhost:4200")
-  public Flux<ResponseEntity<List<NavbarItemAdminDto>>> getNavbarItems() {
+  public Mono<ResponseEntity<List<NavbarItemAdminDto>>> getNavbarItems() {
     final List<NavbarItemAdminDto> itemsReturn = adminService.getNarbarItems();
-    return Flux.just(ResponseEntity.ok().body(itemsReturn));
+    return Mono.just(ResponseEntity.ok().body(itemsReturn));
   }
 
 }

@@ -70,7 +70,7 @@
         <ul class="dropdown-menu dropdown-menu-right">
           <div *ngFor="let item of stores">
               <li class="dropdown-header">{{item.title}}</li>
-              <li *ngFor="let itemDetail of item.items" class="dropdown-item">
+              <li *ngFor="let itemDetail of item.itemDetails" class="dropdown-item">
                   <a ng-href="itemDetail.link" href="#">{{itemDetail.name}}</a>
               </li>
           </div>
@@ -84,7 +84,7 @@
           <ul class="dropdown-menu dropdown-menu-right">
             <div *ngFor="let item of helpItems">
                 <li class="dropdown-header">{{item.title}}</li>
-                <li *ngFor="let itemDetail of item.items" class="dropdown-item">
+                <li *ngFor="let itemDetail of item.itemDetails" class="dropdown-item">
                     <a ng-href="itemDetail.link" href="#">{{itemDetail.name}}</a>
                 </li>
             </div>

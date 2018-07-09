@@ -7,11 +7,15 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
+
+import com.zuan.webflux.config.security.jwt.JwtAuthenticationConverter;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Clock;
@@ -229,8 +233,12 @@ public class JwtTokenService implements Serializable {
    */
   private String doGenerateToken(Map<String, Object> claims, String subject, String audience) {
     final Date createdDate = clock.now();
-    final Date expirationDate = calculateExpirationDate(createdDate);
-
+    Date expirationDate;
+    if (StringUtils.startsWithIgnoreCase(subject, JwtAuthenticationConverter.PREFIX_GUEST)) {
+      expirationDate = calculateExpirationDateForGuest(createdDate);
+    } else {
+      expirationDate = calculateExpirationDate(createdDate);
+    }
     return Jwts.builder().setClaims(claims).setSubject(subject).setAudience(audience)
         .setIssuedAt(createdDate).setExpiration(expirationDate)
         .signWith(SignatureAlgorithm.HS512, secret).compact();
@@ -289,6 +297,17 @@ public class JwtTokenService implements Serializable {
    * @return the date
    */
   private Date calculateExpirationDate(Date createdDate) {
-    return new Date(createdDate.getTime() + expiration * 1000);
+    return new Date(createdDate.getTime() + TimeUnit.SECONDS.toMillis(expiration));
+  }
+
+  /**
+   * Calculate expiration date for guest.
+   *
+   * @param createdDate
+   *          the created date
+   * @return the date
+   */
+  private Date calculateExpirationDateForGuest(Date createdDate) {
+    return new Date(createdDate.getTime() + TimeUnit.DAYS.toMillis(1));
   }
 }

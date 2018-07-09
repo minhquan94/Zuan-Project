@@ -75,7 +75,7 @@ public class WebConfiguration implements WebFluxConfigurer {
    */
   @Bean
   public RedirectServerAuthenticationEntryPoint redirectServerAuthenticationEntryPoint() {
-    return new RedirectServerAuthenticationEntryPoint("redirect:/login");
+    return new RedirectServerAuthenticationEntryPoint("/login");
   }
 
   /**

@@ -55,9 +55,10 @@ module.exports = "<!-- Nav tabs -->\n<div class=\"app-header\">\n  <ul class=\"a
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AdminComponent", function() { return AdminComponent; });
-/* harmony import */ var _admin_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./admin.service */ "./src/app/admin/admin.service.ts");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _common_system_system_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../common/system/system.service */ "./src/app/common/system/system.service.ts");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _admin_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./admin.service */ "./src/app/admin/admin.service.ts");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _common_system_system_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../common/system/system.service */ "./src/app/common/system/system.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -67,6 +68,7 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+
 
 
 
@@ -86,7 +88,7 @@ var AdminComponent = /** @class */ (function () {
     };
     AdminComponent.prototype.loadNavbarItems = function () {
         var _this = this;
-        this.adminService.getNavbarItems().subscribe(function (data) {
+        this.adminService.getNavbarItems().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["first"])()).subscribe(function (data) {
             data.forEach(function (item) {
                 switch (item.group) {
                     case NOTIFICATION:
@@ -105,12 +107,12 @@ var AdminComponent = /** @class */ (function () {
         });
     };
     AdminComponent = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Component"])({
             selector: 'app-admin',
             template: __webpack_require__(/*! ./admin.component.html */ "./src/app/admin/admin.component.html"),
             styles: [__webpack_require__(/*! ./admin.component.css */ "./src/app/admin/admin.component.css")]
         }),
-        __metadata("design:paramtypes", [_admin_service__WEBPACK_IMPORTED_MODULE_0__["AdminService"], _common_system_system_service__WEBPACK_IMPORTED_MODULE_2__["SystemService"]])
+        __metadata("design:paramtypes", [_admin_service__WEBPACK_IMPORTED_MODULE_1__["AdminService"], _common_system_system_service__WEBPACK_IMPORTED_MODULE_3__["SystemService"]])
     ], AdminComponent);
     return AdminComponent;
 }());
@@ -1244,7 +1246,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Project\VirdictTool\Zuan-Project-eureka-configuration\zuan-virdict-service\zuan-webflux\web-app\src\main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! C:\Project\Zuan-Project\zuan-virdict-service\zuan-webflux\web-app\src\main.ts */"./src/main.ts");
 
 
 /***/ })
