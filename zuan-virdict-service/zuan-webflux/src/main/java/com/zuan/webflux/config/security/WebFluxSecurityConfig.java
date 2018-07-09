@@ -4,12 +4,15 @@
 package com.zuan.webflux.config.security;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.method.configuration.EnableReactiveMethodSecurity;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
 import org.springframework.security.config.web.server.SecurityWebFiltersOrder;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.server.SecurityWebFilterChain;
+import org.springframework.security.web.server.authentication.RedirectServerAuthenticationEntryPoint;
+import org.springframework.security.web.server.authorization.HttpStatusServerAccessDeniedHandler;
 import org.springframework.security.web.server.context.WebSessionServerSecurityContextRepository;
 
 import com.zuan.webflux.config.security.jwt.JwtAuthenticationWebFilter;
@@ -38,7 +41,7 @@ public class WebFluxSecurityConfig {
   @Bean
   public SecurityWebFilterChain springSecurityFilterChain(final ServerHttpSecurity http,
       final JwtAuthenticationWebFilter authenticationWebFilter,
-      final UnauthorizedAuthenticationEntryPoint entryPoint) {
+      final RedirectServerAuthenticationEntryPoint entryPoint) {
     // We must override AuthenticationEntryPoint because if
     // AuthenticationWebFilter didn't kicked in
     // (i.e. there are no required headers) then default behavior is to display
@@ -47,10 +50,11 @@ public class WebFluxSecurityConfig {
     // Filter tries to authenticate each request if it contains required
     // headers.
     // Finally, we disable all default security.
-    http.exceptionHandling().authenticationEntryPoint(entryPoint).and()
-    .addFilterAt(authenticationWebFilter, SecurityWebFiltersOrder.AUTHENTICATION)
-    .authorizeExchange().anyExchange().permitAll().and().formLogin()
-    .loginPage("/login").and().csrf().disable();
+    http.exceptionHandling().authenticationEntryPoint(entryPoint)
+        .accessDeniedHandler(new HttpStatusServerAccessDeniedHandler(HttpStatus.BAD_REQUEST))
+        .and().addFilterAt(authenticationWebFilter, SecurityWebFiltersOrder.AUTHENTICATION)
+        .authorizeExchange().anyExchange().permitAll().and().formLogin().disable().logout()
+        .disable().csrf().disable();
     return http.build();
   }
 

@@ -205,6 +205,18 @@ public class JwtTokenService implements Serializable {
   }
 
   /**
+   * Generate token.
+   *
+   * @param userName
+   *          the user name
+   * @return the string
+   */
+  public String generateToken(String userName) {
+    final Map<String, Object> claims = new HashMap<>();
+    return doGenerateToken(claims, userName, generateAudience());
+  }
+
+  /**
    * Do generate token.
    *
    * @param claims

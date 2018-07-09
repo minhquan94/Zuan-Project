@@ -3,15 +3,11 @@
  */
 package com.zuan.webflux.config.security;
 
-import java.util.Arrays;
-import java.util.UUID;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.ReactiveAuthenticationManager;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.ReactiveUserDetailsService;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,7 +16,7 @@ import org.springframework.stereotype.Component;
 
 import com.zuan.webflux.config.security.jwt.JwtAuthenticationToken;
 import com.zuan.webflux.config.security.jwt.JwtPreAuthenticationToken;
-import com.zuan.webflux.model.UserRoleEnum;
+import com.zuan.webflux.model.GuestUser;
 import com.zuan.webflux.service.JwtTokenService;
 
 import reactor.core.publisher.Mono;
@@ -69,7 +65,7 @@ public class CustomReactiveAuthenticationManager implements ReactiveAuthenticati
   @Override
   public Mono<Authentication> authenticate(final Authentication authentication) {
     if (authentication instanceof JwtPreAuthenticationToken) {
-      return Mono.just(authentication).switchIfEmpty(Mono.defer(this::grantedGuest))
+      return Mono.just(authentication).switchIfEmpty(Mono.defer(this::raiseBadCredentials))
           .cast(JwtPreAuthenticationToken.class).flatMap(this::authenticateToken)
           .publishOn(Schedulers.parallel()).onErrorResume(e -> raiseBadCredentials())
           .map(u -> new JwtAuthenticationToken(u.getUsername(), u.getPassword(),
@@ -85,21 +81,8 @@ public class CustomReactiveAuthenticationManager implements ReactiveAuthenticati
    *          the generic type
    * @return the mono
    */
-  private <T> Mono<T> raiseBadCredentials() {
+  public <T> Mono<T> raiseBadCredentials() {
     return Mono.error(new BadCredentialsException("Invalid Credentials"));
-  }
-
-  /**
-   * Granted guest.
-   *
-   * @return the mono
-   */
-  private Mono<Authentication> grantedGuest() {
-    final String userName = UUID.randomUUID().toString();
-    LOG.info("Login with guest, user name: {}", userName);
-    final JwtAuthenticationToken tokenGuest = new JwtAuthenticationToken(userName, null,
-        Arrays.asList(new SimpleGrantedAuthority(UserRoleEnum.GUEST.name())));
-    return Mono.just(tokenGuest);
   }
 
   /**
@@ -119,13 +102,25 @@ public class CustomReactiveAuthenticationManager implements ReactiveAuthenticati
       if (username != null && SecurityContextHolder.getContext().getAuthentication() == null
           && jwtTokenService.validateToken(authToken)) {
         LOG.info("authenticated user {}, setting security context", username);
-        return this.userDetailsService.findByUsername(username);
+        return this.userDetailsService.findByUsername(username)
+            .defaultIfEmpty(guestUser(username));
       }
     } catch (final Exception e) {
       throw new BadCredentialsException("Invalid token: " + e);
     }
 
     return null;
+  }
+
+  /**
+   * Guest user.
+   *
+   * @param username
+   *          the username
+   * @return the user details
+   */
+  private UserDetails guestUser(String username) {
+    return new GuestUser(username);
   }
 
   /**

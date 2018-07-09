@@ -3,7 +3,6 @@
  */
 package com.zuan.webflux.controller;
 
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -41,11 +40,20 @@ public class MainController {
   }
 
   /**
+   * Shop.
+   *
+   * @return the mono
+   */
+  @GetMapping(value = "/shop")
+  public Mono<String> shop() {
+    return Mono.just(INDEX);
+  }
+
+  /**
    * Admin.
    *
    * @return the mono
    */
-  @PreAuthorize("hasRole('ADMIN')")
   @GetMapping("/admin")
   public Mono<String> admin() {
     return Mono.just(INDEX);

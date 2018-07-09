@@ -1,7 +1,8 @@
-import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { ItemNavbarAdmin } from '../model/item-navbar-admin';
 
 @Injectable({
   providedIn: 'root'
@@ -10,21 +11,17 @@ export class AdminService {
 
   constructor(private httpClient: HttpClient) { }
 
-  test() {
-    return this.httpClient.get<any>('http://localhost:8080/rest/login/test').pipe(map(response => {
-      return response;
+  getNavbarItems(): Observable<ItemNavbarAdmin[]> {
+    return this.httpClient.get<ItemNavbarAdmin[]>('http://localhost:8080/rest/admin/navbar-items').pipe(map(items => {
+      return items;
     }));
-  }
-
-  getStores() {
-    return [{storeName: "ZuanShop", storeLink: "shop"}];
   }
 
   getHelpItems() {
     return [
-      {helpName: "Trang chủ ZuanShop", helpLink: "shop"},
-      {helpName: "Tài liệu hướng dẫn", helpLink: "shop"},
-      {helpName: "Trung tâm hỗ trợ", helpLink: "shop"}
-    ] 
+      {helpName: 'Trang chủ ZuanShop', helpLink: 'shop'},
+      {helpName: 'Tài liệu hướng dẫn', helpLink: 'shop'},
+      {helpName: 'Trung tâm hỗ trợ', helpLink: 'shop'}
+    ];
   }
 }

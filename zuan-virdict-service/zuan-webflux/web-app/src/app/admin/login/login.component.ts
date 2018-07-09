@@ -16,10 +16,14 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   returnUrl: string;
 
-  constructor(private fb: FormBuilder, private loginService: LoginService, private alertService: AlertService, private route: ActivatedRoute, private router: Router) { }
+  constructor(private fb: FormBuilder,
+    private loginService: LoginService,
+    private alertService: AlertService,
+    private route: ActivatedRoute,
+    private router: Router) { }
 
   ngOnInit() {
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/'
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     this.buildLoginForm();
   }
 
@@ -31,13 +35,13 @@ export class LoginComponent implements OnInit {
   }
 
   login(form: FormGroup) {
-    let username = form.value.username;
-    let password = form.value.password;
-    let user: User = new User(username, password);
+    const username = form.value.username;
+    const password = form.value.password;
+    const user: User = new User(username, password);
     this.loginService.login(user).pipe(first()).subscribe(data => {
       this.router.navigate([this.returnUrl]);
     }, error => {
-      this.alertService.error(error)
+      this.alertService.error('Thông tin đăng nhập không chính xác.');
     });
   }
 }

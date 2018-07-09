@@ -6,6 +6,7 @@ package com.zuan.webflux.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.security.web.server.authentication.RedirectServerAuthenticationEntryPoint;
 import org.springframework.web.reactive.config.CorsRegistry;
 import org.springframework.web.reactive.config.ResourceHandlerRegistry;
 import org.springframework.web.reactive.config.ViewResolverRegistry;
@@ -63,8 +64,18 @@ public class WebConfiguration implements WebFluxConfigurer {
    * @return the router function
    */
   @Bean
-  RouterFunction<ServerResponse> staticResourceRouter() {
+  public RouterFunction<ServerResponse> staticResourceRouter() {
     return RouterFunctions.resources("/**", new ClassPathResource("templates/"));
+  }
+
+  /**
+   * Redirect server authentication entry point.
+   *
+   * @return the redirect server authentication entry point
+   */
+  @Bean
+  public RedirectServerAuthenticationEntryPoint redirectServerAuthenticationEntryPoint() {
+    return new RedirectServerAuthenticationEntryPoint("redirect:/login");
   }
 
   /**

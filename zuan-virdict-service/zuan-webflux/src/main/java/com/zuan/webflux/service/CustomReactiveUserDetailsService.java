@@ -31,6 +31,6 @@ public class CustomReactiveUserDetailsService implements ReactiveUserDetailsServ
    */
   @Override
   public Mono<UserDetails> findByUsername(String username) {
-    return Mono.just(userRepository.findByUserName(username));
+    return Mono.justOrEmpty(userRepository.findByUserName(username));
   }
 }

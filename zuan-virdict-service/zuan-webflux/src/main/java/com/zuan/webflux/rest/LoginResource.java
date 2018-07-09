@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -56,16 +55,4 @@ public class LoginResource {
             new JwtAuthenticationResponse(jwtTokenService.generateToken(user), username)))
         .defaultIfEmpty(ResponseEntity.notFound().build());
   }
-
-  /**
-   * Test.
-   *
-   * @return the mono
-   */
-  @GetMapping("/test")
-  @CrossOrigin("http://localhost:4200")
-  public Mono<ResponseEntity<String>> test() {
-    return Mono.just(ResponseEntity.ok().body("OK-------------"));
-  }
-
 }

@@ -4,7 +4,6 @@
 package com.zuan.webflux.rest.admin;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,8 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.zuan.webflux.dto.admin.NavbarItemAdminDto;
-import com.zuan.webflux.model.NavbarItemAdmin;
-import com.zuan.webflux.repository.NavbarAdminRepository;
+import com.zuan.webflux.service.admin.AdminService;
 
 import reactor.core.publisher.Flux;
 
@@ -30,7 +28,7 @@ public class AdminResource {
 
   /** The navbar admin detail repository. */
   @Autowired
-  private NavbarAdminRepository navbarAdminRepository;
+  private AdminService adminService;
 
   /**
    * Gets the navbar items.
@@ -40,9 +38,7 @@ public class AdminResource {
   @GetMapping("/navbar-items")
   @CrossOrigin("http://localhost:4200")
   public Flux<ResponseEntity<List<NavbarItemAdminDto>>> getNavbarItems() {
-    final List<NavbarItemAdmin> items = navbarAdminRepository.findAll();
-    final List<NavbarItemAdminDto> itemsReturn =
-        items.stream().map(NavbarItemAdminDto::new).collect(Collectors.toList());
+    final List<NavbarItemAdminDto> itemsReturn = adminService.getNarbarItems();
     return Flux.just(ResponseEntity.ok().body(itemsReturn));
   }
 

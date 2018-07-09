@@ -12,8 +12,8 @@ export class LoginService {
   constructor(private httpClient: HttpClient) { }
 
   login(userLogin: User): Observable<any> {
-    let username = userLogin.username;
-    let password = userLogin.password;
+    const username = userLogin.username;
+    const password = userLogin.password;
     return this.httpClient.post<any>('http://localhost:8080/rest/login', userLogin).pipe(map(user => {
       // login successful if there's a jwt token in the response
       if (user && user.token) {
@@ -21,7 +21,7 @@ export class LoginService {
         localStorage.setItem('currentUser', JSON.stringify(user));
       }
       return user;
-    }))
+    }));
   }
 
   logout() {

@@ -18,10 +18,11 @@ import { ShopComponent } from './shop/shop.component';
 import { AlertComponent } from './common/alert/alert.component';
 import { AlertService } from './common/alert/alert.service';
 import { EmailComponent } from './admin/email/email.component';
+import { AppService } from 'src/app/app.service';
 
 const appRoutes: Routes = [
   { path: 'admin/email', component: EmailComponent },
-  { path: 'admin/login', component: LoginComponent },
+  { path: 'login', component: LoginComponent },
   { path: 'shop', component: ShopComponent },
   { path: 'admin', component: AdminComponent, canActivate: [AuthGuard] }
 ];

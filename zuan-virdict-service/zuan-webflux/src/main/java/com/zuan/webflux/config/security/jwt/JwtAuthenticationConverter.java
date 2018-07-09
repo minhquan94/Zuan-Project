@@ -8,6 +8,7 @@ import java.util.function.Function;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 
 import com.zuan.webflux.service.JwtTokenService;
+import com.zuan.webflux.service.SecurityService;
 
 import reactor.core.publisher.Mono;
 
@@ -27,10 +29,17 @@ import reactor.core.publisher.Mono;
  */
 @Component
 public class JwtAuthenticationConverter
-implements Function<ServerWebExchange, Mono<Authentication>> {
+    implements Function<ServerWebExchange, Mono<Authentication>> {
 
   /** The logger. */
   private static final Logger LOG = LoggerFactory.getLogger(JwtAuthenticationConverter.class);
+
+  /** The Constant PREFIX_GUEST. */
+  private static final String PREFIX_GUEST = "guest_";
+
+  /** The security service. */
+  @Autowired
+  private SecurityService securityService;
 
   /** The jwt token service. */
   private final JwtTokenService jwtTokenService;
@@ -50,8 +59,6 @@ implements Function<ServerWebExchange, Mono<Authentication>> {
   /**
    * Instantiates a new jwt authentication converter.
    *
-   * @param userDetailsService
-   *          the user details service
    * @param jwtTokenService
    *          the jwt token util
    */
@@ -69,7 +76,6 @@ implements Function<ServerWebExchange, Mono<Authentication>> {
     final ServerHttpRequest request = exchange.getRequest();
     try {
 
-      final Authentication authentication = null;
       String authToken = null;
       final String bearerRequestHeader =
           exchange.getRequest().getHeaders().getFirst(tokenHeader);
@@ -85,14 +91,19 @@ implements Function<ServerWebExchange, Mono<Authentication>> {
           authToken = authTokenParam;
         }
       }
-      final String username = getUserName(authToken);
-      LOG.info("checking authentication for user " + username);
-      if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-
-        return Mono
-            .just(new JwtPreAuthenticationToken(authToken, bearerRequestHeader, username));
+      Authentication authentication = null;
+      String username = getUserName(authToken);
+      if (username == null) {
+        username = PREFIX_GUEST + UUID.randomUUID().toString();
+        authToken = jwtTokenService.generateToken(username);
+        authentication =
+            new JwtPreAuthenticationToken(authToken, bearerRequestHeader, username);
+      } else if (SecurityContextHolder.getContext().getAuthentication() == null) {
+        authentication =
+            new JwtPreAuthenticationToken(authToken, bearerRequestHeader, username);
       }
-
+      securityService.setAuthentication(authentication);
+      LOG.info("check authentication for user " + username);
       return Mono.just(authentication);
     } catch (final Exception e) {
       throw new BadCredentialsException("Invalid token: " + e);
@@ -102,7 +113,8 @@ implements Function<ServerWebExchange, Mono<Authentication>> {
   /**
    * Gets the user name.
    *
-   * @param authToken the auth token
+   * @param authToken
+   *          the auth token
    * @return the user name
    */
   private String getUserName(String authToken) {
@@ -118,6 +130,6 @@ implements Function<ServerWebExchange, Mono<Authentication>> {
     } else {
       LOG.warn("couldn't find bearer string, will ignore the header");
     }
-    return UUID.randomUUID().toString();
+    return null;
   }
 }
