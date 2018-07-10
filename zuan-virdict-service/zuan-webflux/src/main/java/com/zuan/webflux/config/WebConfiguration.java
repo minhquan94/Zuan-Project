@@ -16,6 +16,8 @@ import org.springframework.web.reactive.function.server.RouterFunctions;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import org.springframework.web.reactive.result.view.freemarker.FreeMarkerConfigurer;
 
+import com.zuan.webflux.service.SecurityService;
+
 /**
  * The Class WebConfiguration.
  *
@@ -76,6 +78,16 @@ public class WebConfiguration implements WebFluxConfigurer {
   @Bean
   public RedirectServerAuthenticationEntryPoint redirectServerAuthenticationEntryPoint() {
     return new RedirectServerAuthenticationEntryPoint("/login");
+  }
+
+  /**
+   * Security service.
+   *
+   * @return the security service
+   */
+  @Bean
+  public SecurityService securityService() {
+    return new SecurityService();
   }
 
   /**

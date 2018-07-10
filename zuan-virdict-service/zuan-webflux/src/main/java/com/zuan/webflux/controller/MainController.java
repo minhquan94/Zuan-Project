@@ -3,15 +3,10 @@
  */
 package com.zuan.webflux.controller;
 
-import java.util.Collection;
-
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.zuan.webflux.model.UserRoleEnum;
 import com.zuan.webflux.service.SecurityService;
 
 import reactor.core.publisher.Mono;
@@ -68,22 +63,11 @@ public class MainController {
    */
   @GetMapping("/admin")
   public Mono<String> admin() {
-    if (securityService.isAnonymous()
-        || !isAdminRole(securityService.getAuthentication().getAuthorities())) {
+    if (securityService.isAnonymous() || !securityService
+        .isAdminRole(securityService.getAuthentication().getAuthorities())) {
       return Mono.just("redirect:/login/admin");
     }
     return Mono.just(INDEX);
   }
 
-  /**
-   * Checks if is admin role.
-   *
-   * @param authorities
-   *          the authorities
-   * @return true, if is admin role
-   */
-  private boolean isAdminRole(Collection< ? extends GrantedAuthority> authorities) {
-    return authorities.stream().anyMatch(filter -> StringUtils
-        .equalsIgnoreCase(filter.getAuthority(), UserRoleEnum.ADMIN.name()));
-  }
 }
