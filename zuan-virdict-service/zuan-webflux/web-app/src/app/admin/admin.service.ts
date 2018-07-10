@@ -16,12 +16,4 @@ export class AdminService {
       return items;
     }));
   }
-
-  getHelpItems() {
-    return [
-      {helpName: 'Trang chủ ZuanShop', helpLink: 'shop'},
-      {helpName: 'Tài liệu hướng dẫn', helpLink: 'shop'},
-      {helpName: 'Trung tâm hỗ trợ', helpLink: 'shop'}
-    ];
-  }
 }

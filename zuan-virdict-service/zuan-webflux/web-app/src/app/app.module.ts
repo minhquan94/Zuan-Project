@@ -22,7 +22,7 @@ import { AppService } from 'src/app/app.service';
 
 const appRoutes: Routes = [
   { path: 'admin/email', component: EmailComponent },
-  { path: 'login', component: LoginComponent },
+  { path: 'login/admin', component: LoginComponent },
   { path: 'shop', component: ShopComponent },
   { path: 'admin', component: AdminComponent, canActivate: [AuthGuard] }
 ];
@@ -45,7 +45,7 @@ const appRoutes: Routes = [
     HttpClientModule,
     RouterModule.forRoot(
       appRoutes,
-      { enableTracing: true } // <-- debugging purposes only
+      { enableTracing: false } // <-- debugging purposes only
     )
   ],
   providers: [

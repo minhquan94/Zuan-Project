@@ -3,9 +3,12 @@
  */
 package com.zuan.webflux.config.security.jwt;
 
+import java.util.Collection;
+
 import javax.security.auth.Subject;
 
 import org.springframework.security.authentication.AbstractAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
 
 /**
  * The Class JwtPreAuthenticationToken.
@@ -37,6 +40,27 @@ public class JwtPreAuthenticationToken extends AbstractAuthenticationToken {
   public JwtPreAuthenticationToken(final String authToken, final String bearerRequestHeader,
       final String username) {
     super(null);
+    this.authToken = authToken;
+    this.bearerRequestHeader = bearerRequestHeader;
+    this.username = username;
+    setAuthenticated(false);
+  }
+
+  /**
+   * Instantiates a new jwt pre authentication token.
+   *
+   * @param authToken
+   *          the auth token
+   * @param bearerRequestHeader
+   *          the bearer request header
+   * @param username
+   *          the username
+   * @param authorities
+   *          the authorities
+   */
+  public JwtPreAuthenticationToken(final String authToken, final String bearerRequestHeader,
+      final String username, Collection< ? extends GrantedAuthority> authorities) {
+    super(authorities);
     this.authToken = authToken;
     this.bearerRequestHeader = bearerRequestHeader;
     this.username = username;
@@ -99,4 +123,42 @@ public class JwtPreAuthenticationToken extends AbstractAuthenticationToken {
   public String getUsername() {
     return username;
   }
+
+  /**
+   * Hash code.
+   *
+   * @return the int
+   */
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = super.hashCode();
+    result = prime * result + ((username == null) ? 0 : username.hashCode());
+    return result;
+  }
+
+  /**
+   * Equals.
+   *
+   * @param obj
+   *          the obj
+   * @return true, if successful
+   */
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    if (!super.equals(obj))
+      return false;
+    if (getClass() != obj.getClass())
+      return false;
+    JwtPreAuthenticationToken other = (JwtPreAuthenticationToken) obj;
+    if (username == null) {
+      if (other.username != null)
+        return false;
+    } else if (!username.equals(other.username))
+      return false;
+    return true;
+  }
+
 }

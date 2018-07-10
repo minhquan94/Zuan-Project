@@ -153,4 +153,15 @@ public class NavbarItemAdmin {
     return true;
   }
 
+  /**
+   * {@inheritDoc}
+   * 
+   * @see java.lang.Object#toString()
+   */
+  @Override
+  public String toString() {
+    return "NavbarItemAdmin [id=" + id + ", title=" + title + ", group=" + group
+        + ", navbarAdminDetails=" + navbarAdminDetails + "]";
+  }
+
 }

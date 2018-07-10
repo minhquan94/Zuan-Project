@@ -5,6 +5,8 @@ import { store } from '@angular/core/src/render3/instructions';
 import { ItemAdminDetail } from '../model/item-navbar-admin-detail';
 import { SystemService } from '../common/system/system.service';
 import { ItemNavbarAdmin } from '../model/item-navbar-admin';
+import { ActivatedRoute, Router } from '@angular/router';
+import { LoginService } from './login/login.service';
 
 
 const NOTIFICATION: Number = 1;
@@ -22,10 +24,19 @@ export class AdminComponent implements OnInit {
   notification: ItemNavbarAdmin[] = new Array();
   stores: ItemNavbarAdmin[] = new Array();
   helpItems: ItemNavbarAdmin[] = new Array();
+  isShowMenu = false;
+  currentUser = '';
 
-  constructor(private adminService: AdminService, private systemService: SystemService) { }
+  constructor(
+    private adminService: AdminService, 
+    private systemService: SystemService,
+    private loginService: LoginService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) { }
 
   ngOnInit() {
+    this.validateUser();
     this.loadNavbarItems();
   }
 
@@ -47,5 +58,25 @@ export class AdminComponent implements OnInit {
         }
       });
     });
+  }
+
+  validateUser() {
+    const currentUser = localStorage.getItem('currentUser');
+    const username = JSON.parse(currentUser).username;
+    if (username.startsWith('guest_')) {
+      this.router.navigate(['/login/admin'], { queryParams: { returnUrl: '/admin' } });
+    }
+    this.currentUser = JSON.parse(currentUser).username;
+  }
+
+  logout() {
+    localStorage.removeItem('currentUser');
+    this.loginService.logout().subscribe(response => {
+      this.router.navigate(['/login/admin'], { queryParams: { returnUrl: '/admin' } });
+    });
+  }
+
+  isShowMenuBar() {
+    this.isShowMenu = !this.isShowMenu;
   }
 }

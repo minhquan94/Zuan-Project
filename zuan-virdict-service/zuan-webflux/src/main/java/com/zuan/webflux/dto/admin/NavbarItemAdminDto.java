@@ -58,7 +58,7 @@ public class NavbarItemAdminDto {
     this.group = itemAdmin.getGroup();
     itemDetails = new ArrayList<>();
     itemAdmin.getNavbarAdminDetails()
-    .forEach(detail -> itemDetails.add(new NavbarItemDetailDto(detail)));
+        .forEach(detail -> itemDetails.add(new NavbarItemDetailDto(detail)));
   }
 
   /**
@@ -116,6 +116,55 @@ public class NavbarItemAdminDto {
    */
   public void setGroup(short group) {
     this.group = group;
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
+   * @see java.lang.Object#hashCode()
+   */
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + group;
+    result = prime * result + ((title == null) ? 0 : title.hashCode());
+    return result;
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
+   * @see java.lang.Object#equals(java.lang.Object)
+   */
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    if (obj == null)
+      return false;
+    if (getClass() != obj.getClass())
+      return false;
+    NavbarItemAdminDto other = (NavbarItemAdminDto) obj;
+    if (group != other.group)
+      return false;
+    if (title == null) {
+      if (other.title != null)
+        return false;
+    } else if (!title.equals(other.title))
+      return false;
+    return true;
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
+   * @see java.lang.Object#toString()
+   */
+  @Override
+  public String toString() {
+    return "NavbarItemAdminDto [title=" + title + ", group=" + group + ", itemDetails="
+        + itemDetails + "]";
   }
 
 }

@@ -5,6 +5,7 @@ package com.zuan.webflux.config.security;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.ReactiveAuthenticationManager;
 import org.springframework.security.core.Authentication;
@@ -18,6 +19,7 @@ import com.zuan.webflux.config.security.jwt.JwtAuthenticationToken;
 import com.zuan.webflux.config.security.jwt.JwtPreAuthenticationToken;
 import com.zuan.webflux.model.GuestUser;
 import com.zuan.webflux.service.JwtTokenService;
+import com.zuan.webflux.service.SecurityService;
 
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
@@ -33,6 +35,10 @@ public class CustomReactiveAuthenticationManager implements ReactiveAuthenticati
   /** The logger. */
   private static final Logger LOG =
       LoggerFactory.getLogger(CustomReactiveAuthenticationManager.class);
+
+  /** The security service. */
+  @Autowired
+  private SecurityService securityService;
 
   /** The user details service. */
   private final ReactiveUserDetailsService userDetailsService;
@@ -68,8 +74,13 @@ public class CustomReactiveAuthenticationManager implements ReactiveAuthenticati
       return Mono.just(authentication).switchIfEmpty(Mono.defer(this::raiseBadCredentials))
           .cast(JwtPreAuthenticationToken.class).flatMap(this::authenticateToken)
           .publishOn(Schedulers.parallel()).onErrorResume(e -> raiseBadCredentials())
-          .map(u -> new JwtAuthenticationToken(u.getUsername(), u.getPassword(),
-              u.getAuthorities()));
+          .map(u -> {
+            final JwtAuthenticationToken jwtAuthenticationToken = new JwtAuthenticationToken(
+                u.getUsername(), u.getPassword(), u.getAuthorities(),
+                ((JwtPreAuthenticationToken) authentication).getAuthToken());
+            securityService.setAuthentication(jwtAuthenticationToken);
+            return jwtAuthenticationToken;
+          });
     }
     return Mono.just(authentication);
   }
@@ -97,10 +108,8 @@ public class CustomReactiveAuthenticationManager implements ReactiveAuthenticati
     try {
       final String authToken = jwtPreAuthenticationToken.getAuthToken();
       final String username = jwtPreAuthenticationToken.getUsername();
-
-      LOG.info("checking authentication for user {}", username);
       if (username != null && SecurityContextHolder.getContext().getAuthentication() == null
-          ) {
+          && jwtTokenService.validateToken(authToken)) {
         LOG.info("authenticated user {}, setting security context", username);
         return this.userDetailsService.findByUsername(username)
             .defaultIfEmpty(guestUser(username));

@@ -8,18 +8,15 @@ import java.util.function.Function;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 import org.springframework.web.server.ServerWebExchange;
 
 import com.zuan.webflux.service.JwtTokenService;
-import com.zuan.webflux.service.SecurityService;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import reactor.core.publisher.Mono;
@@ -38,10 +35,6 @@ implements Function<ServerWebExchange, Mono<Authentication>> {
 
   /** The Constant PREFIX_GUEST. */
   public static final String PREFIX_GUEST = "guest_";
-
-  /** The security service. */
-  @Autowired
-  private SecurityService securityService;
 
   /** The jwt token service. */
   private final JwtTokenService jwtTokenService;
@@ -104,11 +97,6 @@ implements Function<ServerWebExchange, Mono<Authentication>> {
         authentication =
             new JwtPreAuthenticationToken(authToken, bearerRequestHeader, username);
       }
-      if (StringUtils.startsWithIgnoreCase(username, PREFIX_GUEST)) {
-        jwtTokenService.refreshToken(authToken);
-      }
-
-      securityService.setAuthentication(authentication);
       return Mono.just(authentication);
     } catch (final ExpiredJwtException e) {
       throw e;

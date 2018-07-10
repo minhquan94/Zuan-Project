@@ -1,69 +1,25 @@
 <!-- Nav tabs -->
 <div class="app-header">
   <ul class="app-header nav fixed-top">
-    <button class="navbar-toggler navbar-light" type="button" data-toggle="collapse">
+    <button class="navbar-toggler navbar-light" type="button" data-toggle="collapse" (click)=isShowMenuBar()>
       <span class="navbar-toggler-icon my-toggler"></span>
     </button>
 
     <ul class="nav ml-md-auto d-md-flex">
-      <li class="dropdown">
+      <li class="dropdown" *ngIf="notification && notification.length > 0">
         <a class="dropdown-toggle" data-toggle="dropdown" title="Thông báo" aria-expanded="false">
           <i class="fa fa-bell fa-lg"></i>
         </a>
-        <ul class="dropdown-menu dropdown-menu-right alerts-dropdown">
-          <li class="dropdown-header">Nâng cấp</li>
-          <li>
-            <a href="http://conzic.myzozo.net/admin/index.php?route=common/upgrade&amp;token=o4I8Ngsgp9POe5AaSd9fgs5ElkCr5Uy6" style="display: block; overflow: auto;">
-              <span class="label label-warning pull-right">0</span>Nâng cấp Hệ thống </a>
-          </li>
-
-          <li class="divider"></li>
-          <li class="dropdown-header">Đơn đặt hàng</li>
-          <li>
-            <a href="http://conzic.myzozo.net/admin/index.php?route=sale/order&amp;token=o4I8Ngsgp9POe5AaSd9fgs5ElkCr5Uy6&amp;filter_order_status=1,5,3,2"
-              style="display: block; overflow: auto;">
-              <span class="label label-warning pull-right">9</span>Đang xử lý </a>
-          </li>
-          <li>
-            <a href="http://conzic.myzozo.net/admin/index.php?route=sale/order&amp;token=o4I8Ngsgp9POe5AaSd9fgs5ElkCr5Uy6&amp;filter_order_status=5,3">
-              <span class="label label-success pull-right">1</span>Đã xử lý </a>
-          </li>
-          <li>
-            <a href="http://conzic.myzozo.net/admin/index.php?route=sale/return&amp;token=o4I8Ngsgp9POe5AaSd9fgs5ElkCr5Uy6">
-              <span class="label label-danger pull-right">0</span>Đổi / Trả hàng </a>
-          </li>
-
-          <li class="divider"></li>
-          <li class="dropdown-header">Khách hàng</li>
-          <li>
-            <a href="http://conzic.myzozo.net/admin/index.php?route=report/customer_online&amp;token=o4I8Ngsgp9POe5AaSd9fgs5ElkCr5Uy6">
-              <span class="label label-success pull-right">0</span>Đang truy cập </a>
-          </li>
-          <li>
-            <a href="http://conzic.myzozo.net/admin/index.php?route=customer/customer&amp;token=o4I8Ngsgp9POe5AaSd9fgs5ElkCr5Uy6&amp;filter_approved=0">
-              <span class="label label-danger pull-right">0</span>Chờ duyệt </a>
-          </li>
-
-          <li class="divider"></li>
-          <li class="dropdown-header">Sản phẩm</li>
-          <li>
-            <a href="http://conzic.myzozo.net/admin/index.php?route=catalog/product&amp;token=o4I8Ngsgp9POe5AaSd9fgs5ElkCr5Uy6&amp;filter_quantity=0">
-              <span class="label label-danger pull-right">0</span>Hết hàng </a>
-          </li>
-          <li>
-            <a href="http://conzic.myzozo.net/admin/index.php?route=catalog/review&amp;token=o4I8Ngsgp9POe5AaSd9fgs5ElkCr5Uy6&amp;filter_status=0">
-              <span class="label label-danger pull-right">0</span>Nhận xét </a>
-          </li>
-
-          <li class="divider"></li>
-          <li class="dropdown-header">Cộng tác viên</li>
-          <li>
-            <a href="http://conzic.myzozo.net/admin/index.php?route=marketing/affiliate&amp;token=o4I8Ngsgp9POe5AaSd9fgs5ElkCr5Uy6&amp;filter_approved=1">
-              <span class="label label-danger pull-right">0</span>Chờ duyệt </a>
-          </li>
+        <ul class="dropdown-menu dropdown-menu-right">
+          <div *ngFor="let item of notification">
+              <li class="dropdown-header">{{item.title}}</li>
+              <li *ngFor="let itemDetail of item.itemDetails" class="dropdown-item">
+                  <a ng-href="itemDetail.link">{{itemDetail.name}}</a>
+              </li>
+          </div>
         </ul>
       </li>
-      <li class="dropdown">
+      <li class="dropdown" *ngIf="stores && stores.length > 0">
         <a class="dropdown-toggle hidden-xs" data-toggle="dropdown" title="Cửa hàng" aria-expanded="false">
           <i class="fa fa-home fa-lg"></i>
         </a>
@@ -71,13 +27,13 @@
           <div *ngFor="let item of stores">
               <li class="dropdown-header">{{item.title}}</li>
               <li *ngFor="let itemDetail of item.itemDetails" class="dropdown-item">
-                  <a ng-href="itemDetail.link" href="#">{{itemDetail.name}}</a>
+                  <a ng-href="itemDetail.link">{{itemDetail.name}}</a>
               </li>
           </div>
         </ul>
       </li>
 
-      <li class="dropdown">
+      <li class="dropdown" *ngIf="helpItems && helpItems.length > 0">
           <a class="dropdown-toggle" title="Xem thêm..." data-toggle="dropdown" aria-expanded="false">
               <i class="fa fa-angle-down fa-lg"></i>
             </a>
@@ -85,13 +41,13 @@
             <div *ngFor="let item of helpItems">
                 <li class="dropdown-header">{{item.title}}</li>
                 <li *ngFor="let itemDetail of item.itemDetails" class="dropdown-item">
-                    <a ng-href="itemDetail.link" href="#">{{itemDetail.name}}</a>
+                    <a ng-href="itemDetail.link">{{itemDetail.name}}</a>
                 </li>
             </div>
           </ul>
         </li>
         <li>
-          <a href="http://conzic.myzozo.net/admin/index.php?route=common/logout&amp;token=o4I8Ngsgp9POe5AaSd9fgs5ElkCr5Uy6">
+          <a (click) = logout()>
             <span class="hidden-xs hidden-sm hidden-md">Thoát</span>
             <i class="fa fa-sign-out fa-lg"></i>
           </a>
@@ -116,13 +72,13 @@
 
 
 
-  <nav id="column-left" class="">
+  <nav id="column-left" [ngClass]="{'active': isShowMenu}">
     <div id="profile">
       <div>
         <img src="https://zozo.vn/public/resources/license/logo-mini.png" alt="brand">
       </div>
       <div>
-        <h4>John Doe</h4>
+        <h4>{{currentUser}}</h4>
         <small>Administrator</small>
       </div>
     </div>

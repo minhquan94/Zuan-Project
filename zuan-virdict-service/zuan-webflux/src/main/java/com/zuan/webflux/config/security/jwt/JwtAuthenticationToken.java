@@ -31,7 +31,7 @@ public class JwtAuthenticationToken extends UsernamePasswordAuthenticationToken 
    * @param authorities
    *          the authorities
    */
-  public JwtAuthenticationToken(Object principal, Object credentials,
+  public JwtAuthenticationToken(String principal, String credentials,
       Collection< ? extends GrantedAuthority> authorities) {
     super(principal, credentials, authorities);
   }
@@ -44,7 +44,7 @@ public class JwtAuthenticationToken extends UsernamePasswordAuthenticationToken 
    * @param credentials
    *          the credentials
    */
-  public JwtAuthenticationToken(Object principal, Object credentials) {
+  public JwtAuthenticationToken(String principal, String credentials) {
     super(principal, credentials);
   }
 
@@ -60,7 +60,7 @@ public class JwtAuthenticationToken extends UsernamePasswordAuthenticationToken 
    * @param token
    *          the token
    */
-  public JwtAuthenticationToken(Object principal, Object credentials,
+  public JwtAuthenticationToken(String principal, String credentials,
       Collection< ? extends GrantedAuthority> authorities, String token) {
     super(principal, credentials, authorities);
     this.token = token;
@@ -73,6 +73,16 @@ public class JwtAuthenticationToken extends UsernamePasswordAuthenticationToken 
    */
   public String getToken() {
     return token;
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.springframework.security.authentication.UsernamePasswordAuthenticationToken#getPrincipal()
+   */
+  @Override
+  public String getPrincipal() {
+    return (String) super.getPrincipal();
   }
 
   /**

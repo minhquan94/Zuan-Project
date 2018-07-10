@@ -13,6 +13,10 @@ h1, h2, h3, h4, h5, h6, p {
     position: relative;
     display: block;
 }
+
+.nav > li.dropdown:hover {
+    background-color: #e0e0e0;
+}
 .nav > li > a {
     padding: 10px 16px;
     line-height: 38px;
