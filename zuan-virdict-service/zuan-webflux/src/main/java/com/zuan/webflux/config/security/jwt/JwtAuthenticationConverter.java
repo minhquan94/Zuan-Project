@@ -12,11 +12,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 
 import com.zuan.webflux.service.JwtTokenService;
+import com.zuan.webflux.util.AuthenConstantUtil;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import reactor.core.publisher.Mono;
@@ -28,13 +28,10 @@ import reactor.core.publisher.Mono;
  */
 @Component
 public class JwtAuthenticationConverter
-implements Function<ServerWebExchange, Mono<Authentication>> {
+    implements Function<ServerWebExchange, Mono<Authentication>> {
 
   /** The logger. */
   private static final Logger LOG = LoggerFactory.getLogger(JwtAuthenticationConverter.class);
-
-  /** The Constant PREFIX_GUEST. */
-  public static final String PREFIX_GUEST = "guest_";
 
   /** The jwt token service. */
   private final JwtTokenService jwtTokenService;
@@ -69,40 +66,23 @@ implements Function<ServerWebExchange, Mono<Authentication>> {
   @Override
   public Mono<Authentication> apply(ServerWebExchange exchange) {
     final ServerHttpRequest request = exchange.getRequest();
-    try {
+    String authToken = null;
+    final String bearerRequestHeader =
+        exchange.getRequest().getHeaders().getFirst(tokenHeader);
 
-      String authToken = null;
-      final String bearerRequestHeader =
-          exchange.getRequest().getHeaders().getFirst(tokenHeader);
-
-      if (bearerRequestHeader != null && bearerRequestHeader.startsWith(bearerPrefix + " ")) {
-        authToken = bearerRequestHeader.substring(7);
-      }
-
-      if (authToken == null && request.getQueryParams() != null
-          && !request.getQueryParams().isEmpty()) {
-        final String authTokenParam = request.getQueryParams().getFirst(tokenParam);
-        if (authTokenParam != null) {
-          authToken = authTokenParam;
-        }
-      }
-      Authentication authentication = null;
-      String username = getUserName(authToken);
-      if (username == null) {
-        username = PREFIX_GUEST + UUID.randomUUID().toString();
-        authToken = jwtTokenService.generateToken(username);
-        authentication =
-            new JwtPreAuthenticationToken(authToken, bearerRequestHeader, username);
-      } else if (SecurityContextHolder.getContext().getAuthentication() == null) {
-        authentication =
-            new JwtPreAuthenticationToken(authToken, bearerRequestHeader, username);
-      }
-      return Mono.just(authentication);
-    } catch (final ExpiredJwtException e) {
-      throw e;
-    } catch (final Exception e) {
-      throw new BadCredentialsException("Invalid token: " + e);
+    if (bearerRequestHeader != null && bearerRequestHeader.startsWith(bearerPrefix + " ")) {
+      authToken = bearerRequestHeader.substring(7);
     }
+
+    if (authToken == null && request.getQueryParams() != null
+        && !request.getQueryParams().isEmpty()) {
+      final String authTokenParam = request.getQueryParams().getFirst(tokenParam);
+      if (authTokenParam != null) {
+        authToken = authTokenParam;
+      }
+    }
+    Authentication authentication = getAuthenticator(authToken, bearerRequestHeader);
+    return Mono.just(authentication);
   }
 
   /**
@@ -112,19 +92,24 @@ implements Function<ServerWebExchange, Mono<Authentication>> {
    *          the auth token
    * @return the user name
    */
-  private String getUserName(String authToken) {
+  private Authentication getAuthenticator(final String authToken,
+      final String bearerRequestHeader) {
     if (authToken != null) {
       try {
-        return jwtTokenService.getUsernameFromToken(authToken);
+        return new JwtPreAuthenticationToken(authToken, bearerRequestHeader,
+            jwtTokenService.getUsernameFromToken(authToken));
       } catch (final IllegalArgumentException e) {
         LOG.error("an error occured during getting username from token", e);
-        return null;
-      } catch (final ExpiredJwtException e) { //NOSONAR
+      } catch (final ExpiredJwtException e) { // NOSONAR
         LOG.warn("the token is expired and not valid anymore");
+        throw e;
       }
     } else {
       LOG.warn("couldn't find bearer string, will ignore the header");
+      String username = AuthenConstantUtil.PREFIX_GUEST + UUID.randomUUID().toString();
+      return new JwtPreAuthenticationToken(authToken, bearerRequestHeader,
+          jwtTokenService.generateToken(username));
     }
-    return null;
+    throw new BadCredentialsException("Invalid token: " + authToken);
   }
 }

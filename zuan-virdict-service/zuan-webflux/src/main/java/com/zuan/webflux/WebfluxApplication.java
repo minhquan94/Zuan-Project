@@ -9,13 +9,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
+import com.zuan.webflux.jpa.repository.BaseJpaRepositoryImpl;
+
 /**
  * The Class WebfluxApplication.
  *
  * @author <a href="mailto:developer@hitachiconsulting.com">zuan_</a>
  */
-@EnableJpaRepositories(basePackages = "com.zuan.webflux.repository")
-@EntityScan(basePackages = "com.zuan.webflux.model")
+@EnableJpaRepositories(basePackages = "com.zuan.webflux.jpa.repository", repositoryBaseClass = BaseJpaRepositoryImpl.class)
+@EntityScan(basePackages = "com.zuan.webflux.jpa.entity")
 @SpringBootApplication
 public class WebfluxApplication {
 

@@ -6,7 +6,6 @@ package com.zuan.webflux.config.security.jwt;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.security.authentication.ReactiveAuthenticationManager;
 import org.springframework.security.web.server.authentication.AuthenticationWebFilter;
-import org.springframework.security.web.server.authentication.RedirectServerAuthenticationEntryPoint;
 import org.springframework.security.web.server.authentication.ServerAuthenticationEntryPointFailureHandler;
 import org.springframework.security.web.server.util.matcher.ServerWebExchangeMatcher;
 import org.springframework.stereotype.Component;
@@ -32,7 +31,7 @@ public class JwtAuthenticationWebFilter extends AuthenticationWebFilter {
    */
   public JwtAuthenticationWebFilter(final ReactiveAuthenticationManager authenticationManager,
       final JwtAuthenticationConverter converter,
-      final RedirectServerAuthenticationEntryPoint entryPoint) {
+      final JwtServerAuthenticationEntryPoint entryPoint) {
 
     super(authenticationManager);
     setAuthenticationConverter(converter);

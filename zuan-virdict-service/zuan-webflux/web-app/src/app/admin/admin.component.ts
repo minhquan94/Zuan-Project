@@ -8,24 +8,12 @@ import { ItemNavbarAdmin } from '../model/item-navbar-admin';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoginService } from './login/login.service';
 
-
-const NOTIFICATION: Number = 1;
-const STORES: Number = 2;
-const HELP: Number = 3;
-
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.css']
 })
 export class AdminComponent implements OnInit {
-
-  navbarTopStore: ['ZuanShop'];
-  notification: ItemNavbarAdmin[] = new Array();
-  stores: ItemNavbarAdmin[] = new Array();
-  helpItems: ItemNavbarAdmin[] = new Array();
-  isShowMenu = false;
-  currentUser = '';
 
   constructor(
     private adminService: AdminService, 
@@ -37,28 +25,8 @@ export class AdminComponent implements OnInit {
 
   ngOnInit() {
     this.validateUser();
-    this.loadNavbarItems();
   }
 
-  loadNavbarItems() {
-    this.adminService.getNavbarItems().pipe(first()).subscribe(data => {
-      data.forEach(item => {
-        switch (item.group) {
-          case NOTIFICATION:
-            this.notification.push(item);
-            break;
-          case STORES:
-            this.stores.push(item);
-            break;
-          case HELP:
-            this.helpItems.push(item);
-            break;
-          default:
-            break;
-        }
-      });
-    });
-  }
 
   validateUser() {
     const currentUser = localStorage.getItem('currentUser');
@@ -66,7 +34,6 @@ export class AdminComponent implements OnInit {
     if (username.startsWith('guest_')) {
       this.router.navigate(['/login/admin'], { queryParams: { returnUrl: '/admin' } });
     }
-    this.currentUser = JSON.parse(currentUser).username;
   }
 
   logout() {
@@ -74,9 +41,5 @@ export class AdminComponent implements OnInit {
     this.loginService.logout().subscribe(response => {
       this.router.navigate(['/login/admin'], { queryParams: { returnUrl: '/admin' } });
     });
-  }
-
-  isShowMenuBar() {
-    this.isShowMenu = !this.isShowMenu;
   }
 }

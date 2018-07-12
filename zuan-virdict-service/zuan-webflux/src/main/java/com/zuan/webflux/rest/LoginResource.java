@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.zuan.webflux.config.security.jwt.JwtAuthenticationConverter;
 import com.zuan.webflux.config.security.jwt.JwtAuthenticationRequest;
 import com.zuan.webflux.config.security.jwt.JwtAuthenticationResponse;
 import com.zuan.webflux.config.security.jwt.JwtAuthenticationToken;
@@ -26,6 +25,7 @@ import com.zuan.webflux.model.UserRoleEnum;
 import com.zuan.webflux.service.CustomReactiveUserDetailsService;
 import com.zuan.webflux.service.JwtTokenService;
 import com.zuan.webflux.service.SecurityService;
+import com.zuan.webflux.util.AuthenConstantUtil;
 
 import reactor.core.publisher.Mono;
 
@@ -84,9 +84,8 @@ public class LoginResource {
   @PostMapping("/logout")
   @CrossOrigin("http://localhost:4200")
   public Mono<ResponseEntity<JwtAuthenticationResponse>> logout() {
-    LOG.info("Require logout user: {}", securityService.getAuthentication().getPrincipal());
     final GuestUser guestUser =
-        new GuestUser(JwtAuthenticationConverter.PREFIX_GUEST + UUID.randomUUID().toString());
+        new GuestUser(AuthenConstantUtil.PREFIX_GUEST + UUID.randomUUID().toString());
     final JwtAuthenticationToken authenticationToken = new JwtAuthenticationToken(
         guestUser.getUsername(), guestUser.getPassword(), guestUser.getAuthorities(),
         jwtTokenService.generateToken(guestUser.getUsername()));

@@ -6,7 +6,6 @@ package com.zuan.webflux.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.security.web.server.authentication.RedirectServerAuthenticationEntryPoint;
 import org.springframework.web.reactive.config.CorsRegistry;
 import org.springframework.web.reactive.config.ResourceHandlerRegistry;
 import org.springframework.web.reactive.config.ViewResolverRegistry;
@@ -16,6 +15,7 @@ import org.springframework.web.reactive.function.server.RouterFunctions;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import org.springframework.web.reactive.result.view.freemarker.FreeMarkerConfigurer;
 
+import com.zuan.webflux.config.security.jwt.JwtServerAuthenticationEntryPoint;
 import com.zuan.webflux.service.SecurityService;
 
 /**
@@ -71,13 +71,13 @@ public class WebConfiguration implements WebFluxConfigurer {
   }
 
   /**
-   * Redirect server authentication entry point.
+   * Jwt server authentication entry point.
    *
-   * @return the redirect server authentication entry point
+   * @return the jwt server authentication entry point
    */
   @Bean
-  public RedirectServerAuthenticationEntryPoint redirectServerAuthenticationEntryPoint() {
-    return new RedirectServerAuthenticationEntryPoint("/login");
+  public JwtServerAuthenticationEntryPoint jwtServerAuthenticationEntryPoint() {
+    return new JwtServerAuthenticationEntryPoint();
   }
 
   /**

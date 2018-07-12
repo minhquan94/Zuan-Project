@@ -15,7 +15,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
-import com.zuan.webflux.config.security.jwt.JwtAuthenticationConverter;
+import com.zuan.webflux.util.AuthenConstantUtil;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Clock;
@@ -234,7 +234,7 @@ public class JwtTokenService implements Serializable {
   private String doGenerateToken(Map<String, Object> claims, String subject, String audience) {
     final Date createdDate = clock.now();
     Date expirationDate;
-    if (StringUtils.startsWithIgnoreCase(subject, JwtAuthenticationConverter.PREFIX_GUEST)) {
+    if (StringUtils.startsWithIgnoreCase(subject, AuthenConstantUtil.PREFIX_GUEST)) {
       expirationDate = calculateExpirationDateForGuest(createdDate);
     } else {
       expirationDate = calculateExpirationDate(createdDate);
@@ -308,6 +308,6 @@ public class JwtTokenService implements Serializable {
    * @return the date
    */
   private Date calculateExpirationDateForGuest(Date createdDate) {
-    return new Date(createdDate.getTime() + TimeUnit.DAYS.toMillis(1));
+    return new Date(createdDate.getTime() + TimeUnit.DAYS.toMillis(2));
   }
 }

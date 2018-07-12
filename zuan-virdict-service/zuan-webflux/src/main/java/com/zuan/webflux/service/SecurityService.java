@@ -10,8 +10,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 
-import com.zuan.webflux.config.security.jwt.JwtAuthenticationConverter;
 import com.zuan.webflux.model.UserRoleEnum;
+import com.zuan.webflux.util.AuthenConstantUtil;
 
 /**
  * The Class SecurityService.
@@ -36,7 +36,7 @@ public class SecurityService implements SecurityContext {
   public boolean isAnonymous(Authentication authentication) {
     return authentication == null || authentication.getPrincipal() == null
         || StringUtils.startsWithIgnoreCase(authentication.getPrincipal().toString(),
-            JwtAuthenticationConverter.PREFIX_GUEST);
+            AuthenConstantUtil.PREFIX_GUEST);
   }
 
   /**

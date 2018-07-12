@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.zuan.webflux.dto.admin.NavbarItemAdminDto;
+import com.zuan.webflux.dto.admin.AdminMenuItemDto;
 import com.zuan.webflux.service.admin.AdminService;
 
 import reactor.core.publisher.Mono;
@@ -35,10 +35,10 @@ public class AdminResource {
    *
    * @return the navbar items
    */
-  @GetMapping("/navbar-items")
+  @GetMapping("/navbar-top-items")
   @CrossOrigin("http://localhost:4200")
-  public Mono<ResponseEntity<List<NavbarItemAdminDto>>> getNavbarItems() {
-    final List<NavbarItemAdminDto> itemsReturn = adminService.getNarbarItems();
+  public Mono<ResponseEntity<List<AdminMenuItemDto>>> getNavbarTopItems() {
+    final List<AdminMenuItemDto> itemsReturn = adminService.getNavbarTopItems();
     return Mono.just(ResponseEntity.ok().body(itemsReturn));
   }
 

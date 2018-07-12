@@ -13,7 +13,10 @@ export class AppService {
 
   loadUser() {
     if (localStorage.getItem('currentUser')) {
-      return;
+      const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+      if (currentUser && currentUser.token) {
+        return;
+      }
     }
     this.httpClient.post<any>('http://localhost:8080/rest/common/request-authen', null).subscribe(user => {
       // login successful if there's a jwt token in the response

@@ -13,12 +13,13 @@ import { AppComponent } from './app.component';
 import { AdminComponent } from './admin/admin.component';
 import { LoginComponent } from './admin/login/login.component';
 import { NavbarComponent } from './shop/navbar/navbar.component';
-import { CardItemNavbarComponent } from './admin/card/card-item-navbar/card-item-navbar.component';
 import { ShopComponent } from './shop/shop.component';
 import { AlertComponent } from './common/alert/alert.component';
 import { AlertService } from './common/alert/alert.service';
 import { EmailComponent } from './admin/email/email.component';
-import { AppService } from 'src/app/app.service';
+import { NavbarMenuComponent } from './admin/navbar-menu/navbar-menu.component';
+import { NavbarTopComponent } from './admin/navbar-top/navbar-top.component';
+import { AdminModule } from './admin/admin.module';
 
 const appRoutes: Routes = [
   { path: 'admin/email', component: EmailComponent },
@@ -31,14 +32,11 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     NavbarComponent,
-    LoginComponent,
     AlertComponent,
-    AdminComponent,
-    CardItemNavbarComponent,
-    ShopComponent,
-    EmailComponent
+    ShopComponent
   ],
   imports: [
+    AdminModule,
     BrowserModule,
     AngularFontAwesomeModule,
     ReactiveFormsModule,

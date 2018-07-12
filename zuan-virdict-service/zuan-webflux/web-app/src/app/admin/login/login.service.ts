@@ -24,7 +24,6 @@ export class LoginService {
     }));
   }
 
-  
   logout() {
     localStorage.removeItem('currentUser');
     return this.httpClient.post<any>('http://localhost:8080/rest/login/logout', null).pipe(map(user => {

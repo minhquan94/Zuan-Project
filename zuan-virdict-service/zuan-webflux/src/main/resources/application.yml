@@ -16,7 +16,10 @@ spring:
     password: Quan@123
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
+      naming:
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
 jwt:
   header: Authorization
   param: token

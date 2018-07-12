@@ -15,12 +15,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.zuan.webflux.config.security.jwt.JwtAuthenticationConverter;
 import com.zuan.webflux.config.security.jwt.JwtAuthenticationResponse;
 import com.zuan.webflux.config.security.jwt.JwtAuthenticationToken;
 import com.zuan.webflux.model.GuestUser;
 import com.zuan.webflux.service.JwtTokenService;
 import com.zuan.webflux.service.SecurityService;
+import com.zuan.webflux.util.AuthenConstantUtil;
 
 import reactor.core.publisher.Mono;
 
@@ -56,7 +56,7 @@ public class CommonResource {
         (JwtAuthenticationToken) securityService.getAuthentication();
     if (authentication == null) {
       final GuestUser guestUser =
-          new GuestUser(JwtAuthenticationConverter.PREFIX_GUEST + UUID.randomUUID().toString());
+          new GuestUser(AuthenConstantUtil.PREFIX_GUEST + UUID.randomUUID().toString());
       authentication = new JwtAuthenticationToken(
           guestUser.getUsername(), guestUser.getPassword(), guestUser.getAuthorities(),
           jwtTokenService.generateToken(guestUser.getUsername()));

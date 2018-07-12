@@ -8,7 +8,7 @@ import org.springframework.security.core.userdetails.ReactiveUserDetailsService;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
-import com.zuan.webflux.repository.UserRepository;
+import com.zuan.webflux.jpa.repository.UserRepository;
 
 import reactor.core.publisher.Mono;
 

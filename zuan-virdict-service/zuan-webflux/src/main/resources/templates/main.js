@@ -41,7 +41,7 @@ module.exports = "h1, h2, h3, h4, h5, h6, p {\n    margin-top: 0;\n}\n\n.app-hea
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!-- Nav tabs -->\n<div class=\"app-header\">\n  <ul class=\"app-header nav fixed-top\">\n    <button class=\"navbar-toggler navbar-light\" type=\"button\" data-toggle=\"collapse\" (click)=isShowMenuBar()>\n      <span class=\"navbar-toggler-icon my-toggler\"></span>\n    </button>\n\n    <ul class=\"nav ml-md-auto d-md-flex\">\n      <li class=\"dropdown\" *ngIf=\"notification && notification.length > 0\">\n        <a class=\"dropdown-toggle\" data-toggle=\"dropdown\" title=\"Thông báo\" aria-expanded=\"false\">\n          <i class=\"fa fa-bell fa-lg\"></i>\n        </a>\n        <ul class=\"dropdown-menu dropdown-menu-right\">\n          <div *ngFor=\"let item of notification\">\n              <li class=\"dropdown-header\">{{item.title}}</li>\n              <li *ngFor=\"let itemDetail of item.itemDetails\" class=\"dropdown-item\">\n                  <a ng-href=\"itemDetail.link\">{{itemDetail.name}}</a>\n              </li>\n          </div>\n        </ul>\n      </li>\n      <li class=\"dropdown\" *ngIf=\"stores && stores.length > 0\">\n        <a class=\"dropdown-toggle hidden-xs\" data-toggle=\"dropdown\" title=\"Cửa hàng\" aria-expanded=\"false\">\n          <i class=\"fa fa-home fa-lg\"></i>\n        </a>\n        <ul class=\"dropdown-menu dropdown-menu-right\">\n          <div *ngFor=\"let item of stores\">\n              <li class=\"dropdown-header\">{{item.title}}</li>\n              <li *ngFor=\"let itemDetail of item.itemDetails\" class=\"dropdown-item\">\n                  <a ng-href=\"itemDetail.link\">{{itemDetail.name}}</a>\n              </li>\n          </div>\n        </ul>\n      </li>\n\n      <li class=\"dropdown\" *ngIf=\"helpItems && helpItems.length > 0\">\n          <a class=\"dropdown-toggle\" title=\"Xem thêm...\" data-toggle=\"dropdown\" aria-expanded=\"false\">\n              <i class=\"fa fa-angle-down fa-lg\"></i>\n            </a>\n          <ul class=\"dropdown-menu dropdown-menu-right\">\n            <div *ngFor=\"let item of helpItems\">\n                <li class=\"dropdown-header\">{{item.title}}</li>\n                <li *ngFor=\"let itemDetail of item.itemDetails\" class=\"dropdown-item\">\n                    <a ng-href=\"itemDetail.link\">{{itemDetail.name}}</a>\n                </li>\n            </div>\n          </ul>\n        </li>\n        <li>\n          <a (click) = logout()>\n            <span class=\"hidden-xs hidden-sm hidden-md\">Thoát</span>\n            <i class=\"fa fa-sign-out fa-lg\"></i>\n          </a>\n        </li>\n\n    </ul>\n\n  </ul>\n\n  <div class=\"dropdown open\">\n    <button class=\"btn btn-secondary dropdown-toggle\" type=\"button\" id=\"triggerId\" data-toggle=\"dropdown\" aria-haspopup=\"true\"\n      aria-expanded=\"false\">\n      Dropdown\n    </button>\n    <div class=\"dropdown-menu\" aria-labelledby=\"triggerId\">\n      <button class=\"dropdown-item\" href=\"#\">Action</button>\n      <button class=\"dropdown-item disabled\" href=\"#\">Disabled action</button>\n    </div>\n  </div>\n\n\n\n\n\n  <nav id=\"column-left\" [ngClass]=\"{'active': isShowMenu}\">\n    <div id=\"profile\">\n      <div>\n        <img src=\"https://zozo.vn/public/resources/license/logo-mini.png\" alt=\"brand\">\n      </div>\n      <div>\n        <h4>{{currentUser}}</h4>\n        <small>Administrator</small>\n      </div>\n    </div>\n    <ul id=\"menu\">\n      <li id=\"menu-dashboard\">\n        <a href=\"http://conzic.myzozo.net/admin/index.php?route=common/dashboard&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">\n          <i class=\"fa fa-dashboard fw\"></i>\n          <span>Bảng Điều Khiển</span>\n        </a>\n      </li>\n      <li id=\"menu-start\">\n        <a href=\"http://conzic.myzozo.net/admin/index.php?route=common/start&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">\n          <i class=\"fa fa-book fw\"></i>\n          <span>6 Bước hoàn thiện</span>\n        </a>\n      </li>\n      <li id=\"menu-catalog\">\n        <a class=\"parent\">\n          <i class=\"fa fa-tags fw\"></i>\n          <span>Sản phẩm</span>\n        </a>\n        <ul class=\"collapse\">\n          <li>\n            <a href=\"http://conzic.myzozo.net/admin/index.php?route=catalog/category&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Danh mục</a>\n          </li>\n          <li>\n            <a href=\"http://conzic.myzozo.net/admin/index.php?route=catalog/product&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Sản phẩm</a>\n          </li>\n          <li>\n            <a href=\"http://conzic.myzozo.net/admin/index.php?route=catalog/filter&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Nhóm lọc giá</a>\n          </li>\n          <li>\n            <a class=\"parent\">Thuộc Tính</a>\n            <ul class=\"collapse\">\n              <li>\n                <a href=\"http://conzic.myzozo.net/admin/index.php?route=catalog/attribute_group&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Nhóm Thuộc tính</a>\n              </li>\n              <li>\n                <a href=\"http://conzic.myzozo.net/admin/index.php?route=catalog/attribute&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Thuộc Tính</a>\n              </li>\n            </ul>\n          </li>\n          <li>\n            <a href=\"http://conzic.myzozo.net/admin/index.php?route=catalog/option&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Tùy chọn</a>\n          </li>\n          <li>\n            <a href=\"http://conzic.myzozo.net/admin/index.php?route=catalog/manufacturer&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Nhà Sản xuất</a>\n          </li>\n          <li>\n            <a href=\"http://conzic.myzozo.net/admin/index.php?route=catalog/review&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Đánh giá</a>\n          </li>\n          <li>\n            <a href=\"http://conzic.myzozo.net/admin/index.php?route=catalog/download&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Tệp tin Tải về</a>\n          </li>\n        </ul>\n      </li>\n      <li id=\"menu-news\">\n        <a class=\"parent\">\n          <i class=\"fa fa-newspaper-o fw\"></i>\n          <span>Tin tức</span>\n        </a>\n        <ul class=\"collapse\">\n          <li>\n            <a href=\"http://conzic.myzozo.net/admin/index.php?route=news/category&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Danh mục</a>\n          </li>\n          <li>\n            <a href=\"http://conzic.myzozo.net/admin/index.php?route=news/news&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Tin tức</a>\n          </li>\n          <li>\n            <a href=\"http://conzic.myzozo.net/admin/index.php?route=news/comment&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Bình luận</a>\n          </li>\n        </ul>\n      </li>\n      <li id=\"menu-sale\" class=\"active open\">\n        <a class=\"parent\">\n          <i class=\"fa fa-shopping-cart fw\"></i>\n          <span>Đơn hàng</span>\n        </a>\n        <ul class=\"collapse in\">\n          <li class=\"active open\">\n            <a href=\"http://conzic.myzozo.net/admin/index.php?route=sale/order&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Đơn Hàng</a>\n          </li>\n          <li>\n            <a href=\"http://conzic.myzozo.net/admin/index.php?route=sale/delivery&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Phiếu giao hàng (COD)</a>\n          </li>\n          <li>\n            <a href=\"http://conzic.myzozo.net/admin/index.php?route=sale/recurring&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Thanh toán Định kỳ</a>\n          </li>\n          <li>\n            <a href=\"http://conzic.myzozo.net/admin/index.php?route=sale/return&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Đổi / Trả hàng</a>\n          </li>\n          <li>\n            <a class=\"parent\">Phiếu quà tặng</a>\n            <ul class=\"collapse\">\n              <li>\n                <a href=\"http://conzic.myzozo.net/admin/index.php?route=sale/voucher&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Phiếu quà tặng</a>\n              </li>\n              <li>\n                <a href=\"http://conzic.myzozo.net/admin/index.php?route=sale/voucher_theme&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Mẫu phiếu Quà tặng</a>\n              </li>\n            </ul>\n          </li>\n        </ul>\n      </li>\n      <li id=\"menu-customer\">\n        <a class=\"parent\">\n          <i class=\"fa fa-user fw\"></i>\n          <span>Khách hàng</span>\n        </a>\n        <ul class=\"collapse\">\n          <li>\n            <a href=\"http://conzic.myzozo.net/admin/index.php?route=customer/customer&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Khách hàng</a>\n          </li>\n          <li>\n            <a href=\"http://conzic.myzozo.net/admin/index.php?route=customer/customer_group&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Nhóm Khách hàng</a>\n          </li>\n          <li>\n            <a href=\"http://conzic.myzozo.net/admin/index.php?route=customer/custom_field&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Mục Tùy chọn</a>\n          </li>\n        </ul>\n      </li>\n      <li id=\"menu-marketing\">\n        <a class=\"parent\">\n          <i class=\"fa fa-share-alt fw\"></i>\n          <span>Marketing</span>\n        </a>\n        <ul class=\"collapse\">\n          <li>\n            <a href=\"http://conzic.myzozo.net/admin/index.php?route=marketing/marketing&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Marketing</a>\n          </li>\n          <li>\n            <a href=\"http://conzic.myzozo.net/admin/index.php?route=marketing/affiliate&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Cộng tác viên</a>\n          </li>\n          <li>\n            <a href=\"http://conzic.myzozo.net/admin/index.php?route=marketing/coupon&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Mã Giảm giá - Coupon</a>\n          </li>\n          <li>\n            <a href=\"http://conzic.myzozo.net/admin/index.php?route=marketing/contact&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Thư</a>\n          </li>\n        </ul>\n      </li>\n      <li id=\"menu-report\">\n        <a class=\"parent\">\n          <i class=\"fa fa-bar-chart-o fw\"></i>\n          <span>Báo cáo</span>\n        </a>\n        <ul class=\"collapse\">\n          <li>\n            <a class=\"parent\">Bán hàng</a>\n            <ul class=\"collapse\">\n              <li>\n                <a href=\"http://conzic.myzozo.net/admin/index.php?route=report/sale_order&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Báo cáo Đơn hàng</a>\n              </li>\n              <li>\n                <a href=\"http://conzic.myzozo.net/admin/index.php?route=report/sale_tax&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Báo cáo Thuế</a>\n              </li>\n              <li>\n                <a href=\"http://conzic.myzozo.net/admin/index.php?route=report/sale_shipping&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Phương thức Vận chuyển</a>\n              </li>\n              <li>\n                <a href=\"http://conzic.myzozo.net/admin/index.php?route=report/sale_return&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Đổi / Trả hàng</a>\n              </li>\n              <li>\n                <a href=\"http://conzic.myzozo.net/admin/index.php?route=report/sale_coupon&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Mã Giảm giá - Coupon</a>\n              </li>\n            </ul>\n          </li>\n          <li>\n            <a class=\"parent\">Sản phẩm</a>\n            <ul class=\"collapse\">\n              <li>\n                <a href=\"http://conzic.myzozo.net/admin/index.php?route=report/product_viewed&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Được Xem</a>\n              </li>\n              <li>\n                <a href=\"http://conzic.myzozo.net/admin/index.php?route=report/product_purchased&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Đã Bán</a>\n              </li>\n            </ul>\n          </li>\n          <li>\n            <a class=\"parent\">Khách hàng</a>\n            <ul class=\"collapse\">\n              <li>\n                <a href=\"http://conzic.myzozo.net/admin/index.php?route=report/customer_online&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Đang truy cập</a>\n              </li>\n              <li>\n                <a href=\"http://conzic.myzozo.net/admin/index.php?route=report/customer_activity&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Hành vi</a>\n              </li>\n              <li>\n                <a href=\"http://conzic.myzozo.net/admin/index.php?route=report/customer_search&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Hành vi tìm kiếm</a>\n              </li>\n              <li>\n                <a href=\"http://conzic.myzozo.net/admin/index.php?route=report/customer_order&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Đặt hàng</a>\n              </li>\n              <li>\n                <a href=\"http://conzic.myzozo.net/admin/index.php?route=report/customer_reward&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Điểm thưởng</a>\n              </li>\n              <li>\n                <a href=\"http://conzic.myzozo.net/admin/index.php?route=report/customer_credit&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Tiền Tích lũy</a>\n              </li>\n            </ul>\n          </li>\n          <li>\n            <a class=\"parent\">Marketing</a>\n            <ul class=\"collapse\">\n              <li>\n                <a href=\"http://conzic.myzozo.net/admin/index.php?route=report/marketing&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Marketing</a>\n              </li>\n              <li>\n                <a href=\"http://conzic.myzozo.net/admin/index.php?route=report/affiliate&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Cộng tác viên</a>\n              </li>\n              <li>\n                <a href=\"http://conzic.myzozo.net/admin/index.php?route=report/affiliate_activity&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Hành vi Cộng tác viên</a>\n              </li>\n            </ul>\n          </li>\n        </ul>\n      </li>\n      <li id=\"menu-design\">\n        <a class=\"parent\">\n          <i class=\"fa fa-television fw\"></i>\n          <span>Website</span>\n        </a>\n        <ul class=\"collapse\">\n          <li>\n            <a href=\"http://conzic.myzozo.net/admin/index.php?route=extension/module/visualbuilder&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Bố cục</a>\n          </li>\n          <li>\n            <a href=\"http://conzic.myzozo.net/admin/index.php?route=taskbar/taskbar_group&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Menu</a>\n          </li>\n          <li>\n            <a href=\"http://conzic.myzozo.net/admin/index.php?route=extension/module/gallery&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Slider</a>\n          </li>\n          <li>\n            <a href=\"http://conzic.myzozo.net/admin/index.php?route=design/banner&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Quản lý album ảnh</a>\n          </li>\n          <li>\n            <a href=\"http://conzic.myzozo.net/admin/index.php?route=catalog/information&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Trang Thông tin</a>\n          </li>\n          <li>\n            <a href=\"http://conzic.myzozo.net/admin/index.php?route=design/url_alias&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Tùy chỉnh URL</a>\n          </li>\n          <li>\n            <a href=\"http://conzic.myzozo.net/admin/index.php?route=design/redirect&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Chuyển hướng 301</a>\n          </li>\n          <li>\n            <a href=\"http://conzic.myzozo.net/admin/index.php?route=design/style&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Chỉnh sửa CSS</a>\n          </li>\n        </ul>\n      </li>\n      <li id=\"menu-system\">\n        <a class=\"parent\">\n          <i class=\"fa fa-cog fw\"></i>\n          <span>Cấu hình</span>\n        </a>\n        <ul class=\"collapse\">\n          <li>\n            <a class=\"parent\">Cấu hình chung</a>\n            <ul class=\"collapse\">\n              <li>\n                <a href=\"http://conzic.myzozo.net/admin/index.php?route=setting/store&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Cửa hàng</a>\n              </li>\n              <li>\n                <a href=\"http://conzic.myzozo.net/admin/index.php?route=setting/domain&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Tên miền</a>\n              </li>\n              <li>\n                <a href=\"http://conzic.myzozo.net/admin/index.php?route=extension/extension&amp;type=payment&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Thanh toán</a>\n              </li>\n              <li>\n                <a href=\"http://conzic.myzozo.net/admin/index.php?route=extension/extension&amp;type=shipping&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Vận chuyển</a>\n              </li>\n              <li>\n                <a href=\"http://conzic.myzozo.net/admin/index.php?route=extension/extension&amp;type=module&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Mô-đun</a>\n              </li>\n              <li>\n                <a href=\"http://conzic.myzozo.net/admin/index.php?route=extension/extension&amp;type=chanel&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Kênh bán hàng</a>\n              </li>\n              <li>\n                <a href=\"http://conzic.myzozo.net/admin/index.php?route=extension/extension&amp;type=theme&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Giao diện</a>\n              </li>\n              <li>\n                <a href=\"http://conzic.myzozo.net/admin/index.php?route=extension/extension&amp;type=feed&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Nguồn cấp dữ liệu</a>\n              </li>\n              <li>\n                <a href=\"http://conzic.myzozo.net/admin/index.php?route=extension/fee&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Phí vận chuyển</a>\n              </li>\n            </ul>\n          </li>\n          <li>\n            <a class=\"parent\">Quản lý Tài khoản</a>\n            <ul class=\"collapse\">\n              <li>\n                <a href=\"http://conzic.myzozo.net/admin/index.php?route=user/user&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Quản lý Tài khoản</a>\n              </li>\n              <li>\n                <a href=\"http://conzic.myzozo.net/admin/index.php?route=user/user_permission&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Nhóm Tài khoản</a>\n              </li>\n            </ul>\n          </li>\n          <li>\n            <a class=\"parent\">Cài đặt Địa lý</a>\n            <ul class=\"collapse\">\n              <li>\n                <a href=\"http://conzic.myzozo.net/admin/index.php?route=localisation/location&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Địa chỉ Cửa hàng</a>\n              </li>\n              <li>\n                <a href=\"http://conzic.myzozo.net/admin/index.php?route=localisation/language&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Ngôn ngữ</a>\n              </li>\n              <li>\n                <a href=\"http://conzic.myzozo.net/admin/index.php?route=localisation/currency&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Tiền tệ</a>\n              </li>\n              <li>\n                <a href=\"http://conzic.myzozo.net/admin/index.php?route=localisation/stock_status&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Trạng thái Kho hàng</a>\n              </li>\n              <li>\n                <a href=\"http://conzic.myzozo.net/admin/index.php?route=localisation/order_status&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Trạng thái Đơn hàng</a>\n              </li>\n              <li>\n                <a class=\"parent\">Đổi / Trả hàng</a>\n                <ul class=\"collapse\">\n                  <li>\n                    <a href=\"http://conzic.myzozo.net/admin/index.php?route=localisation/return_status&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Tình trạng</a>\n                  </li>\n                  <li>\n                    <a href=\"http://conzic.myzozo.net/admin/index.php?route=localisation/return_action&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Hành động</a>\n                  </li>\n                  <li>\n                    <a href=\"http://conzic.myzozo.net/admin/index.php?route=localisation/return_reason&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Lý do</a>\n                  </li>\n                </ul>\n              </li>\n              <li>\n                <a href=\"http://conzic.myzozo.net/admin/index.php?route=localisation/country&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Quốc Gia</a>\n              </li>\n              <li>\n                <a href=\"http://conzic.myzozo.net/admin/index.php?route=localisation/zone&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Tỉnh / Thành phố</a>\n              </li>\n              <li>\n                <a href=\"http://conzic.myzozo.net/admin/index.php?route=localisation/geo_zone&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Khu vực tính Cước vận chuyển</a>\n              </li>\n              <li>\n                <a class=\"parent\">Thuế</a>\n                <ul class=\"collapse\">\n                  <li>\n                    <a href=\"http://conzic.myzozo.net/admin/index.php?route=localisation/tax_class&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Nhóm thuế</a>\n                  </li>\n                  <li>\n                    <a href=\"http://conzic.myzozo.net/admin/index.php?route=localisation/tax_rate&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Mức thuế</a>\n                  </li>\n                </ul>\n              </li>\n              <li>\n                <a href=\"http://conzic.myzozo.net/admin/index.php?route=localisation/length_class&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Đơn vị Kích thước</a>\n              </li>\n              <li>\n                <a href=\"http://conzic.myzozo.net/admin/index.php?route=localisation/weight_class&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Đơn vị Trọng lượng</a>\n              </li>\n            </ul>\n          </li>\n        </ul>\n      </li>\n    </ul>\n    <div id=\"stats\">\n      <ul>\n        <li>\n          <div>Đơn hàng hoàn thành\n            <span class=\"pull-right\">11%</span>\n          </div>\n          <div class=\"progress\">\n            <div class=\"progress-bar progress-bar-success\" role=\"progressbar\" aria-valuenow=\"11\" aria-valuemin=\"0\" aria-valuemax=\"100\"\n              style=\"width: 11%\">\n              <span class=\"sr-only\">11%</span>\n            </div>\n          </div>\n        </li>\n        <li>\n          <div>Đơn hàng đang xử lý\n            <span class=\"pull-right\">100%</span>\n          </div>\n          <div class=\"progress\">\n            <div class=\"progress-bar progress-bar-warning\" role=\"progressbar\" aria-valuenow=\"100\" aria-valuemin=\"0\" aria-valuemax=\"100\"\n              style=\"width: 100%\">\n              <span class=\"sr-only\">100%</span>\n            </div>\n          </div>\n        </li>\n        <li>\n          <div>Đơn hàng có trạng thái khác\n            <span class=\"pull-right\">0%</span>\n          </div>\n          <div class=\"progress\">\n            <div class=\"progress-bar progress-bar-danger\" role=\"progressbar\" aria-valuenow=\"0\" aria-valuemin=\"0\" aria-valuemax=\"100\"\n              style=\"width: 0%\">\n              <span class=\"sr-only\">0%</span>\n            </div>\n          </div>\n        </li>\n      </ul>\n    </div>\n  </nav>\n</div>"
+module.exports = "<!-- Nav tabs -->\n<div class=\"app-header\">\n  <app-navbar-top (showMenuBar)=\"showMenuBar=$event\"></app-navbar-top>\n  <app-navbar-menu [isShowMenuBar]=\"showMenuBar\" ></app-navbar-menu>\n</div>"
 
 /***/ }),
 
@@ -55,12 +55,11 @@ module.exports = "<!-- Nav tabs -->\n<div class=\"app-header\">\n  <ul class=\"a
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AdminComponent", function() { return AdminComponent; });
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
-/* harmony import */ var _admin_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./admin.service */ "./src/app/admin/admin.service.ts");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _common_system_system_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../common/system/system.service */ "./src/app/common/system/system.service.ts");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var _login_login_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./login/login.service */ "./src/app/admin/login/login.service.ts");
+/* harmony import */ var _admin_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./admin.service */ "./src/app/admin/admin.service.ts");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _common_system_system_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../common/system/system.service */ "./src/app/common/system/system.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _login_login_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./login/login.service */ "./src/app/admin/login/login.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -75,10 +74,6 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
-
-var NOTIFICATION = 1;
-var STORES = 2;
-var HELP = 3;
 var AdminComponent = /** @class */ (function () {
     function AdminComponent(adminService, systemService, loginService, route, router) {
         this.adminService = adminService;
@@ -86,35 +81,9 @@ var AdminComponent = /** @class */ (function () {
         this.loginService = loginService;
         this.route = route;
         this.router = router;
-        this.notification = new Array();
-        this.stores = new Array();
-        this.helpItems = new Array();
-        this.isShowMenu = false;
-        this.currentUser = '';
     }
     AdminComponent.prototype.ngOnInit = function () {
         this.validateUser();
-        this.loadNavbarItems();
-    };
-    AdminComponent.prototype.loadNavbarItems = function () {
-        var _this = this;
-        this.adminService.getNavbarItems().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["first"])()).subscribe(function (data) {
-            data.forEach(function (item) {
-                switch (item.group) {
-                    case NOTIFICATION:
-                        _this.notification.push(item);
-                        break;
-                    case STORES:
-                        _this.stores.push(item);
-                        break;
-                    case HELP:
-                        _this.helpItems.push(item);
-                        break;
-                    default:
-                        break;
-                }
-            });
-        });
     };
     AdminComponent.prototype.validateUser = function () {
         var currentUser = localStorage.getItem('currentUser');
@@ -122,7 +91,6 @@ var AdminComponent = /** @class */ (function () {
         if (username.startsWith('guest_')) {
             this.router.navigate(['/login/admin'], { queryParams: { returnUrl: '/admin' } });
         }
-        this.currentUser = JSON.parse(currentUser).username;
     };
     AdminComponent.prototype.logout = function () {
         var _this = this;
@@ -131,22 +99,107 @@ var AdminComponent = /** @class */ (function () {
             _this.router.navigate(['/login/admin'], { queryParams: { returnUrl: '/admin' } });
         });
     };
-    AdminComponent.prototype.isShowMenuBar = function () {
-        this.isShowMenu = !this.isShowMenu;
-    };
     AdminComponent = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Component"])({
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-admin',
             template: __webpack_require__(/*! ./admin.component.html */ "./src/app/admin/admin.component.html"),
             styles: [__webpack_require__(/*! ./admin.component.css */ "./src/app/admin/admin.component.css")]
         }),
-        __metadata("design:paramtypes", [_admin_service__WEBPACK_IMPORTED_MODULE_1__["AdminService"],
-            _common_system_system_service__WEBPACK_IMPORTED_MODULE_3__["SystemService"],
-            _login_login_service__WEBPACK_IMPORTED_MODULE_5__["LoginService"],
-            _angular_router__WEBPACK_IMPORTED_MODULE_4__["ActivatedRoute"],
-            _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"]])
+        __metadata("design:paramtypes", [_admin_service__WEBPACK_IMPORTED_MODULE_0__["AdminService"],
+            _common_system_system_service__WEBPACK_IMPORTED_MODULE_2__["SystemService"],
+            _login_login_service__WEBPACK_IMPORTED_MODULE_4__["LoginService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]])
     ], AdminComponent);
     return AdminComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/admin/admin.module.ts":
+/*!***************************************!*\
+  !*** ./src/app/admin/admin.module.ts ***!
+  \***************************************/
+/*! exports provided: AdminModule */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AdminModule", function() { return AdminModule; });
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _helpers_error_interceptor__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../helpers/error.interceptor */ "./src/app/helpers/error.interceptor.ts");
+/* harmony import */ var _helpers_jwt_interceptor__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../helpers/jwt.interceptor */ "./src/app/helpers/jwt.interceptor.ts");
+/* harmony import */ var _alert_alert_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../alert/alert.service */ "./src/app/alert/alert.service.ts");
+/* harmony import */ var _guards_auth_guard__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../guards/auth-guard */ "./src/app/guards/auth-guard.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var angular_font_awesome__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! angular-font-awesome */ "./node_modules/angular-font-awesome/dist/angular-font-awesome.es5.js");
+/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
+/* harmony import */ var _navbar_menu_navbar_menu_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./navbar-menu/navbar-menu.component */ "./src/app/admin/navbar-menu/navbar-menu.component.ts");
+/* harmony import */ var _navbar_top_navbar_top_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./navbar-top/navbar-top.component */ "./src/app/admin/navbar-top/navbar-top.component.ts");
+/* harmony import */ var _admin_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./admin.component */ "./src/app/admin/admin.component.ts");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _login_login_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./login/login.component */ "./src/app/admin/login/login.component.ts");
+/* harmony import */ var _email_email_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./email/email.component */ "./src/app/admin/email/email.component.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var appRoutes = [
+    { path: 'admin/email', component: _email_email_component__WEBPACK_IMPORTED_MODULE_14__["EmailComponent"] },
+    { path: 'login/admin', component: _login_login_component__WEBPACK_IMPORTED_MODULE_13__["LoginComponent"] },
+    { path: 'admin', component: _admin_component__WEBPACK_IMPORTED_MODULE_11__["AdminComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_4__["AuthGuard"]] }
+];
+var AdminModule = /** @class */ (function () {
+    function AdminModule() {
+    }
+    AdminModule = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_12__["NgModule"])({
+            imports: [
+                _angular_platform_browser__WEBPACK_IMPORTED_MODULE_8__["BrowserModule"],
+                angular_font_awesome__WEBPACK_IMPORTED_MODULE_7__["AngularFontAwesomeModule"],
+                _angular_forms__WEBPACK_IMPORTED_MODULE_6__["ReactiveFormsModule"],
+                _angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HttpClientModule"],
+                _angular_router__WEBPACK_IMPORTED_MODULE_0__["RouterModule"].forRoot(appRoutes, { enableTracing: false } // <-- debugging purposes only
+                )
+            ],
+            declarations: [
+                _admin_component__WEBPACK_IMPORTED_MODULE_11__["AdminComponent"],
+                _navbar_top_navbar_top_component__WEBPACK_IMPORTED_MODULE_10__["NavbarTopComponent"],
+                _navbar_menu_navbar_menu_component__WEBPACK_IMPORTED_MODULE_9__["NavbarMenuComponent"],
+                _login_login_component__WEBPACK_IMPORTED_MODULE_13__["LoginComponent"],
+                _email_email_component__WEBPACK_IMPORTED_MODULE_14__["EmailComponent"]
+            ],
+            providers: [
+                _guards_auth_guard__WEBPACK_IMPORTED_MODULE_4__["AuthGuard"],
+                _alert_alert_service__WEBPACK_IMPORTED_MODULE_3__["AlertService"],
+                { provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HTTP_INTERCEPTORS"], useClass: _helpers_jwt_interceptor__WEBPACK_IMPORTED_MODULE_2__["JwtInterceptor"], multi: true },
+                { provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HTTP_INTERCEPTORS"], useClass: _helpers_error_interceptor__WEBPACK_IMPORTED_MODULE_1__["ErrorInterceptor"], multi: true },
+            ],
+            schemas: [_angular_core__WEBPACK_IMPORTED_MODULE_12__["NO_ERRORS_SCHEMA"]],
+            bootstrap: [_admin_component__WEBPACK_IMPORTED_MODULE_11__["AdminComponent"]]
+        })
+    ], AdminModule);
+    return AdminModule;
 }());
 
 
@@ -194,69 +247,6 @@ var AdminService = /** @class */ (function () {
         __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpClient"]])
     ], AdminService);
     return AdminService;
-}());
-
-
-
-/***/ }),
-
-/***/ "./src/app/admin/card/card-item-navbar/card-item-navbar.component.css":
-/*!****************************************************************************!*\
-  !*** ./src/app/admin/card/card-item-navbar/card-item-navbar.component.css ***!
-  \****************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = ""
-
-/***/ }),
-
-/***/ "./src/app/admin/card/card-item-navbar/card-item-navbar.component.html":
-/*!*****************************************************************************!*\
-  !*** ./src/app/admin/card/card-item-navbar/card-item-navbar.component.html ***!
-  \*****************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<div class=\"top_phone_number mini-cart\" id=\"cart\">\n  <a data-toggle=\"dropdown\" data-loading-text=\"Đang tải\" class=\"basket dropdown-toggle\">\n    <div class=\"phone-img\">\n      <i class=\"fa fa-shopping-cart\"></i>\n    </div>\n    <div class=\"text\" id=\"cart-total\">\n      <p class=\"phone-box\">\n        <strong>\n          <span>0 sản phẩm </span>\n        </strong>\n      </p>\n      <p class=\"email-box\">\n        <strong>\n          <span> 0đ</span>\n        </strong>\n      </p>\n    </div>\n  </a>\n\n  <div class=\"top-cart-content arrow_box dropdown-menu\" style=\"display: none;\">\n    <ul id=\"cart-sidebar\" class=\"mini-products-list\">\n      <li class=\"item\">\n        <p class=\"text-center\" style=\"padding: 15px; font-size: 16px;\">Giỏ hàng của bạn trống!</p>\n      </li>\n    </ul>\n  </div>\n</div>"
-
-/***/ }),
-
-/***/ "./src/app/admin/card/card-item-navbar/card-item-navbar.component.ts":
-/*!***************************************************************************!*\
-  !*** ./src/app/admin/card/card-item-navbar/card-item-navbar.component.ts ***!
-  \***************************************************************************/
-/*! exports provided: CardItemNavbarComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CardItemNavbarComponent", function() { return CardItemNavbarComponent; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (undefined && undefined.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-var CardItemNavbarComponent = /** @class */ (function () {
-    function CardItemNavbarComponent() {
-    }
-    CardItemNavbarComponent.prototype.ngOnInit = function () {
-    };
-    CardItemNavbarComponent = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-            selector: 'app-card-item-navbar',
-            template: __webpack_require__(/*! ./card-item-navbar.component.html */ "./src/app/admin/card/card-item-navbar/card-item-navbar.component.html"),
-            styles: [__webpack_require__(/*! ./card-item-navbar.component.css */ "./src/app/admin/card/card-item-navbar/card-item-navbar.component.css")]
-        }),
-        __metadata("design:paramtypes", [])
-    ], CardItemNavbarComponent);
-    return CardItemNavbarComponent;
 }());
 
 
@@ -359,7 +349,7 @@ module.exports = ".panel-default {\n    border: 1px solid #e8e8e8;\n    border-t
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<body>\n  <div id=\"container\">\n    <header id=\"header\" class=\"navbar navbar-static-top\">\n      <div class=\"navbar-header\">\n        <a href=\"http://conzic.myzozo.net/admin/index.php?route=common/dashboard\" class=\"navbar-brand\">\n          <img src=\"https://zozo.vn/public/resources/license/logo.png\" alt=\"Quản trị Cửa hàng\" title=\"Quản trị Cửa hàng\">\n        </a>\n      </div>\n    </header>\n    <div id=\"content\">\n      <div class=\"container-fluid\">\n        <br>\n        <br>\n        <div class=\"row\">\n          <div class=\"col-md-4 offset-md-4\">\n            <div class=\"panel panel-default\">\n              <div class=\"panel-heading\">\n                <h1 class=\"panel-title\">\n                  <i class=\"fa fa-lock\"></i> Vui lòng điền thông tin đăng nhập.</h1>\n              </div>\n              <div class=\"panel-body\">\n                <form [formGroup]=\"loginForm\" (ngSubmit)=\"login(loginForm)\">\n                  <div class=\"form-group\">\n                    <label for=\"input-username\">Tên đăng nhập hoặc Email</label>\n                    <div class=\"input-group\">\n                      <span class=\"input-group-addon\">\n                        <i class=\"fa fa-user\"></i>\n                      </span>\n                      <input type=\"text\" name=\"username\" value=\"\" placeholder=\"Tên đăng nhập hoặc Email\" id=\"input-username\" class=\"form-control\"\n                        formControlName=\"username\">\n                    </div>\n                    <div *ngIf=\"loginForm.controls['username'].invalid && (loginForm.controls['username'].dirty || loginForm.controls['username'].touched)\"\n                      class=\"alert alert-danger\">\n                      <div *ngIf=\"loginForm.controls['username'].errors.required\">\n                        Vui lòng nhập tên đăng nhập hoặc email.\n                      </div>\n                    </div>\n                  </div>\n                  <div class=\"form-group\">\n                    <label for=\"input-password\">Mật khẩu</label>\n                    <div class=\"input-group\">\n                      <span class=\"input-group-addon\">\n                        <i class=\"fa fa-lock\"></i>\n                      </span>\n                      <input type=\"password\" name=\"password\" value=\"\" placeholder=\"Mật khẩu\" id=\"input-password\" class=\"form-control\" formControlName=\"password\">\n                    </div>\n                    <div *ngIf=\"loginForm.controls['password'].invalid && (loginForm.controls['password'].dirty || loginForm.controls['password'].touched)\"\n                      class=\"alert alert-danger\">\n                      <div *ngIf=\"loginForm.controls['password'].errors.required\">\n                        Vui lòng nhập mật khẩu.\n                      </div>\n                    </div>\n                    <span class=\"help-block\">\n                      <a href=\"http://conzic.myzozo.net/admin/index.php?route=common/forgotten\">Quên mật khẩu?</a>\n                    </span>\n                  </div>\n                  <div class=\"text-right\">\n                    <button type=\"submit\" class=\"btn btn-primary\">\n                      <i class=\"fa fa-key\"></i> Đăng nhập</button>\n                  </div>\n                  <input type=\"hidden\" name=\"redirect\" value=\"http://conzic.myzozo.net/admin/index.php?route=common/dashboard\">\n                </form>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</body>"
+module.exports = "<body>\n  <div id=\"container\">\n    <header id=\"header\" class=\"navbar navbar-static-top\">\n      <div class=\"navbar-header\">\n        <a href=\"http://conzic.myzozo.net/admin/index.php?route=common/dashboard\" class=\"navbar-brand\">\n          <img src=\"https://zozo.vn/public/resources/license/logo.png\" alt=\"Quản trị Cửa hàng\" title=\"Quản trị Cửa hàng\">\n        </a>\n      </div>\n    </header>\n    <div id=\"content\">\n      <div class=\"container-fluid\">\n        <br>\n        <br>\n        <div class=\"row\">\n          <div class=\"col-md-4 offset-md-4\">\n            <div class=\"panel panel-default\">\n              <div class=\"panel-heading\">\n                <h1 class=\"panel-title\">\n                  <i class=\"fa fa-lock\"></i> Vui lòng điền thông tin đăng nhập.</h1>\n              </div>\n              <div class=\"panel-body\">\n                <form [formGroup]=\"loginForm\" (ngSubmit)=\"login(loginForm)\">\n                  <div class=\"form-group\">\n                    <label for=\"input-username\">Tên đăng nhập hoặc Email</label>\n                    <div class=\"input-group\">\n                      <span class=\"input-group-addon\">\n                        <i class=\"fa fa-user\"></i>\n                      </span>\n                      <input type=\"text\" name=\"username\" value=\"\" placeholder=\"Tên đăng nhập hoặc Email\" id=\"input-username\" class=\"form-control\"\n                        formControlName=\"username\">\n                    </div>\n                    <div *ngIf=\"loginForm.controls['username'].invalid && (loginForm.controls['username'].dirty || loginForm.controls['username'].touched)\"\n                      class=\"alert alert-danger\">\n                      <div *ngIf=\"loginForm.controls['username'].errors.required\">\n                        Vui lòng nhập tên đăng nhập hoặc email.\n                      </div>\n                    </div>\n                  </div>\n                  <div class=\"form-group\">\n                    <label for=\"input-password\">Mật khẩu</label>\n                    <div class=\"input-group\">\n                      <span class=\"input-group-addon\">\n                        <i class=\"fa fa-lock\"></i>\n                      </span>\n                      <input type=\"password\" name=\"password\" value=\"\" placeholder=\"Mật khẩu\" id=\"input-password\" class=\"form-control\" formControlName=\"password\">\n                    </div>\n                    <div *ngIf=\"loginForm.controls['password'].invalid && (loginForm.controls['password'].dirty || loginForm.controls['password'].touched)\"\n                      class=\"alert alert-danger\">\n                      <div *ngIf=\"loginForm.controls['password'].errors.required\">\n                        Vui lòng nhập mật khẩu.\n                      </div>\n                    </div>\n                    <span class=\"help-block\">\n                      <a href=\"http://conzic.myzozo.net/admin/index.php?route=common/forgotten\">Quên mật khẩu?</a>\n                    </span>\n                  </div>\n                  <app-alert></app-alert>\n                  <div class=\"text-right\">\n                    <button type=\"submit\" class=\"btn btn-primary\">\n                      <i class=\"fa fa-key\"></i> Đăng nhập</button>\n                  </div>\n                  <input type=\"hidden\" name=\"redirect\" value=\"http://conzic.myzozo.net/admin/index.php?route=common/dashboard\">\n                </form>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</body>"
 
 /***/ }),
 
@@ -509,6 +499,249 @@ var LoginService = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/admin/navbar-menu/navbar-menu.component.css":
+/*!*************************************************************!*\
+  !*** ./src/app/admin/navbar-menu/navbar-menu.component.css ***!
+  \*************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ""
+
+/***/ }),
+
+/***/ "./src/app/admin/navbar-menu/navbar-menu.component.html":
+/*!**************************************************************!*\
+  !*** ./src/app/admin/navbar-menu/navbar-menu.component.html ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<nav id=\"column-left\" [ngClass]=\"{'active': isShowMenuBar}\">\n  <div id=\"profile\">\n    <div>\n      <img src=\"https://zozo.vn/public/resources/license/logo-mini.png\" alt=\"brand\">\n    </div>\n    <div>\n      <h4>{{currentUser | uppercase}}</h4>\n      <small>Administrator</small>\n    </div>\n  </div>\n  <ul id=\"menu\">\n    <li id=\"menu-dashboard\">\n      <a href=\"http://conzic.myzozo.net/admin/index.php?route=common/dashboard&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">\n        <i class=\"fa fa-dashboard fw\"></i>\n        <span>Bảng Điều Khiển</span>\n      </a>\n    </li>\n    <li id=\"menu-start\">\n      <a href=\"http://conzic.myzozo.net/admin/index.php?route=common/start&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">\n        <i class=\"fa fa-book fw\"></i>\n        <span>6 Bước hoàn thiện</span>\n      </a>\n    </li>\n    <li id=\"menu-catalog\">\n      <a class=\"parent\">\n        <i class=\"fa fa-tags fw\"></i>\n        <span>Sản phẩm</span>\n      </a>\n      <ul class=\"collapse\">\n        <li>\n          <a href=\"http://conzic.myzozo.net/admin/index.php?route=catalog/category&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Danh mục</a>\n        </li>\n        <li>\n          <a href=\"http://conzic.myzozo.net/admin/index.php?route=catalog/product&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Sản phẩm</a>\n        </li>\n        <li>\n          <a href=\"http://conzic.myzozo.net/admin/index.php?route=catalog/filter&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Nhóm lọc giá</a>\n        </li>\n        <li>\n          <a class=\"parent\">Thuộc Tính</a>\n          <ul class=\"collapse\">\n            <li>\n              <a href=\"http://conzic.myzozo.net/admin/index.php?route=catalog/attribute_group&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Nhóm Thuộc tính</a>\n            </li>\n            <li>\n              <a href=\"http://conzic.myzozo.net/admin/index.php?route=catalog/attribute&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Thuộc Tính</a>\n            </li>\n          </ul>\n        </li>\n        <li>\n          <a href=\"http://conzic.myzozo.net/admin/index.php?route=catalog/option&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Tùy chọn</a>\n        </li>\n        <li>\n          <a href=\"http://conzic.myzozo.net/admin/index.php?route=catalog/manufacturer&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Nhà Sản xuất</a>\n        </li>\n        <li>\n          <a href=\"http://conzic.myzozo.net/admin/index.php?route=catalog/review&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Đánh giá</a>\n        </li>\n        <li>\n          <a href=\"http://conzic.myzozo.net/admin/index.php?route=catalog/download&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Tệp tin Tải về</a>\n        </li>\n      </ul>\n    </li>\n    <li id=\"menu-news\" [ngClass]=\"{'active open': a}\" (click)=\"showDetail()\">\n      <a class=\"parent\">\n        <i class=\"fa fa-newspaper-o fw\"></i>\n        <span>Tin tức</span>\n      </a>\n      <ul class=\"collapse\">\n        <li>\n          <a href=\"http://conzic.myzozo.net/admin/index.php?route=news/category&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Danh mục</a>\n        </li>\n        <li>\n          <a href=\"http://conzic.myzozo.net/admin/index.php?route=news/news&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Tin tức</a>\n        </li>\n        <li>\n          <a href=\"http://conzic.myzozo.net/admin/index.php?route=news/comment&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Bình luận</a>\n        </li>\n      </ul>\n    </li>\n    <li id=\"menu-sale\" class=\"active open\">\n      <a class=\"parent\">\n        <i class=\"fa fa-shopping-cart fw\"></i>\n        <span>Đơn hàng</span>\n      </a>\n      <ul class=\"collapse in\">\n        <li>\n          <a href=\"http://conzic.myzozo.net/admin/index.php?route=sale/order&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Đơn Hàng</a>\n        </li>\n        <li>\n          <a href=\"http://conzic.myzozo.net/admin/index.php?route=sale/delivery&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Phiếu giao hàng (COD)</a>\n        </li>\n        <li>\n          <a href=\"http://conzic.myzozo.net/admin/index.php?route=sale/recurring&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Thanh toán Định kỳ</a>\n        </li>\n        <li>\n          <a href=\"http://conzic.myzozo.net/admin/index.php?route=sale/return&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Đổi / Trả hàng</a>\n        </li>\n        <li>\n          <a class=\"parent\">Phiếu quà tặng</a>\n          <ul class=\"collapse\">\n            <li>\n              <a href=\"http://conzic.myzozo.net/admin/index.php?route=sale/voucher&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Phiếu quà tặng</a>\n            </li>\n            <li>\n              <a href=\"http://conzic.myzozo.net/admin/index.php?route=sale/voucher_theme&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Mẫu phiếu Quà tặng</a>\n            </li>\n          </ul>\n        </li>\n      </ul>\n    </li>\n    <li id=\"menu-customer\">\n      <a class=\"parent\">\n        <i class=\"fa fa-user fw\"></i>\n        <span>Khách hàng</span>\n      </a>\n      <ul class=\"collapse\">\n        <li>\n          <a href=\"http://conzic.myzozo.net/admin/index.php?route=customer/customer&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Khách hàng</a>\n        </li>\n        <li>\n          <a href=\"http://conzic.myzozo.net/admin/index.php?route=customer/customer_group&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Nhóm Khách hàng</a>\n        </li>\n        <li>\n          <a href=\"http://conzic.myzozo.net/admin/index.php?route=customer/custom_field&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Mục Tùy chọn</a>\n        </li>\n      </ul>\n    </li>\n    <li id=\"menu-marketing\">\n      <a class=\"parent\">\n        <i class=\"fa fa-share-alt fw\"></i>\n        <span>Marketing</span>\n      </a>\n      <ul class=\"collapse\">\n        <li>\n          <a href=\"http://conzic.myzozo.net/admin/index.php?route=marketing/marketing&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Marketing</a>\n        </li>\n        <li>\n          <a href=\"http://conzic.myzozo.net/admin/index.php?route=marketing/affiliate&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Cộng tác viên</a>\n        </li>\n        <li>\n          <a href=\"http://conzic.myzozo.net/admin/index.php?route=marketing/coupon&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Mã Giảm giá - Coupon</a>\n        </li>\n        <li>\n          <a href=\"http://conzic.myzozo.net/admin/index.php?route=marketing/contact&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Thư</a>\n        </li>\n      </ul>\n    </li>\n    <li id=\"menu-report\">\n      <a class=\"parent\">\n        <i class=\"fa fa-bar-chart-o fw\"></i>\n        <span>Báo cáo</span>\n      </a>\n      <ul class=\"collapse\">\n        <li>\n          <a class=\"parent\">Bán hàng</a>\n          <ul class=\"collapse\">\n            <li>\n              <a href=\"http://conzic.myzozo.net/admin/index.php?route=report/sale_order&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Báo cáo Đơn hàng</a>\n            </li>\n            <li>\n              <a href=\"http://conzic.myzozo.net/admin/index.php?route=report/sale_tax&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Báo cáo Thuế</a>\n            </li>\n            <li>\n              <a href=\"http://conzic.myzozo.net/admin/index.php?route=report/sale_shipping&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Phương thức Vận chuyển</a>\n            </li>\n            <li>\n              <a href=\"http://conzic.myzozo.net/admin/index.php?route=report/sale_return&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Đổi / Trả hàng</a>\n            </li>\n            <li>\n              <a href=\"http://conzic.myzozo.net/admin/index.php?route=report/sale_coupon&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Mã Giảm giá - Coupon</a>\n            </li>\n          </ul>\n        </li>\n        <li>\n          <a class=\"parent\">Sản phẩm</a>\n          <ul class=\"collapse\">\n            <li>\n              <a href=\"http://conzic.myzozo.net/admin/index.php?route=report/product_viewed&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Được Xem</a>\n            </li>\n            <li>\n              <a href=\"http://conzic.myzozo.net/admin/index.php?route=report/product_purchased&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Đã Bán</a>\n            </li>\n          </ul>\n        </li>\n        <li>\n          <a class=\"parent\">Khách hàng</a>\n          <ul class=\"collapse\">\n            <li>\n              <a href=\"http://conzic.myzozo.net/admin/index.php?route=report/customer_online&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Đang truy cập</a>\n            </li>\n            <li>\n              <a href=\"http://conzic.myzozo.net/admin/index.php?route=report/customer_activity&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Hành vi</a>\n            </li>\n            <li>\n              <a href=\"http://conzic.myzozo.net/admin/index.php?route=report/customer_search&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Hành vi tìm kiếm</a>\n            </li>\n            <li>\n              <a href=\"http://conzic.myzozo.net/admin/index.php?route=report/customer_order&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Đặt hàng</a>\n            </li>\n            <li>\n              <a href=\"http://conzic.myzozo.net/admin/index.php?route=report/customer_reward&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Điểm thưởng</a>\n            </li>\n            <li>\n              <a href=\"http://conzic.myzozo.net/admin/index.php?route=report/customer_credit&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Tiền Tích lũy</a>\n            </li>\n          </ul>\n        </li>\n        <li>\n          <a class=\"parent\">Marketing</a>\n          <ul class=\"collapse\">\n            <li>\n              <a href=\"http://conzic.myzozo.net/admin/index.php?route=report/marketing&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Marketing</a>\n            </li>\n            <li>\n              <a href=\"http://conzic.myzozo.net/admin/index.php?route=report/affiliate&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Cộng tác viên</a>\n            </li>\n            <li>\n              <a href=\"http://conzic.myzozo.net/admin/index.php?route=report/affiliate_activity&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Hành vi Cộng tác viên</a>\n            </li>\n          </ul>\n        </li>\n      </ul>\n    </li>\n    <li id=\"menu-design\">\n      <a class=\"parent\">\n        <i class=\"fa fa-television fw\"></i>\n        <span>Website</span>\n      </a>\n      <ul class=\"collapse\">\n        <li>\n          <a href=\"http://conzic.myzozo.net/admin/index.php?route=extension/module/visualbuilder&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Bố cục</a>\n        </li>\n        <li>\n          <a href=\"http://conzic.myzozo.net/admin/index.php?route=taskbar/taskbar_group&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Menu</a>\n        </li>\n        <li>\n          <a href=\"http://conzic.myzozo.net/admin/index.php?route=extension/module/gallery&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Slider</a>\n        </li>\n        <li>\n          <a href=\"http://conzic.myzozo.net/admin/index.php?route=design/banner&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Quản lý album ảnh</a>\n        </li>\n        <li>\n          <a href=\"http://conzic.myzozo.net/admin/index.php?route=catalog/information&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Trang Thông tin</a>\n        </li>\n        <li>\n          <a href=\"http://conzic.myzozo.net/admin/index.php?route=design/url_alias&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Tùy chỉnh URL</a>\n        </li>\n        <li>\n          <a href=\"http://conzic.myzozo.net/admin/index.php?route=design/redirect&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Chuyển hướng 301</a>\n        </li>\n        <li>\n          <a href=\"http://conzic.myzozo.net/admin/index.php?route=design/style&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Chỉnh sửa CSS</a>\n        </li>\n      </ul>\n    </li>\n    <li id=\"menu-system\">\n      <a class=\"parent\">\n        <i class=\"fa fa-cog fw\"></i>\n        <span>Cấu hình</span>\n      </a>\n      <ul class=\"collapse\">\n        <li>\n          <a class=\"parent\">Cấu hình chung</a>\n          <ul class=\"collapse\">\n            <li>\n              <a href=\"http://conzic.myzozo.net/admin/index.php?route=setting/store&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Cửa hàng</a>\n            </li>\n            <li>\n              <a href=\"http://conzic.myzozo.net/admin/index.php?route=setting/domain&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Tên miền</a>\n            </li>\n            <li>\n              <a href=\"http://conzic.myzozo.net/admin/index.php?route=extension/extension&amp;type=payment&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Thanh toán</a>\n            </li>\n            <li>\n              <a href=\"http://conzic.myzozo.net/admin/index.php?route=extension/extension&amp;type=shipping&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Vận chuyển</a>\n            </li>\n            <li>\n              <a href=\"http://conzic.myzozo.net/admin/index.php?route=extension/extension&amp;type=module&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Mô-đun</a>\n            </li>\n            <li>\n              <a href=\"http://conzic.myzozo.net/admin/index.php?route=extension/extension&amp;type=chanel&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Kênh bán hàng</a>\n            </li>\n            <li>\n              <a href=\"http://conzic.myzozo.net/admin/index.php?route=extension/extension&amp;type=theme&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Giao diện</a>\n            </li>\n            <li>\n              <a href=\"http://conzic.myzozo.net/admin/index.php?route=extension/extension&amp;type=feed&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Nguồn cấp dữ liệu</a>\n            </li>\n            <li>\n              <a href=\"http://conzic.myzozo.net/admin/index.php?route=extension/fee&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Phí vận chuyển</a>\n            </li>\n          </ul>\n        </li>\n        <li>\n          <a class=\"parent\">Quản lý Tài khoản</a>\n          <ul class=\"collapse\">\n            <li>\n              <a href=\"http://conzic.myzozo.net/admin/index.php?route=user/user&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Quản lý Tài khoản</a>\n            </li>\n            <li>\n              <a href=\"http://conzic.myzozo.net/admin/index.php?route=user/user_permission&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Nhóm Tài khoản</a>\n            </li>\n          </ul>\n        </li>\n        <li>\n          <a class=\"parent\">Cài đặt Địa lý</a>\n          <ul class=\"collapse\">\n            <li>\n              <a href=\"http://conzic.myzozo.net/admin/index.php?route=localisation/location&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Địa chỉ Cửa hàng</a>\n            </li>\n            <li>\n              <a href=\"http://conzic.myzozo.net/admin/index.php?route=localisation/language&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Ngôn ngữ</a>\n            </li>\n            <li>\n              <a href=\"http://conzic.myzozo.net/admin/index.php?route=localisation/currency&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Tiền tệ</a>\n            </li>\n            <li>\n              <a href=\"http://conzic.myzozo.net/admin/index.php?route=localisation/stock_status&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Trạng thái Kho hàng</a>\n            </li>\n            <li>\n              <a href=\"http://conzic.myzozo.net/admin/index.php?route=localisation/order_status&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Trạng thái Đơn hàng</a>\n            </li>\n            <li>\n              <a class=\"parent\">Đổi / Trả hàng</a>\n              <ul class=\"collapse\">\n                <li>\n                  <a href=\"http://conzic.myzozo.net/admin/index.php?route=localisation/return_status&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Tình trạng</a>\n                </li>\n                <li>\n                  <a href=\"http://conzic.myzozo.net/admin/index.php?route=localisation/return_action&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Hành động</a>\n                </li>\n                <li>\n                  <a href=\"http://conzic.myzozo.net/admin/index.php?route=localisation/return_reason&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Lý do</a>\n                </li>\n              </ul>\n            </li>\n            <li>\n              <a href=\"http://conzic.myzozo.net/admin/index.php?route=localisation/country&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Quốc Gia</a>\n            </li>\n            <li>\n              <a href=\"http://conzic.myzozo.net/admin/index.php?route=localisation/zone&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Tỉnh / Thành phố</a>\n            </li>\n            <li>\n              <a href=\"http://conzic.myzozo.net/admin/index.php?route=localisation/geo_zone&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Khu vực tính Cước vận chuyển</a>\n            </li>\n            <li>\n              <a class=\"parent\">Thuế</a>\n              <ul class=\"collapse\">\n                <li>\n                  <a href=\"http://conzic.myzozo.net/admin/index.php?route=localisation/tax_class&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Nhóm thuế</a>\n                </li>\n                <li>\n                  <a href=\"http://conzic.myzozo.net/admin/index.php?route=localisation/tax_rate&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Mức thuế</a>\n                </li>\n              </ul>\n            </li>\n            <li>\n              <a href=\"http://conzic.myzozo.net/admin/index.php?route=localisation/length_class&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Đơn vị Kích thước</a>\n            </li>\n            <li>\n              <a href=\"http://conzic.myzozo.net/admin/index.php?route=localisation/weight_class&amp;token=z3QeYQ5TdRsGnvJj7DU260xbCM8XJr3R\">Đơn vị Trọng lượng</a>\n            </li>\n          </ul>\n        </li>\n      </ul>\n    </li>\n  </ul>\n  <div id=\"stats\">\n    <ul>\n      <li>\n        <div>Đơn hàng hoàn thành\n          <span class=\"pull-right\">11%</span>\n        </div>\n        <div class=\"progress\">\n          <div class=\"progress-bar progress-bar-success\" role=\"progressbar\" aria-valuenow=\"11\" aria-valuemin=\"0\" aria-valuemax=\"100\"\n            style=\"width: 11%\">\n            <span class=\"sr-only\">11%</span>\n          </div>\n        </div>\n      </li>\n      <li>\n        <div>Đơn hàng đang xử lý\n          <span class=\"pull-right\">100%</span>\n        </div>\n        <div class=\"progress\">\n          <div class=\"progress-bar progress-bar-warning\" role=\"progressbar\" aria-valuenow=\"100\" aria-valuemin=\"0\" aria-valuemax=\"100\"\n            style=\"width: 100%\">\n            <span class=\"sr-only\">100%</span>\n          </div>\n        </div>\n      </li>\n      <li>\n        <div>Đơn hàng có trạng thái khác\n          <span class=\"pull-right\">0%</span>\n        </div>\n        <div class=\"progress\">\n          <div class=\"progress-bar progress-bar-danger\" role=\"progressbar\" aria-valuenow=\"0\" aria-valuemin=\"0\" aria-valuemax=\"100\"\n            style=\"width: 0%\">\n            <span class=\"sr-only\">0%</span>\n          </div>\n        </div>\n      </li>\n    </ul>\n  </div>\n</nav>"
+
+/***/ }),
+
+/***/ "./src/app/admin/navbar-menu/navbar-menu.component.ts":
+/*!************************************************************!*\
+  !*** ./src/app/admin/navbar-menu/navbar-menu.component.ts ***!
+  \************************************************************/
+/*! exports provided: NavbarMenuComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NavbarMenuComponent", function() { return NavbarMenuComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var NavbarMenuComponent = /** @class */ (function () {
+    function NavbarMenuComponent() {
+        this.menuDashboard = ['Bảng Điều'];
+    }
+    NavbarMenuComponent.prototype.ngOnInit = function () {
+    };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", Boolean)
+    ], NavbarMenuComponent.prototype, "isShowMenuBar", void 0);
+    NavbarMenuComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-navbar-menu',
+            template: __webpack_require__(/*! ./navbar-menu.component.html */ "./src/app/admin/navbar-menu/navbar-menu.component.html"),
+            styles: [__webpack_require__(/*! ./navbar-menu.component.css */ "./src/app/admin/navbar-menu/navbar-menu.component.css"), __webpack_require__(/*! ../admin.component.css */ "./src/app/admin/admin.component.css")]
+        }),
+        __metadata("design:paramtypes", [])
+    ], NavbarMenuComponent);
+    return NavbarMenuComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/admin/navbar-top/navbar-top.component.css":
+/*!***********************************************************!*\
+  !*** ./src/app/admin/navbar-top/navbar-top.component.css ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ""
+
+/***/ }),
+
+/***/ "./src/app/admin/navbar-top/navbar-top.component.html":
+/*!************************************************************!*\
+  !*** ./src/app/admin/navbar-top/navbar-top.component.html ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<ul class=\"app-header nav fixed-top\">\n    <button class=\"navbar-toggler navbar-light\" type=\"button\" data-toggle=\"collapse\" (click)=isShowMenuBar()>\n      <span class=\"navbar-toggler-icon my-toggler\"></span>\n    </button>\n\n    <ul class=\"nav ml-md-auto d-md-flex\">\n      <li class=\"dropdown\" *ngIf=\"notification && notification.length > 0\">\n        <a class=\"dropdown-toggle\" data-toggle=\"dropdown\" title=\"Thông báo\" aria-expanded=\"false\">\n          <i class=\"fa fa-bell fa-lg\"></i>\n        </a>\n        <ul class=\"dropdown-menu dropdown-menu-right\">\n          <div *ngFor=\"let item of notification\">\n            <li class=\"dropdown-header\">{{item.title}}</li>\n            <li *ngFor=\"let itemDetail of item.itemDetails\" class=\"dropdown-item\">\n              <a ng-href=\"itemDetail.link\">{{itemDetail.name}}</a>\n            </li>\n          </div>\n        </ul>\n      </li>\n      <li class=\"dropdown\" *ngIf=\"stores && stores.length > 0\">\n        <a class=\"dropdown-toggle hidden-xs\" data-toggle=\"dropdown\" title=\"Cửa hàng\" aria-expanded=\"false\">\n          <i class=\"fa fa-home fa-lg\"></i>\n        </a>\n        <ul class=\"dropdown-menu dropdown-menu-right\">\n          <div *ngFor=\"let item of stores\">\n            <li class=\"dropdown-header\">{{item.title}}</li>\n            <li *ngFor=\"let itemDetail of item.itemDetails\" class=\"dropdown-item\">\n              <a ng-href=\"itemDetail.link\">{{itemDetail.name}}</a>\n            </li>\n          </div>\n        </ul>\n      </li>\n\n      <li class=\"dropdown\" *ngIf=\"helpItems && helpItems.length > 0\">\n        <a class=\"dropdown-toggle\" title=\"Xem thêm...\" data-toggle=\"dropdown\" aria-expanded=\"false\">\n          <i class=\"fa fa-angle-down fa-lg\"></i>\n        </a>\n        <ul class=\"dropdown-menu dropdown-menu-right\">\n          <div *ngFor=\"let item of helpItems\">\n            <li class=\"dropdown-header\">{{item.title}}</li>\n            <li *ngFor=\"let itemDetail of item.itemDetails\" class=\"dropdown-item\">\n              <a ng-href=\"itemDetail.link\">{{itemDetail.name}}</a>\n            </li>\n          </div>\n        </ul>\n      </li>\n      <li>\n        <a (click)=logout()>\n          <span class=\"hidden-xs hidden-sm hidden-md\">Thoát</span>\n          <i class=\"fa fa-sign-out fa-lg\"></i>\n        </a>\n      </li>\n\n    </ul>\n\n  </ul>"
+
+/***/ }),
+
+/***/ "./src/app/admin/navbar-top/navbar-top.component.ts":
+/*!**********************************************************!*\
+  !*** ./src/app/admin/navbar-top/navbar-top.component.ts ***!
+  \**********************************************************/
+/*! exports provided: NavbarTopComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NavbarTopComponent", function() { return NavbarTopComponent; });
+/* harmony import */ var _admin_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../admin.service */ "./src/app/admin/admin.service.ts");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var NOTIFICATION = 1;
+var STORES = 2;
+var HELP = 3;
+var NavbarTopComponent = /** @class */ (function () {
+    function NavbarTopComponent(adminService) {
+        this.adminService = adminService;
+        this.notification = new Array();
+        this.stores = new Array();
+        this.helpItems = new Array();
+        this.isShowMenu = false;
+        this.currentUser = '';
+        this.menuCatalog = false;
+        this.showMenuBar = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
+    }
+    NavbarTopComponent.prototype.ngOnInit = function () {
+        this.loadNavbarItems();
+    };
+    NavbarTopComponent.prototype.loadNavbarItems = function () {
+        var _this = this;
+        this.adminService.getNavbarItems().subscribe(function (data) {
+            data.forEach(function (item) {
+                switch (item.group) {
+                    case NOTIFICATION:
+                        _this.notification.push(item);
+                        break;
+                    case STORES:
+                        _this.stores.push(item);
+                        break;
+                    case HELP:
+                        _this.helpItems.push(item);
+                        break;
+                    default:
+                        break;
+                }
+            });
+        });
+    };
+    NavbarTopComponent.prototype.isShowMenuBar = function () {
+        this.isShowMenu = !this.isShowMenu;
+        this.showMenuBar.emit(this.isShowMenu);
+    };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
+        __metadata("design:type", Object)
+    ], NavbarTopComponent.prototype, "showMenuBar", void 0);
+    NavbarTopComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-navbar-top',
+            template: __webpack_require__(/*! ./navbar-top.component.html */ "./src/app/admin/navbar-top/navbar-top.component.html"),
+            styles: [__webpack_require__(/*! ./navbar-top.component.css */ "./src/app/admin/navbar-top/navbar-top.component.css"), __webpack_require__(/*! ../admin.component.css */ "./src/app/admin/admin.component.css")],
+            providers: [_admin_service__WEBPACK_IMPORTED_MODULE_0__["AdminService"]]
+        }),
+        __metadata("design:paramtypes", [_admin_service__WEBPACK_IMPORTED_MODULE_0__["AdminService"]])
+    ], NavbarTopComponent);
+    return NavbarTopComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/alert/alert.service.ts":
+/*!****************************************!*\
+  !*** ./src/app/alert/alert.service.ts ***!
+  \****************************************/
+/*! exports provided: AlertService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AlertService", function() { return AlertService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+var AlertService = /** @class */ (function () {
+    function AlertService(router) {
+        var _this = this;
+        this.router = router;
+        this.subject = new rxjs__WEBPACK_IMPORTED_MODULE_2__["Subject"]();
+        this.keepAfterNavigationChange = false;
+        // clear alert message on route change
+        router.events.subscribe(function (event) {
+            if (event instanceof _angular_router__WEBPACK_IMPORTED_MODULE_1__["NavigationStart"]) {
+                if (_this.keepAfterNavigationChange) {
+                    // only keep for a single location change
+                    _this.keepAfterNavigationChange = false;
+                }
+                else {
+                    // clear alert
+                    _this.subject.next();
+                }
+            }
+        });
+    }
+    AlertService.prototype.success = function (message, keepAfterNavigationChange) {
+        if (keepAfterNavigationChange === void 0) { keepAfterNavigationChange = false; }
+        this.keepAfterNavigationChange = keepAfterNavigationChange;
+        this.subject.next({ type: 'success', text: message });
+    };
+    AlertService.prototype.error = function (message, keepAfterNavigationChange) {
+        if (keepAfterNavigationChange === void 0) { keepAfterNavigationChange = false; }
+        this.keepAfterNavigationChange = keepAfterNavigationChange;
+        this.subject.next({ type: 'error', text: message });
+    };
+    AlertService.prototype.getMessage = function () {
+        return this.subject.asObservable();
+    };
+    AlertService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
+        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]])
+    ], AlertService);
+    return AlertService;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/app.component.css":
 /*!***********************************!*\
   !*** ./src/app/app.component.css ***!
@@ -527,7 +760,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<app-alert></app-alert>\n<router-outlet></router-outlet>"
+module.exports = "<router-outlet></router-outlet>"
 
 /***/ }),
 
@@ -600,11 +833,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _admin_admin_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./admin/admin.component */ "./src/app/admin/admin.component.ts");
 /* harmony import */ var _admin_login_login_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./admin/login/login.component */ "./src/app/admin/login/login.component.ts");
 /* harmony import */ var _shop_navbar_navbar_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./shop/navbar/navbar.component */ "./src/app/shop/navbar/navbar.component.ts");
-/* harmony import */ var _admin_card_card_item_navbar_card_item_navbar_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./admin/card/card-item-navbar/card-item-navbar.component */ "./src/app/admin/card/card-item-navbar/card-item-navbar.component.ts");
-/* harmony import */ var _shop_shop_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./shop/shop.component */ "./src/app/shop/shop.component.ts");
-/* harmony import */ var _common_alert_alert_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./common/alert/alert.component */ "./src/app/common/alert/alert.component.ts");
-/* harmony import */ var _common_alert_alert_service__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./common/alert/alert.service */ "./src/app/common/alert/alert.service.ts");
-/* harmony import */ var _admin_email_email_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./admin/email/email.component */ "./src/app/admin/email/email.component.ts");
+/* harmony import */ var _shop_shop_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./shop/shop.component */ "./src/app/shop/shop.component.ts");
+/* harmony import */ var _common_alert_alert_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./common/alert/alert.component */ "./src/app/common/alert/alert.component.ts");
+/* harmony import */ var _common_alert_alert_service__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./common/alert/alert.service */ "./src/app/common/alert/alert.service.ts");
+/* harmony import */ var _admin_email_email_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./admin/email/email.component */ "./src/app/admin/email/email.component.ts");
+/* harmony import */ var _admin_admin_module__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./admin/admin.module */ "./src/app/admin/admin.module.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -631,9 +864,9 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 var appRoutes = [
-    { path: 'admin/email', component: _admin_email_email_component__WEBPACK_IMPORTED_MODULE_17__["EmailComponent"] },
+    { path: 'admin/email', component: _admin_email_email_component__WEBPACK_IMPORTED_MODULE_16__["EmailComponent"] },
     { path: 'login/admin', component: _admin_login_login_component__WEBPACK_IMPORTED_MODULE_11__["LoginComponent"] },
-    { path: 'shop', component: _shop_shop_component__WEBPACK_IMPORTED_MODULE_14__["ShopComponent"] },
+    { path: 'shop', component: _shop_shop_component__WEBPACK_IMPORTED_MODULE_13__["ShopComponent"] },
     { path: 'admin', component: _admin_admin_component__WEBPACK_IMPORTED_MODULE_10__["AdminComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_0__["AuthGuard"]] }
 ];
 var AppModule = /** @class */ (function () {
@@ -644,14 +877,11 @@ var AppModule = /** @class */ (function () {
             declarations: [
                 _app_component__WEBPACK_IMPORTED_MODULE_9__["AppComponent"],
                 _shop_navbar_navbar_component__WEBPACK_IMPORTED_MODULE_12__["NavbarComponent"],
-                _admin_login_login_component__WEBPACK_IMPORTED_MODULE_11__["LoginComponent"],
-                _common_alert_alert_component__WEBPACK_IMPORTED_MODULE_15__["AlertComponent"],
-                _admin_admin_component__WEBPACK_IMPORTED_MODULE_10__["AdminComponent"],
-                _admin_card_card_item_navbar_card_item_navbar_component__WEBPACK_IMPORTED_MODULE_13__["CardItemNavbarComponent"],
-                _shop_shop_component__WEBPACK_IMPORTED_MODULE_14__["ShopComponent"],
-                _admin_email_email_component__WEBPACK_IMPORTED_MODULE_17__["EmailComponent"]
+                _common_alert_alert_component__WEBPACK_IMPORTED_MODULE_14__["AlertComponent"],
+                _shop_shop_component__WEBPACK_IMPORTED_MODULE_13__["ShopComponent"]
             ],
             imports: [
+                _admin_admin_module__WEBPACK_IMPORTED_MODULE_17__["AdminModule"],
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_3__["BrowserModule"],
                 angular_font_awesome__WEBPACK_IMPORTED_MODULE_5__["AngularFontAwesomeModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_7__["ReactiveFormsModule"],
@@ -661,7 +891,7 @@ var AppModule = /** @class */ (function () {
             ],
             providers: [
                 _guards_auth_guard__WEBPACK_IMPORTED_MODULE_0__["AuthGuard"],
-                _common_alert_alert_service__WEBPACK_IMPORTED_MODULE_16__["AlertService"],
+                _common_alert_alert_service__WEBPACK_IMPORTED_MODULE_15__["AlertService"],
                 { provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_8__["HTTP_INTERCEPTORS"], useClass: _helpers_jwt_interceptor__WEBPACK_IMPORTED_MODULE_1__["JwtInterceptor"], multi: true },
                 { provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_8__["HTTP_INTERCEPTORS"], useClass: _helpers_error_interceptor__WEBPACK_IMPORTED_MODULE_2__["ErrorInterceptor"], multi: true },
             ],
@@ -705,7 +935,10 @@ var AppService = /** @class */ (function () {
     }
     AppService.prototype.loadUser = function () {
         if (localStorage.getItem('currentUser')) {
-            return;
+            var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            if (currentUser && currentUser.token) {
+                return;
+            }
         }
         this.httpClient.post('http://localhost:8080/rest/common/request-authen', null).subscribe(function (user) {
             // login successful if there's a jwt token in the response
@@ -1007,9 +1240,24 @@ var ErrorInterceptor = /** @class */ (function () {
         var _this = this;
         return next.handle(request).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(function (err) {
             if (err.status === 401) {
-                // auto logout if 401 response returned from api
-                _this.authenticationService.logout();
-                location.reload(true);
+                var headers = err.headers;
+                if (headers.get('text') === 'BadCredentialsException') {
+                    // auto logout if 401 response returned from api
+                    _this.authenticationService.logout();
+                    location.reload(true);
+                }
+                else if (headers.get('text') === 'ExpiredJwtException') {
+                    if (headers.get('authenToken')) {
+                        var authenTokenJson = JSON.parse(headers.get('authenToken'));
+                        var currentUser = JSON.stringify(authenTokenJson);
+                        localStorage.setItem('currentUser', currentUser);
+                        request = request.clone({
+                            setHeaders: {
+                                Authorization: "Bearer " + authenTokenJson.token
+                            }
+                        });
+                    }
+                }
             }
             var error = err.error.message || err.statusText;
             return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["throwError"])(error);
@@ -1049,13 +1297,15 @@ var JwtInterceptor = /** @class */ (function () {
     }
     JwtInterceptor.prototype.intercept = function (request, next) {
         // add authorization header with jwt token if available
-        var currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        if (currentUser && currentUser.token) {
-            request = request.clone({
-                setHeaders: {
-                    Authorization: "Bearer " + currentUser.token
-                }
-            });
+        if (localStorage.getItem('currentUser')) {
+            var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            if (currentUser && currentUser.token) {
+                request = request.clone({
+                    setHeaders: {
+                        Authorization: "Bearer " + currentUser.token
+                    }
+                });
+            }
         }
         return next.handle(request);
     };
